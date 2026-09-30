@@ -1,0 +1,1695 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Character Hub V4</title>
+<style>
+:root{--bg:#080b10;--panel:#10151e;--panel2:#171e29;--panel3:#0c1118;--line:#293343;--text:#eef3fa;--muted:#8d99ab;--accent:#9b7cff;--accent2:#c8baff;--good:#54d6a0;--warn:#f1c65a;--danger:#ef6b78;--blue:#5ba8ff;--cyan:#62d8e9;--r:17px;--shadow:0 15px 45px #0008}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(circle at 10% 0,#21183b 0,transparent 30%),radial-gradient(circle at 100% 20%,#102033 0,transparent 30%),var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}
+.app{display:flex;min-height:100vh}.side{width:238px;position:sticky;top:0;height:100vh;background:#090c12eF;border-right:1px solid var(--line);padding:20px 13px;display:flex;flex-direction:column;gap:15px;backdrop-filter:blur(15px)}.brand{padding:8px 12px 17px}.brand b{font-size:18px;letter-spacing:.06em}.brand small{display:block;color:var(--muted);margin-top:3px}.nav{display:grid;gap:6px}.nav button,.mobile button{border:0;background:transparent;color:var(--muted);padding:11px 12px;border-radius:11px;text-align:left}.nav button:hover,.nav button.active,.mobile button.active{background:var(--panel2);color:var(--text)}.nav button.active{box-shadow:inset 3px 0 var(--accent)}.sidefoot{margin-top:auto;color:var(--muted);font-size:10px;padding:10px}
+main{width:min(1500px,100%);margin:auto;padding:23px;flex:1}.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:18px}.top h1{margin:0;font-size:28px}.top p{margin:5px 0;color:var(--muted);font-size:12px}.top-actions{display:flex;gap:7px;flex-wrap:wrap}.btn{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:9px 12px;border-radius:10px}.btn:hover{background:var(--panel2);border-color:#4b5870}.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.btn.danger{color:#ff9da6}.btn.small{font-size:11px;padding:7px 9px}.view{display:none}.view.active{display:block}
+.grid{display:grid;gap:13px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}.g6{grid-template-columns:repeat(6,minmax(0,1fr))}.card{background:linear-gradient(145deg,#151b26f5,#0d1219f5);border:1px solid var(--line);border-radius:var(--r);padding:15px;box-shadow:var(--shadow)}
+.hero{display:grid;grid-template-columns:1.35fr .8fr;gap:13px}.hero-main{min-height:200px;display:flex;flex-direction:column;justify-content:space-between}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:var(--accent2)}.name{font-size:36px;font-weight:900;margin:5px 0}.muted{color:var(--muted);font-size:11px}.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{background:var(--panel3);border:1px solid var(--line);border-radius:999px;padding:7px 9px;font-size:10px}.chip b{color:#fff}.turn{text-align:center;display:flex;flex-direction:column;justify-content:center}.turn small{color:var(--muted);letter-spacing:.17em}.turn strong{font-size:53px;line-height:1;margin:8px 0 15px}.next{padding:14px;width:100%;font-size:14px}
+.res{display:grid;gap:11px}.reshead{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:5px}.bar{height:9px;background:#080b10;border:1px solid var(--line);border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:var(--accent);border-radius:inherit;width:0}.bar.hp i{background:var(--good)}.bar.sh i{background:var(--blue)}.bar.ma i{background:var(--accent)}
+.section{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:20px 0 10px}.section h2{margin:0;font-size:16px}.section span{font-size:10px;color:var(--muted)}
+.stat{background:#0d1219;border:1px solid var(--line);border-radius:13px;padding:11px;text-align:center}.stat .ico{font-size:18px}.stat .sn{font-size:9px;color:var(--muted);text-transform:uppercase;margin-top:4px}.stat .sv{font-size:22px;font-weight:850;margin-top:2px}
+.resource{display:flex;justify-content:space-between;align-items:center;gap:8px}.resource b{font-size:20px}.resource .mini{display:flex;gap:4px}.mini button{width:29px;height:29px;border:1px solid var(--line);background:var(--panel3);color:#fff;border-radius:8px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:11px}.item{background:#0e131b;border:1px solid var(--line);border-radius:15px;padding:13px;min-height:145px;transition:.15s}.item:hover{transform:translateY(-2px);border-color:#48556c}.itemtop{display:flex;gap:9px}.icon{width:41px;height:41px;border-radius:11px;background:#19202e;display:grid;place-items:center;font-size:20px;flex:none}.item h3{font-size:14px;margin:0 0 3px}.desc{font-size:11px;line-height:1.5;color:#b8c2d0;margin:10px 0}.tags{display:flex;gap:4px;flex-wrap:wrap}.tag{border:1px solid var(--line);border-radius:99px;padding:4px 6px;font-size:9px;color:#aeb8c7}.good{color:var(--good)}.warn{color:var(--warn)}.bad{color:var(--danger)}.effect{border-left:3px solid var(--accent)}.effect.warn{border-left-color:var(--warn)}.effect.debuff{border-left-color:var(--danger)}
+.actions{display:flex;gap:5px;margin-top:10px}.actions .btn{flex:1}.empty{border:1px dashed var(--line);border-radius:13px;padding:30px;text-align:center;color:var(--muted);grid-column:1/-1}
+.editor-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.field{display:grid;gap:5px}.field label{font-size:10px;color:var(--muted)}input,textarea,select{width:100%;background:#0a0f15;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:9px;outline:none}input:focus,textarea:focus,select:focus{border-color:var(--accent)}textarea{min-height:80px;resize:vertical}.checks{display:flex;gap:6px;flex-wrap:wrap}.check{display:flex;align-items:center;gap:5px;padding:7px 8px;border:1px solid var(--line);background:var(--panel3);border-radius:9px;font-size:10px}.check input{width:auto}
+.modal{position:fixed;inset:0;background:#000b;display:none;place-items:center;padding:16px;z-index:30}.modal.open{display:grid}.modalbox{width:min(780px,100%);max-height:93vh;overflow:auto;background:#141a25;border:1px solid var(--line);border-radius:19px;padding:18px;box-shadow:var(--shadow)}.modalhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.modalhead h2{margin:0;font-size:18px}.modalfoot{display:flex;justify-content:flex-end;gap:7px;margin-top:15px}.help{background:#0c1219;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:10px;color:#aeb8c7;line-height:1.5}.toast{position:fixed;right:17px;bottom:17px;background:#171e29;border:1px solid var(--line);padding:11px 13px;border-radius:11px;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);transition:.2s;z-index:50}.toast.show{opacity:1;transform:none}.mobile{display:none}
+@media(max-width:950px){.side{display:none}.mobile{position:fixed;display:flex;bottom:0;left:0;right:0;z-index:20;background:#090c12f7;border-top:1px solid var(--line);justify-content:space-around;padding:5px}.mobile button{text-align:center;font-size:9px;padding:6px}.main{padding:15px 12px 80px}.hero{grid-template-columns:1fr}.g4,.g6{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.top{display:block}.top-actions{margin-top:10px}.g2,.g3{grid-template-columns:1fr}.g4,.g6{grid-template-columns:repeat(2,1fr)}.editor-grid{grid-template-columns:1fr}.name{font-size:30px}.cards{grid-template-columns:1fr}}
+
+/* V5: estado, activación y daño */
+.quick-panel{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.derived{background:#0b1017;border:1px solid var(--line);border-radius:13px;padding:12px}
+.derived .big{font-size:24px;font-weight:900;margin-top:4px}
+.sync-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.toggle{position:relative;width:42px;height:24px;display:inline-block;flex:none}.toggle input{display:none}.toggle span{position:absolute;inset:0;border-radius:99px;background:#252d3a;border:1px solid var(--line);transition:.15s}.toggle span:before{content:"";position:absolute;width:18px;height:18px;left:2px;top:2px;border-radius:50%;background:#9aa5b6;transition:.15s}.toggle input:checked+span{background:#493b75;border-color:var(--accent)}.toggle input:checked+span:before{transform:translateX(18px);background:#fff}
+.inactive{opacity:.42;filter:saturate(.5)}.active-mark{color:var(--good);font-weight:800}.inactive-mark{color:var(--muted)}
+.damage-box{border:1px solid var(--line);background:#0b1017;border-radius:13px;padding:12px}.damage-result{font-size:18px;font-weight:900;word-break:break-word}.damage-copy{margin-top:8px}
+.dice-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}.dice-grid .field{min-width:0}.dice-grid input{text-align:center}
+.reset{color:#ff9da6;border-color:#66333a}.danger-box{border:1px solid #5c3037;background:#211318;padding:12px;border-radius:12px}
+@media(max-width:700px){.quick-panel{grid-template-columns:1fr}.dice-grid{grid-template-columns:repeat(3,1fr)}}
+
+
+.emoji-picker{background:#0b1017;border:1px solid var(--line);border-radius:12px;padding:10px;margin-top:6px}.emoji-current{display:flex;align-items:center;gap:10px;padding:8px;background:#101722;border-radius:10px;margin-bottom:9px}.emoji-current span:first-child{font-size:27px}.emoji-cat{margin-top:9px}.emoji-list{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}.emoji-btn{width:34px;height:34px;border:1px solid transparent;background:#151c27;border-radius:8px;font-size:19px;padding:0}.emoji-btn:hover,.emoji-btn.selected{border-color:var(--accent);background:#302650}
+.mod-total{display:flex;align-items:center;justify-content:space-between;padding:11px 12px;background:#0b1017;border:1px solid var(--line);border-radius:12px}.mod-total b{font-size:22px}
+
+
+details.emoji-details{margin-top:6px;background:#0b1017;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+details.emoji-details>summary{cursor:pointer;list-style:none;padding:10px;color:#c7d0dd;font-size:11px;display:flex;align-items:center;justify-content:space-between}
+details.emoji-details>summary::-webkit-details-marker{display:none}
+details.emoji-details>summary:after{content:"＋";font-size:16px;color:var(--accent)}
+details.emoji-details[open]>summary:after{content:"−"}
+.derived-stat{position:relative}.stat-base{font-size:9px;color:var(--muted);margin-top:2px}.stat-bonus{font-size:10px;color:var(--good);font-weight:800;min-height:15px}
+.grant-box{background:#0b1017;border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}.grant-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.grant-grid input{text-align:center}
+.category-title{display:flex;align-items:center;gap:8px}.category-title .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block}.category-title.passive .dot{background:var(--good)}
+@media(max-width:700px){.grant-grid{grid-template-columns:repeat(2,1fr)}}
+
+.resource-total-note{font-size:9px;color:var(--good);margin-top:3px}
+.combat-active-only{margin-top:8px}
+
+.resource-big{font-size:30px;font-weight:900;line-height:1}
+.resource-card-wide{min-height:100px}
+.hp-fast{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.hp-fast button{min-width:42px}
+
+/* ===== V6 polish ===== */
+.v6-resource .resource b{font-size:30px}
+.v6-resource .resource-note{margin-top:5px;font-size:11px;color:var(--muted)}
+.v6-resource .resource-bonus{color:var(--good);font-weight:800}
+.v6-resource .resource-base{color:var(--muted)}
+.v6-competence{border:1px solid var(--line);border-radius:14px;padding:16px;background:#0b1017;min-height:92px}
+.v6-competence .big{font-size:30px;font-weight:900;margin-top:7px}
+.v6-quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media(max-width:800px){.v6-quick-grid{grid-template-columns:1fr}}
+
+.rest-panel{border:1px solid rgba(139,92,246,.38);background:linear-gradient(135deg,rgba(139,92,246,.10),rgba(15,23,42,.70));padding:16px;margin-bottom:14px}
+.rest-info{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.rest-info>div{display:flex;flex-direction:column;gap:4px}
+.rest-info span{font-size:.82rem;color:var(--muted)}
+.rest-buttons{display:flex;gap:10px;flex-wrap:wrap}
+.rest-buttons .btn{min-height:42px}
+@media(max-width:700px){.rest-info{grid-template-columns:1fr}.rest-buttons .btn{width:100%}}
+
+.cost-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.cost-option{display:grid;grid-template-columns:auto 1fr 70px;align-items:center;gap:7px;border:1px solid var(--line);border-radius:10px;padding:9px;background:#0b1017}
+.cost-option input[type=number]{width:70px}
+.impact-box{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;padding:14px 16px;border:1px solid rgba(56,189,248,.3);border-radius:14px;background:rgba(56,189,248,.06)}
+.impact-box span{font-size:24px}
+.turn-combat{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:12px 0}
+@media(max-width:700px){.cost-grid{grid-template-columns:1fr}.turn-combat{flex-direction:column;align-items:stretch}}
+
+.cost-option{cursor:pointer;transition:.15s ease}
+.cost-option:has(.costCheck:checked){border-color:rgba(139,92,246,.65);background:rgba(139,92,246,.08)}
+.impact-box b{font-size:18px}
+<style>
+.mode-pill{display:inline-flex;margin-top:9px;padding:5px 8px;border:1px solid var(--line);border-radius:999px;background:var(--panel3);font-size:9px;color:var(--muted);gap:5px}
+.mode-pill strong{color:var(--accent2)}
+<style>
+.resource-custom{min-height:180px}
+.resource-counter{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:18px 0 10px}
+.resource-counter>div{font-size:30px;font-weight:900;text-align:center;min-width:90px}
+.resource-counter>div span{font-size:14px;color:var(--muted);font-weight:600}
+.resource-counter .btn{width:42px;height:42px;font-size:20px}
+.resource-custom .bar{margin-top:9px}
+.resource-custom .bar i{display:block;height:100%;background:var(--accent);border-radius:inherit}
+.resource-cost-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;margin-top:7px}
+.resource-cost-option{display:grid!important;grid-template-columns:auto 1fr 75px;align-items:center;gap:7px}
+.resource-cost-option input[type=checkbox]{width:auto}
+.resource-cost-option .resourceCostAmount{min-width:0}
+.spell-slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.spell-slot{background:var(--panel3);border:1px solid var(--line);border-radius:12px;padding:10px;display:grid;grid-template-columns:1fr auto;gap:7px;align-items:center}
+.slot-controls{display:flex;align-items:center;gap:5px}
+.slot-controls strong{min-width:25px;text-align:center}
+.spell-slot>input{grid-column:1/-1;padding:6px}
+@media(max-width:850px){.spell-slots{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.spell-slots{grid-template-columns:1fr}}
+<style>
+.spell-slot-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.slot-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.slot-fields label{font-size:10px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.slot-fields input{width:100%;box-sizing:border-box;padding:7px}
+@media(max-width:560px){.slot-fields{grid-template-columns:1fr}}
+<style>
+#combatSpellSlots .spell-slots{margin-bottom:12px}
+#combatSpells .item{border-left:3px solid var(--accent)}
+<style>
+.sheet-switcher{display:flex;align-items:center;gap:5px}
+.sheet-switcher select{max-width:240px;min-height:38px}
+@media(max-width:900px){.sheet-switcher select{max-width:170px}}
+@media(max-width:600px){.sheet-switcher{width:100%}.sheet-switcher select{flex:1;max-width:none}}
+<style>
+.altered-state-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:18px}
+.altered-state{border:1px solid var(--line);background:var(--panel);border-radius:13px;padding:12px}
+.altered-state.state-active{border-color:var(--accent);box-shadow:0 0 0 1px rgba(150,110,255,.15)}
+.altered-state-main{display:flex;align-items:flex-start;gap:9px}
+.altered-state-icon{font-size:23px;line-height:1.1}
+.altered-state-info{flex:1;min-width:0}
+.altered-state-info h3{margin:0 0 3px;font-size:14px}
+.altered-state-info p{margin:0;color:var(--muted);font-size:11px;line-height:1.4}
+.altered-state-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;padding-top:9px;border-top:1px solid var(--line);font-size:11px;font-weight:700}
+.altered-state-controls label{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.altered-state-controls input{width:64px;padding:6px}
+@media(max-width:800px){.altered-state-grid{grid-template-columns:1fr}}
+<style>
+.stat-bonus-box{margin:10px 0}.stat-bonus-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}.stat-bonus-head>label{font-size:11px;color:var(--muted)}.stat-bonus-rows{display:flex;flex-direction:column;gap:7px}.stat-bonus-row{display:grid;grid-template-columns:minmax(0,1fr) 90px 18px auto;align-items:center;gap:6px}.stat-bonus-row select,.stat-bonus-row input{width:100%;box-sizing:border-box}.stat-bonus-row span{text-align:center;color:var(--muted);font-size:11px}.stat-bonus-empty{border:1px dashed var(--line);border-radius:8px;padding:8px}@media(max-width:600px){.stat-bonus-row{grid-template-columns:minmax(0,1fr) 70px 15px auto}}
+<style>
+/* Secciones plegables del HUD de combate */
+.combat-collapse{margin:0 0 12px;border:1px solid var(--line);border-radius:14px;background:rgba(15,20,30,.55);overflow:hidden}
+.combat-collapse>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:52px;padding:0 16px;font-weight:700;user-select:none}
+.combat-collapse>summary::-webkit-details-marker{display:none}
+.combat-collapse>summary::before{content:"▸";font-size:14px;color:var(--accent);transition:transform .18s ease}
+.combat-collapse[open]>summary::before{transform:rotate(90deg)}
+.combat-collapse>summary>span{font-size:15px}
+.combat-collapse>summary>small{margin-left:auto;color:var(--muted);font-size:10px;font-weight:500}
+.combat-collapse>summary .collapse-action{margin-left:10px;flex:0 0 auto}
+.combat-collapse[open]>summary{border-bottom:1px solid var(--line)}
+.collapse-body{padding:12px}
+.collapse-body>.grid,.collapse-body>.cards{margin:0}
+.combat-collapse .section{margin-top:0}
+@media(max-width:650px){
+ .combat-collapse>summary{padding:0 11px;min-height:48px}
+ .combat-collapse>summary>span{font-size:13px}
+ .combat-collapse>summary>small{display:none}
+ .combat-collapse>summary .collapse-action{margin-left:auto}
+ .collapse-body{padding:9px}
+}
+<style>
+.damage-part-labels,.damage-part-row{display:grid;grid-template-columns:150px repeat(6,minmax(42px,1fr)) 75px 34px;gap:5px;align-items:center}
+.damage-part-labels{margin:7px 0 4px;color:var(--muted);font-size:9px;text-align:center}.damage-part-labels span:first-child{text-align:left}
+.damage-part-row{margin-bottom:7px}.damage-part-row input,.damage-part-row select{width:100%;box-sizing:border-box;min-width:0}.damage-part-row .btn{padding:6px}
+.damage-parts-box{margin:10px 0}.damage-stat-row{display:grid;grid-template-columns:minmax(120px,1fr) 70px 14px minmax(120px,1fr) auto;gap:6px;align-items:center}.damage-stat-row select,.damage-stat-row input{width:100%;box-sizing:border-box}
+.damage-typed{margin-top:7px;color:var(--muted);font-size:12px;font-weight:600}
+@media(max-width:850px){.damage-part-labels,.damage-part-row{grid-template-columns:120px repeat(6,minmax(34px,1fr)) 65px 30px}.damage-stat-row{grid-template-columns:1fr 60px 12px 1fr auto}}
+
+
+/* V23 — acabado visual */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(circle at 12% 8%,rgba(155,124,255,.14),transparent 27%),radial-gradient(circle at 88% 20%,rgba(91,168,255,.11),transparent 28%),radial-gradient(circle at 50% 100%,rgba(84,214,160,.06),transparent 32%);}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.16;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 85%);}
+.card,.item,.derived,.spell-folder{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;}
+.card:hover,.item:hover{transform:translateY(-1px);border-color:#46536b;box-shadow:0 18px 55px rgba(0,0,0,.28),0 0 24px rgba(155,124,255,.035);}
+.btn{transition:transform .14s ease,box-shadow .14s ease,background .14s ease,border-color .14s ease;}
+.btn:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(0,0,0,.22);}
+.btn:active{transform:translateY(1px) scale(.98);}
+.btn.primary{box-shadow:0 8px 25px rgba(155,124,255,.18);}
+.save-manual{border-color:rgba(84,214,160,.38)!important;background:linear-gradient(135deg,#15261f,#101a17)!important;}
+.save-manual:hover{box-shadow:0 0 25px rgba(84,214,160,.16)!important;}
+.nav button{transition:transform .18s ease,background .18s ease,color .18s ease;}
+.nav button:hover{transform:translateX(2px);}
+.itemtop .icon{transition:transform .22s ease;}
+.item:hover .itemtop .icon{transform:scale(1.08) rotate(-2deg);}
+.toggle span{transition:all .2s ease;}
+.emoji-btn{transition:transform .12s ease,box-shadow .12s ease;}
+.emoji-btn:hover{transform:scale(1.16);}
+.bar i{transition:width .45s cubic-bezier(.2,.8,.2,1);}
+.spell-folder summary{transition:background .18s ease;}
+.spell-folder summary:hover{background:rgba(155,124,255,.06);}
+.hero-main{position:relative;overflow:hidden;}
+.hero-main::after{content:"✦";position:absolute;right:28px;top:18px;font-size:90px;opacity:.035;transform:rotate(15deg);}
+
+
+/* V24 — impacto y competencia */
+.impact-config{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin:10px 0;padding:10px 12px;border:1px solid rgba(155,124,255,.18);border-radius:12px;background:rgba(155,124,255,.035)}
+.impact-config .field{margin:0;min-width:190px;flex:0 0 220px}
+.checkline{display:flex;align-items:center;gap:8px;min-height:38px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.02);font-size:12px;color:var(--text)}
+.checkline input{accent-color:var(--accent);width:16px;height:16px}
+body{background:radial-gradient(circle at 12% 5%,#2b1747 0,transparent 25%),radial-gradient(circle at 88% 15%,#12344a 0,transparent 27%),radial-gradient(circle at 50% 90%,#182c23 0,transparent 25%),var(--bg);}
+
+
+/* V25 — dados de impacto */
+.impact-dice-box{margin:10px 0;padding:10px 12px;border:1px solid rgba(91,168,255,.18);border-radius:12px;background:rgba(91,168,255,.035)}
+.impact-dice-grid{display:grid;grid-template-columns:repeat(6,minmax(70px,1fr));gap:8px}
+.impact-dice-grid .field{margin:0}
+.impact-dice-grid input{text-align:center;font-weight:700}
+@media(max-width:800px){.impact-dice-grid{grid-template-columns:repeat(3,minmax(70px,1fr))}}
+
+
+/* V26 — dados de impacto corregidos */
+.impact-dice-box{position:relative;overflow:hidden}
+.impact-dice-box::after{content:"🎲";position:absolute;right:12px;top:8px;font-size:34px;opacity:.055;pointer-events:none}
+.impact-dice-grid input{font-variant-numeric:tabular-nums}
+
+
+/* V27 — tipo de daño de bonificadores persistente */
+.damage-stat-row .damageBonusType{min-width:180px}
+</style></style></style></style></style></style></style></style></style></style>
+<style>
+/* V13 damage editor */
+.damage-part-labels,.damage-part-row{display:grid;grid-template-columns:150px repeat(6,minmax(42px,1fr)) 75px 34px;gap:6px;align-items:center}
+.damage-part-labels{margin:8px 0 5px;color:var(--muted);font-size:9px;text-align:center}.damage-part-labels span:first-child{text-align:left}
+.damage-part-row{margin-bottom:7px}.damage-part-row input,.damage-part-row select{width:100%;box-sizing:border-box;min-width:0}.damage-part-row .btn{padding:6px}
+.damage-parts-box{margin:10px 0}.damage-stat-row{display:grid;grid-template-columns:minmax(120px,1fr) 70px 16px minmax(140px,1fr) auto;gap:6px;align-items:center}.damage-stat-row select,.damage-stat-row input{width:100%;box-sizing:border-box}
+@media(max-width:850px){.damage-part-labels,.damage-part-row{grid-template-columns:125px repeat(6,minmax(38px,1fr)) 65px 30px}}
+@media(max-width:650px){.damage-part-labels{display:none}.damage-part-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding:7px;border:1px solid var(--line);border-radius:10px}.damage-part-row .damageType{grid-column:1/-1}.damage-part-row .partFlat{grid-column:1/-1}.damage-stat-row{grid-template-columns:1fr 65px 14px 1fr auto}}
+</style><style>
+.section-actions{display:flex;gap:8px;align-items:center;margin-left:auto}.spell-folder{border:1px solid var(--line);border-radius:14px;background:rgba(15,20,30,.5);margin:0 0 12px;overflow:hidden}.spell-folder>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:50px;padding:0 14px;font-weight:700}.spell-folder>summary::-webkit-details-marker{display:none}.spell-folder>summary::before{content:"▸";color:var(--accent);transition:transform .18s}.spell-folder[open]>summary::before{transform:rotate(90deg)}.spell-folder>summary small{margin-left:auto;color:var(--muted);font-weight:500}.spell-folder .folder-delete{margin-left:8px}.folder-spells{padding:10px}.folder-spells>.item{margin-bottom:10px}.folder-spells>.item:last-child{margin-bottom:0}@media(max-width:650px){.section-actions{width:100%;margin:8px 0 0}.section-actions .btn{flex:1}.folder-spells{padding:7px}}
+</style><script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
+<style id="vtt-css">
+#view-table{width:100%;min-width:0;padding-bottom:40px}.table-layout{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:14px;align-items:start}.table-stage{position:relative;min-height:700px;overflow:hidden;background:#080b10;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+#vttCanvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}.table-toolbar{position:absolute;z-index:4;top:12px;left:12px;right:12px;display:flex;gap:7px;flex-wrap:wrap;pointer-events:none}.table-toolbar>*{pointer-events:auto}.room-status{display:flex;align-items:center;gap:7px;background:#090c12dd;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:11px}.room-dot{width:8px;height:8px;border-radius:50%;background:var(--warn)}.room-dot.online{background:var(--good);box-shadow:0 0 10px var(--good)}
+.vtt-side{display:flex;flex-direction:column;gap:12px;min-width:0}.vtt-panel{background:linear-gradient(145deg,#151b26f5,#0d1219f5);border:1px solid var(--line);border-radius:17px;padding:13px;box-shadow:var(--shadow)}.vtt-panel h3{margin:0 0 10px;font-size:13px}.vtt-players{display:grid;gap:6px}.vtt-player{display:flex;align-items:center;gap:8px;padding:8px;background:#0b1017;border:1px solid var(--line);border-radius:10px}.vtt-avatar{width:30px;height:30px;border-radius:9px;background:#19202e;display:grid;place-items:center;overflow:hidden;flex:none}.vtt-avatar img{width:100%;height:100%;object-fit:cover}.vtt-player small{display:block;color:var(--muted);font-size:9px}.vtt-player b{font-size:11px}.vtt-chat{height:210px;overflow:auto;display:flex;flex-direction:column;gap:6px}.vtt-msg{padding:7px 9px;background:#0b1017;border:1px solid var(--line);border-radius:9px;font-size:10px}.vtt-msg .meta{color:var(--accent2);font-weight:800;margin-bottom:2px}.vtt-rolls{max-height:190px;overflow:auto;display:grid;gap:5px}.vtt-roll{padding:7px 9px;border-left:3px solid var(--accent);background:#0b1017;border-radius:7px;font-size:10px}.vtt-roll strong{font-size:17px;margin-left:4px}.vtt-chat-form{display:flex;gap:6px;margin-top:8px}.vtt-chat-form input{min-width:0}.room-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.room-grid .btn{width:100%}.room-code{font-size:22px;font-weight:900;letter-spacing:.12em;text-align:center;padding:10px;background:#0b1017;border:1px dashed #4a556a;border-radius:10px}
+.vtt-big-roll{position:absolute;z-index:20;inset:0;display:none;place-items:center;pointer-events:none;background:radial-gradient(circle,rgba(155,124,255,.18),transparent 35%,#0008 100%)}.vtt-big-roll.show{display:grid}.vtt-roll-card{text-align:center;background:#0b1017ed;border:1px solid #59657b;border-radius:24px;padding:25px 45px;box-shadow:0 25px 80px #000b;animation:vttPop .35s ease}.vtt-roll-card .who{font-size:11px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}.vtt-roll-card .formula{margin-top:5px;color:var(--accent2);font-size:14px}.vtt-roll-card .total{font-size:90px;font-weight:950;line-height:1;margin-top:8px}.vtt-dice{display:flex;justify-content:center;gap:12px;margin:12px 0 2px;perspective:700px}.vtt-die{width:54px;height:54px;display:grid;place-items:center;border:2px solid #c8baff;border-radius:12px;background:linear-gradient(145deg,#5e47a7,#241c42);font-size:22px;font-weight:900;box-shadow:0 12px 30px #0008;animation:vttDie .8s cubic-bezier(.2,.8,.2,1)}@keyframes vttDie{0%{transform:rotateX(0) rotateY(0) translateY(-35px) scale(.6)}45%{transform:rotateX(220deg) rotateY(160deg) translateY(8px) scale(1.08)}100%{transform:rotateX(360deg) rotateY(360deg) translateY(0) scale(1)}}@keyframes vttPop{from{transform:scale(.75);opacity:0}to{transform:scale(1);opacity:1}}
+/* Selector de tiradas: fuera del mapa, plegable y por categorías */
+.vtt-roll-launcher{border:1px solid rgba(155,124,255,.28);background:linear-gradient(145deg,#171d29f7,#0c1118f7)}.vtt-launch-head{display:flex;align-items:center;gap:8px}.vtt-launch-head>div:first-child{flex:1}.vtt-launch-head h3{margin:0 0 3px}.vtt-launch-head small{color:var(--muted);font-size:9px}.vtt-launch-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:10px 0 8px}.vtt-launch-tab{border:1px solid var(--line);background:#0b1017;color:var(--muted);border-radius:9px;padding:8px 5px;font-size:10px;cursor:pointer}.vtt-launch-tab.active{background:rgba(155,124,255,.13);border-color:rgba(155,124,255,.6);color:#fff}.vtt-launch-list{display:grid;gap:6px;max-height:300px;overflow:auto}.vtt-launch-item{display:grid;grid-template-columns:34px 1fr auto;gap:7px;align-items:center;padding:7px;background:#0b1017;border:1px solid var(--line);border-radius:10px}.vtt-launch-icon{width:32px;height:32px;display:grid;place-items:center;border-radius:9px;background:#171e2b;font-size:17px}.vtt-launch-name{min-width:0}.vtt-launch-name b{display:block;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.vtt-launch-name small{display:block;color:var(--muted);font-size:8px;margin-top:2px}.vtt-launch-actions{display:flex;gap:4px}.vtt-launch-actions .btn{font-size:9px;padding:6px 7px}.vtt-roll-launcher.collapsed .vtt-launch-body{display:none}.vtt-roll-launcher.collapsed .vtt-collapse-label{transform:rotate(180deg)}.vtt-collapse-label{transition:.2s}.vtt-launch-empty{padding:14px;text-align:center;color:var(--muted);font-size:10px;border:1px dashed var(--line);border-radius:9px}
+@media(max-width:1050px){.table-layout{grid-template-columns:1fr}.vtt-side{display:grid;grid-template-columns:1fr 1fr}.vtt-panel.chat-panel{grid-column:1/-1}.vtt-roll-launcher{grid-column:1/-1}}@media(max-width:650px){.vtt-side{display:flex}.table-stage{min-height:620px}.room-grid{grid-template-columns:1fr}.vtt-roll-card{padding:20px}.vtt-roll-card .total{font-size:68px}}
+</style>
+<style id="vtt-v4-css">
+.vtt-manual-box{margin:0 0 10px;padding:10px;border:1px solid rgba(91,168,255,.22);border-radius:12px;background:rgba(91,168,255,.045)}
+.vtt-manual-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:11px}.vtt-manual-title span{font-family:ui-monospace,monospace;color:var(--accent2);font-weight:900}
+.vtt-manual-grid{display:grid;grid-template-columns:1fr .8fr 1fr auto;gap:6px;align-items:end}.vtt-manual-grid label{font-size:9px;color:var(--muted);display:grid;gap:4px}.vtt-manual-grid select,.vtt-manual-grid input{padding:7px;font-size:11px}.vtt-manual-grid button{min-height:36px;white-space:nowrap}
+@media(max-width:650px){.vtt-manual-grid{grid-template-columns:1fr 1fr}.vtt-manual-grid button{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+<div class="brand"><b>✦ CHARACTER HUB</b><small>Ficha + HUD de aventura · V4</small></div>
+<nav class="nav">
+<button data-view="home" class="active">🏠 Inicio</button><button data-view="combat">⚔️ Combate</button><button data-view="abilities">✨ Habilidades</button><button data-view="items">🎒 Objetos</button><button data-view="effects">🔥 Efectos</button><button data-view="resources">📦 Recursos</button><button data-view="spells">🔮 Conjuros</button><button data-view="character">📊 Ficha</button><button data-view="table">🎲 Mesa</button>
+</nav>
+<div class="sidefoot">💾 Guardado automático local<br>📤 Exporta para compartir una configuración<br><span id="modeSub">Ficha independiente de SCP</span><br><span>📋 <b id="sheetCurrentName">Ficha 1</b></span><br>V7 · dos modos independientes</div>
+</aside>
+<main>
+<header class="top"><div><h1 id="title">Inicio</h1><p id="subtitle">Todo lo importante del personaje en una sola pantalla.</p></div><div class="top-actions"><div class="sheet-switcher"><select id="sheetSelector" onchange="switchSheet(this.value)" aria-label="Seleccionar ficha"></select><button class="btn small" onclick="createSheet()" title="Crear ficha">＋</button><button class="btn small danger" onclick="deleteCurrentSheet()" title="Eliminar ficha">🗑</button></div><button class="btn save-manual" onclick="manualSave()">💾 Guardar</button><button class="btn" onclick="openCharacter()">⚙ Editar ficha</button><button class="btn primary" onclick="levelUp()">⬆️ Subir nivel</button><button class="btn" onclick="exportData()">📤 Exportar</button><button class="btn" onclick="document.getElementById('importFile').click()">📥 Importar</button><button class="btn primary" onclick="newCombat()">⚔️ Nuevo combate</button><button id="modeBtn" class="btn" onclick="switchMode()">🧪 Modo SCP</button><button class="btn reset" onclick="resetAll()">🗑 Borrar todo</button><input id="importFile" hidden type="file" accept=".json" onchange="importData(event)"></div></header>
+
+<section id="view-home" class="view active">
+<div class="hero"><div class="card hero-main"><div><div class="eyebrow">PERSONAJE</div><div class="name" id="heroName"></div><div class="muted" id="heroClass"></div></div><div class="chips" id="heroChips"></div></div>
+<div class="card turn"><small>TURNO ACTUAL</small><strong id="homeTurn">1</strong><button class="btn primary next" onclick="nextTurn()">▶ Siguiente turno</button></div></div>
+
+<div class="section"><h2>❤️ Estado</h2><span>editable durante la partida</span></div>
+<div class="grid g3"><div class="card res"><div><div class="reshead"><span>❤️ Vida</span><b id="homeHp"></b></div><div class="bar hp"><i id="homeHpBar"></i></div></div><div><div class="reshead"><span id="homeShieldLabel">🛡 Escudo</span><b id="homeShield"></b></div><div class="bar sh"><i id="homeShieldBar"></i></div></div><div><div class="reshead"><span id="homeReflexLabel">👁 Reflejos</span><b id="homeReflejosBig"></b></div><div class="bar"><i id="reflexBar"></i></div></div></div>
+<div class="card"><div class="eyebrow">RECURSOS DEL TURNO</div><div class="grid g2" style="margin-top:10px" id="homeResources"></div></div>
+<div class="card"><div class="eyebrow">DEFENSA Y COMPETENCIA</div><div class="grid g2" style="margin-top:10px"><div class="derived"><div class="muted" id="homeReflexLabel2">👁 Reflejos</div><div class="big" id="homeReflejos"></div></div><div class="derived"><div class="muted">🎓 Competencia</div><div class="big" id="homeComp"></div></div></div><div style="margin-top:12px"><button class="btn primary" style="width:100%" onclick="nav('combat')">Abrir HUD de combate</button></div></div></div>
+
+<div class="section"><h2>📊 Estadísticas</h2><span>valores base</span></div><div class="card"><div class="grid g6" id="homeStats"></div></div>
+<div class="section"><h2>🎛️ Activación rápida</h2><span>activa o desactiva sin entrar al editor</span></div>
+<div class="grid g2"><div class="card"><div class="eyebrow">✨ HABILIDADES</div><div class="cards" id="homeAbilityToggles" style="margin-top:9px"></div></div>
+<div class="card"><div class="eyebrow">🎒 OBJETOS</div><div class="cards" id="homeItemToggles" style="margin-top:9px"></div></div></div>
+<div class="section"><h2>🛌 Recuperación</h2><span>recupera usos de habilidades, objetos y efectos según su configuración</span></div>
+<div class="card rest-panel">
+  <div class="rest-info">
+    <div><b>🌙 Descanso ligero</b><span>Recupera lo configurado para descanso ligero.</span></div>
+    <div><b>🛏️ Descanso prolongado</b><span>Recupera lo configurado para descanso prolongado y restaura la vida.</span></div>
+  </div>
+  <div class="rest-buttons">
+    <button class="btn" onclick="recoverByRest('light')">🌙 Descanso ligero</button>
+    <button class="btn primary" onclick="recoverByRest('long')">🛏️ Descanso prolongado</button>
+  </div>
+</div>
+<div class="section"><h2>🔥 Efectos activos</h2><span>buffs, debuffs y estados</span></div><div class="cards" id="homeEffects"></div>
+<div class="section"><h2>📦 Recursos</h2><span>munición, materiales y recursos personalizados</span><button class="btn small primary" onclick="openResource()">＋ Añadir</button></div><div class="cards" id="homeResourcesCustom"></div>
+<div class="section"><h2>🔮 Conjuros</h2><span>espacios por nivel y conjuros disponibles</span></div><div id="homeSpellSlots"></div><div class="cards" id="homeSpellList"></div>
+<div class="section"><h2>➕ Daño extra total</h2><span>solo suma efectos activados</span></div><div class="damage-box"><div class="damage-result" id="homeDamageTotal"></div><div class="damage-copy"><button class="btn small" onclick="copyDamage()">📋 Copiar</button></div></div><div class="impact-box"><b>🎯 Impacto total: <span id="homeImpactTotal"></span></b><button class="btn small" onclick="copyImpact()">📋 Copiar</button></div>
+</section>
+
+<section id="view-combat" class="view">
+<div class="card"><div class="eyebrow">HUD DE COMBATE</div><h2 style="margin:5px 0">⚔️ Recursos del turno</h2><div class="muted">Cada recurso está separado. Los botones modifican el estado y se guarda automáticamente.</div></div>
+
+<details class="combat-collapse" open data-collapse="rest">
+ <summary><span>🛌 Descansos</span><small>recuperación</small></summary>
+ <div class="collapse-body">
+  <div class="card rest-panel"><div class="rest-buttons">
+   <button class="btn" onclick="recoverByRest('light')">🌙 Descanso ligero</button>
+   <button class="btn primary" onclick="recoverByRest('long')">🛏️ Descanso prolongado</button>
+  </div></div>
+ </div>
+</details>
+
+<details class="combat-collapse" open data-collapse="turn">
+ <summary><span>▶ Turno</span><small>avanza y reduce duraciones</small></summary>
+ <div class="collapse-body">
+  <div class="card turn-combat"><div><div class="eyebrow" id="combatTurnLabel">▶ TURNO 1</div><div class="muted">Avanza el turno, reduce duraciones y recupera los recursos de turno.</div></div><button class="btn primary" onclick="nextTurn()">▶ Pasar turno</button></div>
+ </div>
+</details>
+
+<details class="combat-collapse" open data-collapse="actions">
+ <summary><span>⚡ Acciones y movimiento</span><small>se reinician al pasar turno</small></summary>
+ <div class="collapse-body"><div class="grid g4" id="combatResources"></div></div>
+</details>
+
+<details class="combat-collapse" open data-collapse="vitals">
+ <summary><span>❤️ Estado</span><small>vida, escudo y reflejos</small></summary>
+ <div class="collapse-body"><div class="card grid g3" id="combatVitals"></div></div>
+</details>
+
+<details class="combat-collapse" open data-collapse="quick">
+ <summary><span>🎛️ Activación rápida</span><small>habilidades y objetos</small></summary>
+ <div class="collapse-body">
+  <div class="grid g2">
+   <div class="card"><div class="eyebrow">✨ HABILIDADES</div><div class="cards" id="combatAbilityToggles" style="margin-top:9px"></div></div>
+   <div class="card"><div class="eyebrow">🎒 OBJETOS</div><div class="cards" id="combatItemToggles" style="margin-top:9px"></div></div>
+  </div>
+ </div>
+</details>
+
+<details class="combat-collapse" open data-collapse="effects">
+ <summary><span>🔥 Efectos activos</span><small>buffs, debuffs y estados</small><button type="button" class="collapse-action btn small primary" onclick="event.preventDefault();event.stopPropagation();openEffect()">＋ Activar efecto</button></summary>
+ <div class="collapse-body"><div class="cards" id="combatEffects"></div></div>
+</details>
+
+<details class="combat-collapse" open data-collapse="resources">
+ <summary><span>📦 Recursos</span><small>disponibles durante el combate</small></summary>
+ <div class="collapse-body"><div class="cards" id="combatResourcesCustom"></div></div>
+</details>
+
+<details class="combat-collapse" open data-collapse="states">
+ <summary><span>🩸 Estados alterados</span><small>activa y controla sus turnos</small></summary>
+ <div class="collapse-body">
+  <div class="altered-state-grid" id="combatAlteredStates"></div>
+ </div>
+</details>
+
+<details class="combat-collapse" open data-collapse="damage">
+ <summary><span>➕ Daño e impacto total</span><small>bonificadores activos</small></summary>
+ <div class="collapse-body">
+  <div class="damage-box"><div class="damage-result" id="combatDamageTotal"></div><div class="damage-typed" id="combatDamageTyped"></div><button class="btn small damage-copy" onclick="copyDamage()">📋 Copiar fórmula</button></div>
+  <div class="impact-box"><b>🎯 Impacto total: <span id="combatImpactTotal"></span></b><button class="btn small" onclick="copyImpact()">📋 Copiar</button></div>
+ </div>
+</details>
+
+<details class="combat-collapse" open data-collapse="abilities">
+ <summary><span>✨ Habilidades disponibles</span><small>usar consume los recursos configurados</small></summary>
+ <div class="collapse-body"><div class="cards" id="combatAbilities"></div></div>
+</details>
+
+<details class="combat-collapse" open data-collapse="items">
+ <summary><span>🎒 Objetos de combate</span><small>objetos activos y utilizables</small></summary>
+ <div class="collapse-body"><div class="cards" id="combatItems"></div></div>
+</details>
+
+<details class="combat-collapse" open data-collapse="spells">
+ <summary><span>🔮 Conjuros disponibles</span><small>espacios, recursos y acciones</small></summary>
+ <div class="collapse-body">
+  <div id="combatSpellSlots"></div>
+  <div class="cards" id="combatSpells"></div>
+ </div>
+</details>
+</section>
+
+<section id="view-abilities" class="view">
+<div class="card"><div class="filters"><input id="abilitySearch" placeholder="🔎 Buscar habilidad..." oninput="renderAbilities()"><button class="btn primary" onclick="openAbility()">＋ Nueva habilidad</button></div></div>
+<div class="section"><h2>✨ Biblioteca de habilidades</h2><span>activa · pasiva · combate · curación · reacción...</span></div><div class="cards" id="abilityList"></div>
+</section>
+
+<section id="view-items" class="view">
+<div class="card"><div class="filters"><input id="itemSearch" placeholder="🔎 Buscar objeto..." oninput="renderItems()"><button class="btn primary" onclick="openItem()">＋ Nuevo objeto</button></div></div>
+<div class="section"><h2>🎒 Inventario</h2><span>activos, pasivos y consumibles</span></div><div class="cards" id="itemList"></div>
+</section>
+
+<section id="view-effects" class="view">
+<div class="card rest-panel" style="margin-top:14px">
+  <div class="section" style="margin:0 0 10px"><div><h2>🛌 Recuperación</h2><span>Los usos se recuperan según el descanso elegido.</span></div></div>
+  <div class="rest-buttons">
+    <button class="btn" onclick="recoverByRest('light')">🌙 Descanso ligero</button>
+    <button class="btn primary" onclick="recoverByRest('long')">🛏️ Descanso prolongado</button>
+  </div>
+</div>
+<div class="card"><div class="section" style="margin:0"><div><h2>🔥 Efectos y mejoras</h2><span>buffs, debuffs, estados y modificadores</span></div><button class="btn primary" onclick="openEffect()">＋ Activar efecto</button></div></div>
+<div class="section"><h2>Activos</h2><span>interruptor = activo/inactivo</span></div><div class="cards" id="effectList"></div><div class="section"><h2 class="category-title passive"><span class="dot"></span>Pasivos</h2><span>también se pueden activar/desactivar</span></div><div class="cards" id="passiveEffectList"></div><div class="section"><h2>➕ Daño extra total</h2></div><div class="damage-box"><div class="damage-result" id="effectDamageTotal"></div><button class="btn small damage-copy" onclick="copyDamage()">📋 Copiar fórmula</button></div><div class="impact-box"><b>🎯 Impacto total: <span id="effectImpactTotal"></span></b><button class="btn small" onclick="copyImpact()">📋 Copiar</button></div>
+<div class="section"><h2>📊 Modificadores acumulados</h2></div><div class="grid g4" id="modifierList"></div>
+</section>
+
+<section id="view-resources" class="view">
+<div class="card"><div class="section" style="margin:0"><div><h2>📦 Recursos</h2><span>Controla fácilmente balas, granadas, pólvora, cargas, puntos de fuego y cualquier recurso personalizado.</span></div><button class="btn primary" onclick="openResource()">＋ Nuevo recurso</button></div></div>
+<div class="section"><h2>Inventario de recursos</h2><span>Usa − para gastar y + para recuperar.</span></div><div class="cards" id="resourceList"></div>
+</section>
+
+<section id="view-spells" class="view">
+<div class="section"><h2>🔮 Conjuros</h2><span>Ficha independiente de conjuros, separada de efectos.</span><div class="section-actions"><button class="btn" onclick="createSpellFolder()">📁 Nueva carpeta</button><button class="btn primary" onclick="openSpell()">＋ Nuevo conjuro</button></div></div>
+<div id="spellSlotsDedicated"></div>
+<div class="cards" id="spellList"></div>
+</section>
+
+<section id="view-character" class="view">
+<div class="card"><div class="section" style="margin:0"><div><h2>📊 Ficha completa</h2><span>Todos los valores del personaje son configurables.</span></div><button class="btn primary" onclick="openCharacter()">✏ Editar todo</button></div></div>
+<div class="section"><h2>Estadísticas</h2></div><div class="grid g6" id="sheetStats"></div>
+<div class="section"><h2>Combate y recursos</h2></div><div class="grid g4" id="sheetResources"></div>
+</section>
+
+<section id="view-table" class="view">
+ <div class="card" style="margin-bottom:13px">
+  <div class="section" style="margin:0 0 8px"><div><h2>🎲 Mesa virtual</h2><span>Sala online, jugadores, mapa, chat, historial y tiradas compartidas.</span></div></div>
+  <div class="room-grid">
+   <button class="btn primary" onclick="vttCreateRoom()">＋ Crear mesa</button>
+   <button class="btn" onclick="vttJoinRoom()">🔗 Unirse a mesa</button>
+   <button class="btn" onclick="vttLeaveRoom()">🚪 Salir de la mesa</button>
+  </div>
+  <div id="vttRoomInfo" style="margin-top:9px"></div>
+ </div>
+ <div class="table-layout">
+  <div class="table-stage" id="vttStage">
+   <canvas id="vttCanvas"></canvas>
+   <div class="table-toolbar">
+    <div class="room-status"><span id="vttDot" class="room-dot"></span><b id="vttStatus">Sin conexión</b></div>
+    <button class="btn small" onclick="vttRoll('d4')">🎲 d4</button><button class="btn small" onclick="vttRoll('d6')">🎲 d6</button><button class="btn small" onclick="vttRoll('d8')">🎲 d8</button><button class="btn small" onclick="vttRoll('d10')">🎲 d10</button><button class="btn small" onclick="vttRoll('d12')">🎲 d12</button><button class="btn small" onclick="vttRoll('d20')">🎲 d20</button>
+    <button class="btn small" onclick="vttAddToken()">＋ Token</button><button class="btn small" onclick="vttSetBackground()">🖼 Fondo URL</button>
+   </div>
+   <div id="vttBigRoll" class="vtt-big-roll"><div class="vtt-roll-card"><div class="who" id="vttBigWho"></div><div class="formula" id="vttBigFormula"></div><div class="vtt-dice" id="vttBigDice"></div><div class="total" id="vttBigTotal"></div></div></div>
+  </div>
+  <aside class="vtt-side">
+   <div class="vtt-panel vtt-roll-launcher" id="vttRollLauncher">
+    <div class="vtt-launch-head"><div><h3>🎭 Tiradas</h3><small>Dados de la ficha y tiradas personalizadas.</small></div><button class="btn small" onclick="vttToggleLauncher()"><span class="vtt-collapse-label">⌃</span></button></div>
+    <div class="vtt-launch-body">
+     <div class="vtt-manual-box"><div class="vtt-manual-title"><b>🎲 Tirada libre</b><span id="vttManualPreview">1d20</span></div><div class="vtt-manual-grid"><label>Dado<select id="vttManualDie"><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option><option selected>d20</option></select></label><label>Cantidad<input id="vttManualCount" type="number" min="1" max="50" value="1"></label><label>Modificador<input id="vttManualModifier" type="number" step="1" value="0" placeholder="+6"></label><button class="btn primary" onclick="vttManualRoll()">🎲 Tirar</button></div></div>
+     <div class="vtt-launch-tabs"><button class="vtt-launch-tab active" data-roll-kind="Habilidad" onclick="vttSelectRollCategory('Habilidad')">✨ Habilidades</button><button class="vtt-launch-tab" data-roll-kind="Objeto" onclick="vttSelectRollCategory('Objeto')">🎒 Objetos</button><button class="vtt-launch-tab" data-roll-kind="Conjuro" onclick="vttSelectRollCategory('Conjuro')">🔮 Conjuros</button></div>
+     <div id="vttSheetRolls" class="vtt-launch-list"></div>
+    </div>
+   </div>
+   <div class="vtt-panel"><h3>👥 Jugadores</h3><div id="vttPlayers" class="vtt-players"><div class="muted">Crea una mesa o únete a una.</div></div></div>
+   <div class="vtt-panel"><h3>📜 Historial de tiradas</h3><div id="vttRolls" class="vtt-rolls"></div></div>
+   <div class="vtt-panel chat-panel"><h3>💬 Chat</h3><div id="vttChat" class="vtt-chat"></div><div class="vtt-chat-form"><input id="vttChatInput" placeholder="Escribe un mensaje..."><button class="btn primary" onclick="vttSendChat()">Enviar</button></div></div>
+  </aside>
+ </div>
+</section>
+</main>
+</div>
+<div class="mobile"><button data-view="home" class="active">🏠<br>Inicio</button><button data-view="combat">⚔️<br>Combate</button><button data-view="abilities">✨<br>Habilidades</button><button data-view="items">🎒<br>Objetos</button><button data-view="effects">🔥<br>Efectos</button><button data-view="resources">📦<br>Recursos</button><button data-view="spells">🔮<br>Conjuros</button><button data-view="character">📊<br>Ficha</button><button data-view="table">🎲<br>Mesa</button></div>
+<div class="modal" id="modal"><div class="modalbox" id="modalbox"></div></div><div class="toast" id="toast"></div>
+
+<script>
+
+const KEY="character_hub_v5";
+const SCP_STORAGE_KEY="character_hub_v7_scp";
+const DND_STORAGE_KEY="character_hub_v7_dnd";
+let mode=localStorage.getItem("character_hub_v7_mode")||"scp";
+const MODE_NAMES={
+ fuerza:{scp:"Fuerza",dnd:"Fuerza"},
+ agilidad:{scp:"Agilidad",dnd:"Destreza"},
+ vitalidad:{scp:"Vitalidad",dnd:"Constitución"},
+ punteria:{scp:"Puntería",dnd:"Inteligencia"},
+ experiencia:{scp:"Experiencia",dnd:"Sabiduría"},
+ voluntad:{scp:"Voluntad",dnd:"Carisma"},
+ reflejos:{scp:"Reflejos",dnd:"CA"},
+ precision:{scp:"Bon. Impactar",dnd:"Bon. Impactar"},
+ defensa:{scp:"Salvación",dnd:"Salvación"},
+ escudo:{scp:"Escudo",dnd:"Vida temporal"},
+ light:{scp:"Descanso ligero",dnd:"Descanso corto"},
+ long:{scp:"Descanso prolongado",dnd:"Descanso largo"},
+ "reflejos / ca":{scp:"Reflejos",dnd:"CA"},
+ "precisión":{scp:"Bon. Impactar",dnd:"Bon. Impactar"},
+ "defensa":{scp:"Salvación",dnd:"Salvación"},
+ "escudo":{scp:"Escudo",dnd:"Vida temporal"},
+ "agilidad":{scp:"Agilidad",dnd:"Destreza"},
+ "vitalidad":{scp:"Vitalidad",dnd:"Constitución"},
+ "puntería":{scp:"Puntería",dnd:"Inteligencia"},
+ "experiencia":{scp:"Experiencia",dnd:"Sabiduría"},
+ "voluntad":{scp:"Voluntad",dnd:"Carisma"}
+};
+function N(key){
+ const k=String(key).toLowerCase();
+ return MODE_NAMES[k]?.[mode] || (MODE_NAMES[key]?.[mode]) || String(key);
+}
+const ALTERED_STATES=[["cegado", "👁️", "Cegado", "No puedes ver y fallas las pruebas que requieran visión; los ataques contra ti tienen ventaja."], ["hechizado", "💖", "Hechizado", "No puedes atacar al hechizador ni elegirlo como objetivo de efectos dañinos."], ["ensordecido", "👂", "Ensordecido", "No puedes oír y fallas las pruebas que requieran audición."], ["asustado", "😨", "Asustado", "Tienes desventaja en pruebas y ataques mientras veas la fuente del miedo y no puedes acercarte voluntariamente a ella."], ["agarrado", "🤝", "Agarrado", "Tu velocidad es 0 y no puede beneficiarse de bonificadores a la velocidad."], ["incapacitado", "🚫", "Incapacitado", "No puedes realizar acciones ni reacciones."], ["invisible", "👻", "Invisible", "No puedes ser visto normalmente; tus ataques tienen ventaja y los ataques contra ti tienen desventaja."], ["paralizado", "⚡", "Paralizado", "Estás incapacitado, no puedes moverte ni hablar y fallas Fuerza y Destreza; los ataques cercanos que impacten son críticos."], ["petrificado", "🗿", "Petrificado", "Estás incapacitado y no puedes moverte ni hablar; tu cuerpo se convierte en una sustancia inanimada."], ["envenenado", "🤢", "Envenenado", "Tienes desventaja en tiradas de ataque y pruebas de característica."], ["derribado", "⬇️", "Derribado", "Solo puedes arrastrarte; tienes desventaja en ataques y los ataques cercanos contra ti tienen ventaja."], ["restringido", "⛓️", "Restringido", "Tu velocidad es 0; tienes desventaja en ataques y Destreza, y los ataques contra ti tienen ventaja."], ["aturdido", "💫", "Aturdido", "Estás incapacitado, no puedes moverte y solo puedes hablar entrecortadamente; fallas Fuerza y Destreza."], ["inconsciente", "😴", "Inconsciente", "Estás incapacitado, no puedes moverte ni hablar, no percibes lo que te rodea y fallas Fuerza y Destreza."]];
+function defaultAlteredStates(){return ALTERED_STATES.map(s=>({id:s[0],icon:s[1],name:s[2],description:s[3],active:false,duration:0,remaining:0}))}
+const MAX_SHEETS=5;
+function sheetsStorageKey(){return mode==="dnd"?DND_STORAGE_KEY:SCP_STORAGE_KEY;}
+let sheetSlot=Number(localStorage.getItem("character_hub_v8_slot_"+mode)||1);
+if(sheetSlot<1||sheetSlot>MAX_SHEETS)sheetSlot=1;
+function storageKey(slot=sheetSlot){return `${sheetsStorageKey()}_ficha_${slot}`;}
+function sheetMetaKey(){return `${sheetsStorageKey()}_meta`;}
+function readSheetMeta(){try{return JSON.parse(localStorage.getItem(sheetMetaKey())||"{}")}catch(e){return {}}}
+function writeSheetMeta(meta){localStorage.setItem(sheetMetaKey(),JSON.stringify(meta))}
+function sheetName(slot=sheetSlot){const meta=readSheetMeta();return meta[slot]?.name||`Ficha ${slot}`}
+function updateSheetMetaFromData(){const meta=readSheetMeta();meta[sheetSlot]={name:data?.character?.name?.trim()||`Ficha ${sheetSlot}`};writeSheetMeta(meta)}
+function emptyModeDefault(){
+ const d=clone(DEFAULT);
+ d.character.name=mode==="dnd"?"Nuevo personaje D&D":"Nuevo personaje SCP";
+ d.abilities=[];d.items=[];d.effects=[];d.turn=1;
+ return d;
+}
+
+const DICE=["d4","d6","d8","d10","d12","d20"];
+const DEFAULT={
+ character:{name:"Aventurero",class:"Guardián",level:1,hp:100,maxHp:100,shield:0,
+ action:1,quickAction:1,reaction:1,freeAction:1,movement:30,
+ actionBase:1,quickActionBase:1,reactionBase:1,freeActionBase:1,movementBase:30,
+ actionSpent:0,quickActionSpent:0,reactionSpent:0,freeActionSpent:0,movementSpent:0,
+ reflejos:10,precision:0,competencia:2,stats:{fuerza:10,agilidad:10,vitalidad:10,punteria:10,experiencia:0,voluntad:10}},
+ abilities:[{id:"a1",name:"Golpe poderoso",icon:"⚔️",type:"Combate",desc:"Un ataque contundente.",situ:["combat"],cooldown:0,cooldownMax:0,duration:"",durationMax:0,durationRemaining:0,runtimeActive:false,usesMax:0,uses:0,recovery:"never",costType:"none",costAmount:0,applies:"",effectId:"",active:true,modifiers:{},damage:{d4:0,d6:0,d8:0,d10:0,d12:0,d20:0,flat:0},gains:{}}], resources:[],
+ spells:[],
+ spellFolders:[],
+ spellSlots:{1:{max:0,current:0},2:{max:0,current:0},3:{max:0,current:0},4:{max:0,current:0},5:{max:0,current:0},6:{max:0,current:0},7:{max:0,current:0},8:{max:0,current:0},9:{max:0,current:0}},
+
+ items:[{id:"i1",name:"Poción de curación",icon:"🧪",type:"Curación",desc:"Recupera vida según las reglas de tu partida.",situ:["combat","explore","role"],quantity:3,price:0,passive:"",effect:"",active:true,usesMax:0,uses:0,recovery:"never",costType:"none",costAmount:0,durationMax:0,durationRemaining:0,runtimeActive:false,modifiers:{},damage:{d4:0,d6:0,d8:0,d10:0,d12:0,d20:0,flat:0},gains:{}}],
+ effects:[{id:"e1",name:"Firmeza",icon:"🛡️",type:"Mejora",category:"active",desc:"Defensa aumentada.",duration:3,maxDuration:3,modifiers:{defensa:10},damage:{d4:0,d6:0,d8:0,d10:0,d12:0,d20:0,flat:0},gains:{},usesMax:0,uses:0,recovery:"never",durationMax:3,durationRemaining:3,runtimeActive:false,active:true}],
+ turn:1
+};
+function clone(x){return JSON.parse(JSON.stringify(x))}
+function uid(){return Math.random().toString(36).slice(2,10)}
+const MODIFIER_ALIASES={
+ action:["action","acciones","acción"],
+ quickAction:["quickAction","acciones rápidas","acción rápida","accion rapida","acciones rapidas"],
+ reaction:["reaction","reacción","reacciones"],
+ freeAction:["freeAction","acción gratuita","acciones gratuitas","accion gratuita","acciones gratuitas"],
+ movement:["movement","movimiento"],
+ fuerza:["fuerza"],
+ agilidad:["agilidad"],
+ vitalidad:["vitalidad"],
+ punteria:["punteria","puntería"],
+ experiencia:["experiencia"],
+ voluntad:["voluntad"],
+ competencia:["competencia"],
+ reflejos:["reflejos","reflejo"],
+ daño:["daño","danio"],
+ precisión:["precisión","precision"],
+ crítico:["crítico","critico"],
+ curación:["curación","curacion"],
+ escudo:["escudo"],
+ defensa:["defensa"]
+};
+function migrate(x){
+ if(!x||typeof x!=="object")x={};
+ x.abilities=Array.isArray(x.abilities)?x.abilities:[];
+ x.items=Array.isArray(x.items)?x.items:[];
+ x.effects=Array.isArray(x.effects)?x.effects:[];
+ x.spells=Array.isArray(x.spells)?x.spells:[];
+ x.resources=Array.isArray(x.resources)?x.resources:[];
+ x.resources.forEach(r=>{r.giveMode=r.giveMode==="bonus"?"bonus":"none";r.modifiers=r.modifiers||{};r.damageParts=Array.isArray(r.damageParts)?r.damageParts:normalizeDamageParts(null,r.damage);r.damage=legacyDamageFromParts(r.damageParts);r.impactStats=Array.isArray(r.impactStats)?r.impactStats:[]});
+ x.spellFolders=Array.isArray(x.spellFolders)?x.spellFolders:[];
+ x.itemFolders=Array.isArray(x.itemFolders)?x.itemFolders:[];
+ x.character=Object.assign(clone(DEFAULT.character),x.character||{});
+ x.character.precision=Number(x.character.precision??0);x.character.action=Number(x.character.action??1);x.character.quickAction=Number(x.character.quickAction??1);x.character.reaction=Number(x.character.reaction??1);x.character.freeAction=Number(x.character.freeAction??1);x.character.movement=Number(x.character.movement??30);
+ x.character.spentAction=Number(x.character.spentAction??0);x.character.spentQuickAction=Number(x.character.spentQuickAction??0);x.character.spentReaction=Number(x.character.spentReaction??0);x.character.spentFreeAction=Number(x.character.spentFreeAction??0);x.character.spentMovement=Number(x.character.spentMovement??0);
+ delete x.character.maxAction;delete x.character.maxQuickAction;delete x.character.maxReaction;delete x.character.maxFreeAction;delete x.character.maxMovement;delete x.character.maxShield;
+ const emptyImpactDice=()=>({d4:0,d6:0,d8:0,d10:0,d12:0,d20:0});
+ x.abilities.forEach(o=>{o.impactFlat=Number(o.impactFlat||0);o.impactDice=Object.assign(emptyImpactDice(),o.impactDice||{});o.addCompetenceToImpact=!!o.addCompetenceToImpact});
+ x.items.forEach(o=>{o.impactFlat=Number(o.impactFlat||0);o.impactDice=Object.assign(emptyImpactDice(),o.impactDice||{});o.addCompetenceToImpact=!!o.addCompetenceToImpact});
+ x.effects.forEach(o=>{o.impactFlat=Number(o.impactFlat||0);o.impactDice=Object.assign(emptyImpactDice(),o.impactDice||{});o.addCompetenceToImpact=!!o.addCompetenceToImpact});
+ x.spells.forEach(o=>{o.impactFlat=Number(o.impactFlat||0);o.impactDice=Object.assign(emptyImpactDice(),o.impactDice||{});o.addCompetenceToImpact=!!o.addCompetenceToImpact});
+ x.resources.forEach(o=>{o.impactFlat=Number(o.impactFlat||0);o.impactDice=Object.assign(emptyImpactDice(),o.impactDice||{});o.addCompetenceToImpact=!!o.addCompetenceToImpact});
+ // Los dados de impacto se conservan tal cual estén guardados; no se inventan valores.
+
+ x.items.forEach(o=>{o.impactFlat=Number(o.impactFlat||0);o.addCompetenceToImpact=!!o.addCompetenceToImpact});
+ x.effects.forEach(o=>{o.impactFlat=Number(o.impactFlat||0);o.addCompetenceToImpact=!!o.addCompetenceToImpact});
+ x.spells.forEach(o=>{o.impactFlat=Number(o.impactFlat||0);o.addCompetenceToImpact=!!o.addCompetenceToImpact});
+ x.resources.forEach(o=>{o.impactFlat=Number(o.impactFlat||0);o.addCompetenceToImpact=!!o.addCompetenceToImpact});
+ x.character.stats=Object.assign(clone(DEFAULT.character.stats),x.character.stats||{}); x.alteredStates=Array.isArray(x.alteredStates)?x.alteredStates:[];x.alteredStates=defaultAlteredStates().map(d=>Object.assign(d,x.alteredStates.find(s=>s.id===d.id)||{}));x.alteredStates.forEach(s=>{s.active=!!s.active;s.duration=Math.max(0,Number(s.duration)||0);s.remaining=s.active&&s.duration>0?Math.max(0,Number(s.remaining??s.duration)||0):0});
+ const cap=k=>k[0].toUpperCase()+k.slice(1);
+ ["action","quickAction","reaction","freeAction","movement"].forEach(k=>{
+   const oldMax=x.character["max"+cap(k)];
+   if(x.character[k+"Base"]===undefined)x.character[k+"Base"]=Number(oldMax!==undefined?oldMax:x.character[k]||0);
+   if(x.character[k+"Spent"]===undefined){
+     const oldCurrent=Number(x.character[k]??x.character[k+"Base"]??0);
+     x.character[k+"Spent"]=Math.max(0,Number(x.character[k+"Base"]||0)-oldCurrent);
+   }
+   x.character[k]=Math.max(0,Number(x.character[k+"Base"]||0)-Number(x.character[k+"Spent"]||0));
+   delete x.character["max"+cap(k)];
+ });
+ x.abilities=(x.abilities||[]).map(a=>Object.assign({
+ cooldown:0,cooldownMax:0,duration:"",durationMax:0,durationRemaining:0,runtimeActive:false,
+ usesMax:0,uses:0,recovery:"never",costType:"none",costAmount:0,applies:"",effectId:"",
+ active:true,modifiers:{},damage:{d4:0,d6:0,d8:0,d10:0,d12:0,d20:0,flat:0},gains:{}
+},a));
+x.items=(x.items||[]).map(i=>Object.assign({
+ active:true,passive:"",effect:"",quantity:1,price:i.price??i.cost??0,folderId:"",
+ usesMax:0,uses:0,recovery:"never",costType:"none",costAmount:0,
+ durationMax:0,durationRemaining:0,runtimeActive:false,modifiers:{},
+ damage:{d4:0,d6:0,d8:0,d10:0,d12:0,d20:0,flat:0},gains:{}
+},i));
+x.abilities.forEach(a=>{a.damageStats=normalizeStatBonusList(a.damageStats,a.damageStat,a.damageStatMult);a.impactStats=normalizeStatBonusList(a.impactStats);});
+ x.items.forEach(i=>{i.damageStats=normalizeStatBonusList(i.damageStats,i.damageStat,i.damageStatMult);i.impactStats=normalizeStatBonusList(i.impactStats);});
+ x.spells.forEach(s=>{s.damageStats=normalizeStatBonusList(s.damageStats,s.damageStat,s.damageStatMult);s.impactStats=normalizeStatBonusList(s.impactStats);});
+ x.abilities.forEach(a=>{a.damageParts=normalizeDamageParts(a.damageParts,a.damage);a.damageStats=normalizeDamageStats(a.damageStats);});
+ x.items.forEach(i=>{i.damageParts=normalizeDamageParts(i.damageParts,i.damage);i.damageStats=normalizeDamageStats(i.damageStats);});
+ x.spells.forEach(s=>{s.damageParts=normalizeDamageParts(s.damageParts,s.damage);s.damageStats=normalizeDamageStats(s.damageStats);});
+ x.effects.forEach(e=>{e.damageParts=normalizeDamageParts(e.damageParts,e.damage);e.damageStats=normalizeDamageStats(e.damageStats);}); x.effects.forEach(e=>{e.impactStats=normalizeStatBonusList(e.impactStats);});
+ x.resources=(x.resources||[]).map(r=>Object.assign({
+ id:uid(),name:"Recurso",icon:"📦",current:0,max:0
+},r));
+ x.spellSlots=Object.assign({1:{max:0,current:0},2:{max:0,current:0},3:{max:0,current:0},4:{max:0,current:0},5:{max:0,current:0},6:{max:0,current:0},7:{max:0,current:0},8:{max:0,current:0},9:{max:0,current:0}},x.spellSlots||{});
+ Object.keys(x.spellSlots).forEach(k=>{let s=x.spellSlots[k]||{};x.spellSlots[k]={max:Math.max(0,Number(s.max)||0),current:Math.min(Math.max(0,Number(s.max)||0),Math.max(0,Number(s.current??s.max)||0))}});
+ x.spellFolders=Array.isArray(x.spellFolders)?x.spellFolders:[];x.spellFolders=x.spellFolders.map(f=>Object.assign({id:uid(),name:"Carpeta"},f)).filter(f=>f.name);
+ x.spells=(x.spells||[]).map(s=>Object.assign({
+ id:uid(),name:"Conjuro",icon:"✨",level:0,folderId:"",desc:"",durationMax:0,durationRemaining:0,runtimeActive:false,
+ active:true,usesMax:0,uses:0,recovery:"never",resourceCosts:[],modifiers:{},damage:{d4:0,d6:0,d8:0,d10:0,d12:0,d20:0,flat:0},gains:{},damageStat:"",damageStatMult:1
+ },s));
+ x.spells.forEach(s=>{s.folderId=String(s.folderId||"");s.level=Math.max(0,Math.min(9,Number(s.level)||0));});
+ x.effects=(x.effects||[]).map(e=>Object.assign({
+ active:true,category:"active",duration:3,maxDuration:3,durationRemaining:e.durationRemaining??e.duration??3,
+ usesMax:0,uses:0,recovery:"never",runtimeActive:false,
+ damage:{d4:0,d6:0,d8:0,d10:0,d12:0,d20:0,flat:0},gains:{},modifiers:{}
+},e));
+const normalizeMods=obj=>{let m=Object.assign({},obj.modifiers||{});Object.entries(MODIFIER_ALIASES).forEach(([canon,aliases])=>{let v=aliases.reduce((n,k)=>n+Number(m[k]||0),0);if(v){m[canon]=v;aliases.forEach(k=>{if(k!==canon)delete m[k]})}});obj.modifiers=m;return obj};
+x.abilities.forEach(a=>{normalizeMods(a);a.usesMax=Number(a.usesMax||0);a.uses=a.usesMax?Math.min(a.usesMax,Number(a.uses??a.usesMax)):0;a.costType=a.costType||"none";a.costAmount=Number(a.costAmount||0);a.durationMax=Number(a.durationMax||0);a.durationRemaining=Number(a.durationRemaining||0);});
+x.items.forEach(i=>{normalizeMods(i);i.usesMax=Number(i.usesMax||0);i.uses=i.usesMax?Math.min(i.usesMax,Number(i.uses??i.usesMax)):0;i.costType=i.costType||"none";i.costAmount=Number(i.costAmount||0);i.durationMax=Number(i.durationMax||0);i.durationRemaining=Number(i.durationRemaining||0);});
+x.effects.forEach(e=>{normalizeMods(e);e.usesMax=Number(e.usesMax||0);e.uses=e.usesMax?Math.min(e.usesMax,Number(e.uses??e.usesMax)):0;e.durationRemaining=e.duration===Infinity?Infinity:Number(e.durationRemaining??e.duration??e.maxDuration??0);e.maxDuration=e.maxDuration===Infinity?Infinity:Number(e.maxDuration??e.duration??0);e.active=!!e.active;e.runtimeActive=e.active&&(e.category==="passive"||e.durationRemaining===Infinity||Number(e.durationRemaining)>0);});
+x.turn=x.turn||1;
+ delete x.character.mana;delete x.character.maxMana;
+ x.abilities.forEach(a=>{a.damageStats=normalizeDamageStats(a.damageStats);});
+ x.items.forEach(i=>{i.damageStats=normalizeDamageStats(i.damageStats);});
+ x.effects.forEach(e=>{e.damageStats=normalizeDamageStats(e.damageStats);});
+ x.spells.forEach(s=>{s.damageStats=normalizeDamageStats(s.damageStats);});
+ x.resources.forEach(r=>{r.damageStats=normalizeDamageStats(r.damageStats);});
+ x.abilities.forEach(a=>{delete a.costType;delete a.cost});
+ x.items.forEach(i=>{delete i.costType;delete i.cost});
+ return x;
+}
+function backupKey(){return storageKey()+"_backup";}
+function load(){
+ const key=storageKey();
+ try{
+   const raw=localStorage.getItem(key);
+   if(raw){
+     try{return migrate(JSON.parse(raw));}
+     catch(primaryError){
+       const backup=localStorage.getItem(backupKey());
+       if(backup)return migrate(JSON.parse(backup));
+       throw primaryError;
+     }
+   }
+   if(sheetSlot===1){
+     const legacy=mode==="scp"
+       ?localStorage.getItem(KEY)||localStorage.getItem("character_hub_v4")||localStorage.getItem("character_hub_v4_1")||localStorage.getItem("character_hub_v4_3")
+       :localStorage.getItem(DND_STORAGE_KEY);
+     if(legacy){
+       const migrated=migrate(JSON.parse(legacy));
+       try{localStorage.setItem(key,JSON.stringify(migrated));}catch(e){}
+       const meta=readSheetMeta();meta[1]={name:migrated.character?.name||"Ficha 1"};writeSheetMeta(meta);
+       return migrated;
+     }
+   }
+   const backup=localStorage.getItem(backupKey());
+   if(backup)return migrate(JSON.parse(backup));
+   return emptyModeDefault();
+ }catch(e){
+   console.error("Character Hub: error cargando ficha",e);
+   try{
+     const raw=localStorage.getItem(key);
+     if(raw){
+       const fallback=JSON.parse(raw);
+       fallback.abilities=Array.isArray(fallback.abilities)?fallback.abilities:[];
+       fallback.items=Array.isArray(fallback.items)?fallback.items:[];
+       fallback.effects=Array.isArray(fallback.effects)?fallback.effects:[];
+       fallback.spells=Array.isArray(fallback.spells)?fallback.spells:[];
+       fallback.spellFolders=Array.isArray(fallback.spellFolders)?fallback.spellFolders:[];
+       fallback.resources=Array.isArray(fallback.resources)?fallback.resources:[];
+       fallback.character=Object.assign(clone(DEFAULT.character),fallback.character||{});
+       return fallback;
+     }
+   }catch(recoveryError){console.error("Character Hub: recuperación imposible",recoveryError)}
+   return emptyModeDefault();
+ }
+}
+let data=load();
+data.spellFolders=Array.isArray(data.spellFolders)?data.spellFolders:[];
+data.itemFolders=Array.isArray(data.itemFolders)?data.itemFolders:[];
+data.spells=Array.isArray(data.spells)?data.spells:[];
+data.resources=(data.resources||[]).map(r=>Object.assign({id:uid(),name:"Recurso",icon:"📦",current:0,max:0},r));
+ data.spellSlots=data.spellSlots||{};for(let n=1;n<=9;n++){let s=data.spellSlots[n]||{};s.max=Math.max(0,Number(s.max)||0);s.current=Math.min(s.max,Math.max(0,Number(s.current??s.max)||0));data.spellSlots[n]=s}
+ data.spells=(data.spells||[]).map(s=>Object.assign({id:uid(),name:"Conjuro",icon:"✨",level:0,desc:"",durationMax:0,durationRemaining:0,runtimeActive:false,active:true,usesMax:0,uses:0,recovery:"never",resourceCosts:[],modifiers:{},damage:{d4:0,d6:0,d8:0,d10:0,d12:0,d20:0,flat:0},gains:{},damageStat:"",damageStatMult:1},s));
+ [data.abilities,data.items,data.effects].forEach(arr=>(arr||[]).forEach(o=>{
+ o.costTypes=Array.isArray(o.costTypes)?o.costTypes:[];
+ o.resourceCosts=Array.isArray(o.resourceCosts)?o.resourceCosts:[];
+ o.usesMax=Number(o.usesMax||0); o.uses=Number(o.uses??o.usesMax??0);
+ o.modifiers=o.modifiers||{}; o.gains=o.gains||{}; o.damage=o.damage||{};
+ o.damageStatMult=Math.max(1,Number(o.damageStatMult)||1);
+ o.active=o.active!==false; o.runtimeActive=o.active&&(o.category==="passive"||o.durationRemaining===Infinity||Number(o.durationRemaining)>0);
+}));
+function manualSave(){save();toast("💾 Ficha guardada correctamente")}
+function save(){
+ const key=storageKey(),payload=JSON.stringify(data),previous=localStorage.getItem(key);
+ try{
+   if(previous&&previous!==payload)localStorage.setItem(backupKey(),previous);
+   localStorage.setItem(key,payload);
+   updateSheetMetaFromData();
+ }catch(e){
+   console.error("Character Hub: error guardando ficha",e);
+   toast("⚠️ No se pudo guardar: revisa el almacenamiento del navegador");
+ }
+}
+function esc(s=""){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function toast(t){let e=document.getElementById("toast");if(!e)return;e.textContent=t;e.classList.add("show");clearTimeout(window._toast);window._toast=setTimeout(()=>e.classList.remove("show"),1800)}
+function nav(v){document.querySelectorAll(".view").forEach(e=>e.classList.remove("active"));document.getElementById("view-"+v).classList.add("active");document.querySelectorAll("[data-view]").forEach(e=>e.classList.toggle("active",e.dataset.view===v));let m={home:["Inicio","Todo lo importante del personaje en una sola pantalla."],combat:["Combate","Recursos, habilidades, efectos y objetos."],abilities:["Habilidades","Biblioteca y activación."],items:["Objetos","Inventario y activación."],effects:["Efectos","Buffs, debuffs y modificadores."],resources:["Recursos","Munición, materiales y recursos personalizados."],spells:["Conjuros","Espacios de conjuro y conjuros disponibles."],character:["Ficha","Estadísticas y recursos."]}[v];title.textContent=m[0];subtitle.textContent=m[1];render()}
+document.querySelectorAll("[data-view]").forEach(e=>e.onclick=()=>nav(e.dataset.view));
+function statCards(){let s=data.character.stats;return [["💪","fuerza"],["🏃","agilidad"],["❤️","vitalidad"],["🎯","punteria"],["⭐","experiencia"],["🧠","voluntad"]].map(x=>{let base=Number(s[x[1]]||0),bonus=modifierTotal(x[1]);return `<div class="stat derived-stat"><div class="ico">${x[0]}</div><div class="sn">${esc(N(x[1]))}</div><div class="sv">${base+bonus}</div><div class="stat-base">Base: ${base}</div><div class="stat-bonus">${bonus?((bonus>0?"+":"")+bonus):" "}</div></div>`}).join("")}
+
+function modifierValue(obj,key){
+ const aliases=MODIFIER_ALIASES[key]||[key];
+ return aliases.reduce((sum,k)=>sum+Number((obj||{})[k]||0),0);
+}
+function resourceInfo(key){
+ let c=data.character,base=Number(c[key+"Base"]??c[key]??0),bonus=modifierTotal(key),total=Math.max(0,base+bonus),spent=Math.max(0,Number(c[key+"Spent"]||0)),remaining=Math.max(0,total-spent);
+ return {base,bonus,total,spent,remaining};
+}
+function resourceCard(label,key,icon,step=1){
+ const info=resourceInfo(key);
+ const bonus=info.bonus?`<span class="resource-bonus">${info.bonus>0?"+":""}${info.bonus}</span>`:"";
+ return `<div class="card resource-card-wide v6-resource"><div class="eyebrow">${icon} ${label}</div><div class="resource" style="margin-top:8px"><b>${info.remaining}</b><div class="mini"><button onclick="changeField('${key}',-1)">−</button><button onclick="changeField('${key}',1)">+</button></div></div><div class="resource-note"><span class="resource-base">Base: ${info.base}</span>${bonus?` · Bonus: ${bonus}`:""} · <b>Total: ${info.total}</b></div></div>`
+}
+function changeField(k,d){
+ const c=data.character;
+ if(k==="reflejos"||k==="competencia"){c[k]=Math.max(0,Number(c[k]||0)+d)}
+ else if(k==="hp"){c.hp=Math.max(0,Math.min(c.maxHp,Number(c.hp||0)+d))}
+ else if(["action","quickAction","reaction","freeAction","movement"].includes(k)){
+   const spentKey=k+"Spent",info=resourceInfo(k);
+   if(d<0)c[spentKey]=Math.min(info.total,Number(c[spentKey]||0)+Math.abs(d));
+   else c[spentKey]=Math.max(0,Number(c[spentKey]||0)-d);
+ } else if(k==="shield"){c.shield=Math.max(0,Number(c.shield||0)+d)}
+ save();render()
+}
+function heal(amount){let c=data.character;c.hp=Math.max(0,Math.min(c.maxHp,c.hp+Number(amount||0)));save();render();toast("❤️ +"+amount+" Vida")}
+function damageHp(amount){let c=data.character;c.hp=Math.max(0,c.hp-Number(amount||0));save();render();toast("💥 -"+amount+" Vida")}
+const COST_TYPES=[
+ ["action","⚡ Acción"],["quickAction","⚡ Acción rápida"],
+ ["reaction","↩ Reacción"],["freeAction","🆓 Acción gratuita"]
+];
+const RECOVERY_TYPES=[
+ ["never","Nunca"],["light","Descanso ligero"],["long","Descanso prolongado"]
+];
+function normalizeCosts(o){
+ if(!o)return [];
+ if(Array.isArray(o.costTypes))return o.costTypes.filter(x=>COST_TYPES.some(c=>c[0]===x.type)).map(x=>({type:x.type,amount:Math.max(1,Number(x.amount)||1)}));
+ if(o.costType&&o.costType!=="none"&&Number(o.costAmount||0)>0)return [{type:o.costType,amount:Math.max(1,Number(o.costAmount)||1)}];
+ return [];
+}
+function costLabel(type,amount){
+ const m=Object.fromEntries(COST_TYPES);
+ return `${amount||1} ${m[type]||type}`;
+}
+function costSummary(o){
+ const cs=normalizeCosts(o);
+ return cs.length?cs.map(c=>costLabel(c.type,c.amount)).join(" + "):"Sin coste";
+}
+function costInputs(o,prefix){
+ const cs=normalizeCosts(o), has=t=>cs.find(c=>c.type===t);
+ return `<div class="field full"><label>Coste de turno — puedes seleccionar varias acciones</label><div class="cost-grid">${COST_TYPES.map(([t,l])=>`<label class="cost-option"><input type="checkbox" class="costCheck" data-type="${t}" ${has(t)?"checked":""} onchange="this.parentElement.querySelector('.costAmount').disabled=!this.checked"><span>${l}</span><input type="number" class="costAmount" data-type="${t}" min="1" value="${has(t)?.amount||1}" ${has(t)?"":"disabled"}></label>`).join("")}</div></div>`;
+}
+function readCosts(){
+ return [...document.querySelectorAll(".costCheck:checked")].map(ch=>({type:ch.dataset.type,amount:Math.max(1,Number(document.querySelector(`.costAmount[data-type="${ch.dataset.type}"]`)?.value||1))}));
+}
+function bindCostInputs(){
+ document.querySelectorAll(".costCheck").forEach(ch=>ch.addEventListener("change",()=>{let n=document.querySelector(`.costAmount[data-type="${ch.dataset.type}"]`);if(n)n.disabled=!ch.checked}));
+}
+function canSpendCost(o){
+ const costs=normalizeCosts(o);
+ return costs.every(c=>resourceInfo(c.type).remaining>=c.amount);
+}
+function canSpendResourceCosts(o){
+ const costs=normalizeResourceCosts(o);
+ return costs.every(c=>{let r=data.resources.find(x=>x.id===c.resourceId);return !!r&&Number(r.current)>=c.amount});
+}
+function spendCost(o){
+ const costs=normalizeCosts(o);
+ if(!canSpendCost(o)){const bad=costs.find(c=>resourceInfo(c.type).remaining<c.amount);toast(`❌ No tienes ${costLabel(bad?.type,bad?.amount)||"recursos de turno"} disponible`);return false}
+ costs.forEach(c=>data.character[c.type+"Spent"]=Number(data.character[c.type+"Spent"]||0)+c.amount);
+ return true;
+}
+function useStateText(o){
+ const max=Number(o?.usesMax||0);
+ const uses=Number(o?.uses??(max||0));
+ const useTxt=max>0?`Usos: ${uses}/${max}`:"Usos: ∞";
+ const cd=Number(o?.cooldown||0);
+ return cd>0?`${useTxt} · Cooldown: ${cd}`:useTxt;
+}
+function recoveryText(o){
+ const r=o?.recovery;
+ return r==="light"?"🌙 Recupera: descanso ligero":r==="long"?"🛏️ Recupera: descanso prolongado":"";
+}
+function durationText(o){
+ if(!o)return "";
+ const d=o.durationRemaining;
+ if(o.runtimeActive&&d===Infinity)return "⏳ Permanente";
+ if(o.runtimeActive&&Number(d)>0)return `⏳ ${d} turno${Number(d)===1?"":"s"}`;
+ if(Number(o.durationMax)>0)return `Duración: ${o.durationMax} turno${Number(o.durationMax)===1?"":"s"}`;
+ return "";
+}
+function consumeUse(o){
+ const max=Number(o?.usesMax||0);
+ if(max<=0)return true;
+ const cur=Math.max(0,Number(o.uses??max));
+ if(cur<=0){toast(`💤 ${o.name||"Recurso"} gastado`);return false}
+ o.uses=cur-1;
+ return true;
+}
+function normalizeResourceCosts(o){
+ const a=Array.isArray(o?.resourceCosts)?o.resourceCosts:[];
+ return a.map(x=>({resourceId:String(x.resourceId||""),amount:Math.max(1,Number(x.amount)||1)})).filter(x=>data.resources.some(r=>r.id===x.resourceId));
+}
+function resourceCostSummary(o){
+ const cs=normalizeResourceCosts(o);
+ return cs.length?cs.map(c=>{let r=data.resources.find(x=>x.id===c.resourceId);return `${c.amount} ${r?.icon||"📦"} ${r?.name||"Recurso"}`}).join(" + "):"Sin coste de recursos";
+}
+function resourceCostInputs(o,prefix){
+ const cs=normalizeResourceCosts(o);
+ if(!data.resources.length)return `<div class="field full"><label>Coste de recursos</label><div class="help">No tienes recursos creados todavía. Crea primero uno en «Recursos».</div></div>`;
+ return `<div class="field full"><label>Coste de recursos — se descuentan al pulsar «Usar»</label><div class="resource-cost-grid">${data.resources.map(r=>{let c=cs.find(x=>x.resourceId===r.id);return `<label class="cost-option resource-cost-option"><input type="checkbox" class="resourceCostCheck" data-resource="${r.id}" ${c?"checked":""} onchange="this.parentElement.querySelector('.resourceCostAmount').disabled=!this.checked"><span>${esc(r.icon||"📦")} ${esc(r.name)}</span><input type="number" class="resourceCostAmount" data-resource="${r.id}" min="1" value="${c?.amount||1}" ${c?"":"disabled"}></label>`}).join("")}</div></div>`;
+}
+function readResourceCosts(){
+ return [...document.querySelectorAll(".resourceCostCheck:checked")].map(ch=>({resourceId:ch.dataset.resource,amount:Math.max(1,Number(document.querySelector(`.resourceCostAmount[data-resource="${ch.dataset.resource}"]`)?.value||1))}));
+}
+function spendResourceCosts(o){
+ const costs=normalizeResourceCosts(o);
+ for(const c of costs){
+   const r=data.resources.find(x=>x.id===c.resourceId);
+   if(!r || Number(r.current)<c.amount){toast(`❌ No tienes ${c.amount} ${r?.name||"recurso"} disponible`);return false}
+ }
+ costs.forEach(c=>{let r=data.resources.find(x=>x.id===c.resourceId);r.current=Math.max(0,Number(r.current)-c.amount)});
+ return true;
+}
+function resourceCardCustom(r){
+ const cur=Math.max(0,Number(r.current)||0),max=Math.max(0,Number(r.max)||0);
+ const mods=Object.entries(r.modifiers||{}).filter(([k,v])=>v).map(([k,v])=>`${N(k)} ${v>0?"+":""}${v}`).join(" · ");
+ return `<article class="item resource-custom"><div class="itemtop"><div class="icon">${esc(r.icon||"📦")}</div><div style="flex:1"><h3>${esc(r.name||"Recurso")}</h3><div class="muted">RECURSO · ${max>0?`Máx. ${max}`:"sin máximo"}</div></div></div>
+ ${r.giveMode==="bonus"&&(mods||formatDamage(r.damage||{})!=="0"||(r.impactStats||[]).length)?`<div class="tags"><span class="tag good">✨ Aporta mejoras</span>${mods?`<span class="tag">📈 ${esc(mods)}</span>`:""}${formatDamage(r.damage||{})!=="0"?`<span class="tag">💥 ${esc(formatDamage(r.damage))}</span>`:""}${(r.impactStats||[]).length?`<span class="tag">🎯 Bon. Impactar</span>`:""}</div>`:""}
+ <div class="resource-counter"><button class="btn small" onclick="changeCustomResource('${r.id}',-1)">−</button><div><b>${cur}</b>${max>0?`<span> / ${max}</span>`:""} </div><button class="btn small" onclick="changeCustomResource('${r.id}',1)">+</button></div>
+ ${max>0?`<div class="bar"><i style="width:${Math.min(100,cur/max*100)}%"></i></div>`:""}
+ <div class="actions"><button class="btn small" onclick="editResource('${r.id}')">✏ Editar</button><button class="btn small danger" onclick="removeResource('${r.id}')">🗑</button></div></article>`;
+}
+function changeCustomResource(id,d){let r=data.resources.find(x=>x.id===id);if(!r)return;r.current=Math.max(0,Number(r.current||0)+d);if(Number(r.max)>0)r.current=Math.min(Number(r.max),r.current);save();render()}
+function setCustomResource(id,v){let r=data.resources.find(x=>x.id===id);if(!r)return;r.current=Math.max(0,Number(v)||0);if(Number(r.max)>0)r.current=Math.min(Number(r.max),r.current);save();render()}
+function openResource(o=null){
+ openModal(`<div class="modalhead"><h2>${o?"✏ Editar":"＋ Nuevo"} recurso</h2><button class="btn small" onclick="closeModal()">✕</button></div>
+ <div class="editor-grid">${f("Nombre","resourceName",o?.name||"Balas")}${emojiPicker(o?.icon||"📦","resourceIcon")}${f("Cantidad máxima (0 = sin máximo)","resourceMax",o?.max||0,"number")}${f("Cantidad actual","resourceCurrent",o?.current??o?.max??0,"number")}</div>
+ <div class="field"><label>✨ ¿Este recurso aporta algo?</label><select id="resourceGiveMode"><option value="none" ${o?.giveMode!=="bonus"?"selected":""}>🚫 No da nada</option><option value="bonus" ${o?.giveMode==="bonus"?"selected":""}>✨ Sí, aporta mejoras</option></select></div>
+ <div class="grant-box" style="margin-top:10px"><div class="eyebrow">📈 MEJORAS DEL RECURSO</div><div class="muted">Se aplican mientras este recurso tenga mejoras configuradas.</div>
+ <div class="grant-grid">${["fuerza","agilidad","vitalidad","punteria","experiencia","voluntad","daño","reflejos","movimiento","curación","escudo","defensa","competencia","precisión","crítico","acciones","acción rápida","reacción","acción gratuita"].map(k=>`<div class="field"><label>${esc(N(k))}</label><input class="resourceMod" data-key="${esc(k)}" type="number" value="${o?.modifiers?.[k]||0}"></div>`).join("")}</div>
+ <div class="section" style="margin:12px 0 7px"><h2>💥 Dados / daño</h2></div>${damagePartsEditor("resourceDamageParts",o)}
+ <div class="impact-config"><div class="field"><label>🎯 Bon. Impactar fijo</label><input id="rImpactFlat" type="number" step="1" value="${o?.impactFlat||0}" placeholder="0"></div><label class="checkline"><input id="rCompetenceImpact" type="checkbox" ${o?.addCompetenceToImpact?"checked":""}> 🎓 Añadir Competencia al Bon. Impactar</label></div>${impactDiceEditor("rImpactDice",o?.impactDice)}${statBonusEditor("resourceImpactStats","🎯 Estadísticas que suman al Bon. Impactar",o?.impactStats)}
+ </div>
+ <div class="help" style="margin-top:10px">Ejemplos: 🔫 Balas, 💣 Granadas, 🧪 Pólvora, 🔥 Puntos de fuego.</div>Ejemplos: 🔫 Balas, 💣 Granadas, 🧪 Pólvora, 🔥 Puntos de fuego. Los botones + y − sirven para gastar o recuperar unidades rápidamente.</div>
+ <div class="modalfoot"><button class="btn" onclick="closeModal()">Salir</button><button class="btn primary" onclick="saveResource('${o?.id||""}')">Guardar</button></div>`);
+}
+function saveResource(existing){
+ let r=data.resources.find(x=>x.id===existing);
+ let max=Math.max(0,+resourceMax.value||0),cur=Math.max(0,+resourceCurrent.value||0);
+ if(max>0)cur=Math.min(max,cur);
+ let modifiers={};document.querySelectorAll(".resourceMod").forEach(x=>{if(+x.value)modifiers[x.dataset.key]=+x.value});
+ let damageParts=readDamageParts("resourceDamageParts");
+ let o={id:existing||uid(),name:resourceName.value.trim()||"Recurso",icon:resourceIcon.value||"📦",max,current:cur,giveMode:resourceGiveMode.value==="bonus"?"bonus":"none",modifiers,damageParts,damage:legacyDamageFromParts(damageParts),impactStats:readStatBonuses("resourceImpactStats"),impactDice:readImpactDice("rImpactDice"),impactFlat:+rImpactFlat.value||0,addCompetenceToImpact:rCompetenceImpact.checked};
+ let i=data.resources.findIndex(x=>x.id===o.id);if(i>=0)data.resources[i]=o;else data.resources.push(o);
+ save();closeModal();render();toast("Recurso guardado");
+}
+function editResource(id){openResource(data.resources.find(x=>x.id===id))}
+function removeResource(id){if(confirm("¿Eliminar este recurso? Las habilidades y objetos que lo usen dejarán de cobrarlo.")){data.resources=data.resources.filter(x=>x.id!==id);save();render();toast("Recurso eliminado")}}
+function spellSlotSummary(level){let s=data.spellSlots[level]||{max:0,current:0};return `${s.current}/${s.max}`}
+function changeSpellSlot(level,d){
+ let s=data.spellSlots[level]||(data.spellSlots[level]={max:0,current:0});
+ s.current=Math.max(0,Math.min(Number(s.max)||0,Number(s.current||0)+d));
+ save();render();
+}
+function setSpellSlotMax(level,v){
+ let s=data.spellSlots[level]||(data.spellSlots[level]={max:0,current:0});
+ s.max=Math.max(0,Number(v)||0);
+ s.current=Math.min(s.max,Math.max(0,Number(s.current??0)||0));
+ save();render();
+}
+function setSpellSlotCurrent(level,v){
+ let s=data.spellSlots[level]||(data.spellSlots[level]={max:0,current:0});
+ s.current=Math.max(0,Math.min(Number(s.max)||0,Number(v)||0));
+ save();render();
+}
+function spellSlotsPanel(){
+ return `<div class="card"><div class="section" style="margin:0 0 10px"><div><h2>🔮 Espacios de conjuro</h2><span>Configura manualmente cuántos espacios tienes y cuántos te quedan. Los botones −/+ sirven para gastar o recuperar.</span></div></div><div class="spell-slots">${[1,2,3,4,5,6,7,8,9].map(n=>{let s=data.spellSlots[n]||{max:0,current:0};return `<div class="spell-slot">
+ <div class="spell-slot-title"><b>Nivel ${n}</b><span class="tag">🔮 ${s.current}/${s.max}</span></div>
+ <div class="slot-fields">
+  <label>Máximo<input type="number" min="0" value="${s.max}" onchange="setSpellSlotMax(${n},this.value)"></label>
+  <label>Disponibles<input type="number" min="0" max="${s.max}" value="${s.current}" onchange="setSpellSlotCurrent(${n},this.value)"></label>
+ </div>
+ <div class="slot-controls"><button class="btn small" onclick="changeSpellSlot(${n},-1)">−</button><strong>${s.current} disponibles</strong><button class="btn small" onclick="changeSpellSlot(${n},1)">+</button></div>
+ </div>`}).join("")}</div></div>`;
+}
+function spellCard(s){
+ const lvl=Math.max(0,Math.min(9,Number(s.level)||0)),isTrick=lvl===0,slot=isTrick?{max:0,current:0}:(data.spellSlots[lvl]||{max:0,current:0}),spent=s.usesMax>0&&Number(s.uses||0)<=0;
+ const ready=(isTrick||slot.current>0)&&!spent&&s.active;
+ const levelLabel=isTrick?"✨ TRUCO · NIVEL 0":`CONJURO · NIVEL ${lvl}`;
+ const slotLabel=isTrick?"✨ No consume espacio de conjuro":`🔮 Espacio: nivel ${lvl} · ${slot.current}/${slot.max}`;
+ return `<article class="item ${s.active?"":"inactive"}"><div class="itemtop"><div class="icon">${esc(s.icon||"✨")}</div><div style="flex:1"><h3>${esc(s.name)}</h3><div class="muted">${levelLabel} · ${s.active?"DISPONIBLE":"DESACTIVADO"}</div></div><label class="toggle"><input type="checkbox" ${s.active?"checked":""} onchange="toggleSpell('${s.id}')"><span></span></label></div>
+ <div class="desc">${esc(s.desc||"Sin descripción.")}</div><div class="tags"><span class="tag">⚡ ${esc(costSummary(s))}</span><span class="tag">${slotLabel}</span>${normalizeResourceCosts(s).length?`<span class="tag">📦 ${esc(resourceCostSummary(s))}</span>`:""}${durationText(s)?`<span class="tag">${esc(durationText(s))}</span>`:""}${spent?`<span class="tag warn">💤 Gastado</span>`:""}${s.runtimeActive?`<span class="tag good">⚡ EN CURSO</span>`:""}${s.damageStat&&Number(s.damageStatMult)>1?`<span class="tag">📊 ${Number(s.damageStatMult)}× ${esc(N(s.damageStat))}</span>`:""}</div>
+ <div class="actions">${ready?`<button class="btn small primary" onclick="useSpell('${s.id}')">▶ Usar</button>`:`<button class="btn small" disabled>⌛ ${spent?"Gastado":slot.current<=0?"Sin espacio":"No disponible"}</button>`}<button class="btn small" onclick="askDuplicateSpell('${s.id}')" title="Crear una copia editable para otro nivel">📑 Duplicar nivel</button><button class="btn small" onclick="editSpell('${s.id}')">✏</button><button class="btn small danger" onclick="removeSpell('${s.id}')">🗑</button></div></article>`;
+}
+function toggleSpell(id){let s=data.spells.find(x=>x.id===id);if(s)s.active=!s.active;save();render()}
+function useSpell(id){
+ let s=data.spells.find(x=>x.id===id);if(!s||!s.active)return toast("Conjuro no disponible");
+ let lvl=Math.max(0,Math.min(9,Number(s.level)||0)),isTrick=lvl===0,slot=isTrick?null:(data.spellSlots[lvl]||(data.spellSlots[lvl]={max:0,current:0}));
+ if(!isTrick&&slot.current<=0)return toast(`❌ No tienes espacios de conjuro de nivel ${lvl}`);
+ if(s.usesMax>0&&Number(s.uses||0)<=0)return toast("💤 Conjuro gastado");
+ if(!canSpendCost(s)){spendCost(s);return}
+if(!canSpendResourceCosts(s)){let c=normalizeResourceCosts(s).find(x=>{let r=data.resources.find(r=>r.id===x.resourceId);return !r||Number(r.current)<x.amount});toast(`❌ No tienes ${c?.amount||1} unidades del recurso disponible`);return}
+if(!spendCost(s)||!spendResourceCosts(s)||!consumeUse(s))return;
+ if(!isTrick)slot.current--;
+ startDuration(s);
+ applyGains(s.gains);
+ save();render();toast("🔮 "+s.name+" usado");
+}
+function openSpell(o=null){
+ const recOpts=RECOVERY_TYPES.map(([v,l])=>`<option value="${v}" ${o?.recovery===v?"selected":""}>${N(v)}</option>`).join("");
+ const lvl=Math.max(0,Math.min(9,Number(o?.level)||0));
+ openModal(`<div class="modalhead"><h2>${o?"✏ Editar":"＋ Nuevo"} conjuro</h2><button class="btn small" onclick="closeModal()">✕</button></div>
+ <div class="editor-grid">${f("Nombre","spellName",o?.name||"")}${emojiPicker(o?.icon||"✨","spellIcon")}<div class="field"><label>Nivel de conjuro</label><select id="spellLevel"><option value="0" ${lvl===0?"selected":""}>✨ Truco · Nivel 0</option>${[1,2,3,4,5,6,7,8,9].map(n=>`<option value="${n}" ${lvl===n?"selected":""}>Nivel ${n}</option>`).join("")}</select></div><div class="field"><label>📁 Carpeta</label><select id="spellFolder" onchange="if(this.value==='__new__'){const id=createSpellFolder();this.value=id||'';}">${spellFolderOptions(o?.folderId||"")}</select></div>${f("Duración (turnos, 0 = instantáneo)","spellDuration",o?.durationMax||0,"number")}</div>
+ <div class="field"><label>Descripción</label><textarea id="spellDesc">${esc(o?.desc||"")}</textarea></div>
+ ${costInputs(o,"s")}${resourceCostInputs(o,"s")}
+ <div class="editor-grid"><div class="field"><label>Usos máximos (0 = ilimitado)</label><input id="spellUseMax" type="number" min="0" value="${o?.usesMax||0}"></div>${f("Usos actuales","spellUse",o?.uses??(o?.usesMax||0),"number")}<div class="field"><label>Recuperación</label><select id="spellRec">${recOpts}</select></div></div>
+ <div class="grant-box"><div class="eyebrow">📈 EFECTOS DEL CONJURO</div><div class="muted">Mismos modificadores, daño y ganancias que los efectos, pero guardados aparte.</div><div class="grant-grid">${["fuerza","agilidad","vitalidad","punteria","experiencia","voluntad","daño","reflejos","movimiento","curación","escudo","defensa","competencia","precisión","acciones","acción rápida","reacción","acción gratuita"].map(k=>`<div class="field"><label>${esc(k==="acciones"?"Acciones":k==="acción rápida"?"Acción rápida":k==="reacción"?"Reacción":k==="acción gratuita"?"Acción gratuita":N(k))}</label><input class="spellMod" data-key="${esc(k)}" type="number" value="${o?.modifiers?.[k]||0}"></div>`).join("")}</div></div>
+ <div class="section" style="margin:12px 0 7px"><h2>❤️ Recupera / concede al usar</h2><span>Se aplica una vez al lanzar el conjuro.</span></div><div class="grant-box"><div class="grant-grid">${["hp","shield","action","quickAction","reaction","freeAction","movement"].map(k=>`<div class="field"><label>${k==="hp"?"Vida":k==="shield"?N("escudo"):k==="action"?"Acciones":k==="quickAction"?"Acción rápida":k==="freeAction"?"Acción gratuita":k==="reaction"?"Reacción":"Movimiento"}</label><input class="spellGain" data-key="${k}" type="number" value="${o?.gains?.[k]||0}"></div>`).join("")}</div></div>
+ <div class="section" style="margin:12px 0 7px"><h2>💥 Dados de daño</h2></div>${damagePartsEditor("spellDamageParts",o)}
+ ${damageStatBonusEditor("spellDamageStats","📊 Estadísticas que suman al daño",o?.damageStats)}<div class="impact-config"><div class="field"><label>🎯 Bon. Impactar fijo</label><input id="sImpactFlat" type="number" step="1" value="${o?.impactFlat||0}" placeholder="0"></div><label class="checkline"><input id="sCompetenceImpact" type="checkbox" ${o?.addCompetenceToImpact?"checked":""}> 🎓 Añadir Competencia al Bon. Impactar</label></div>${impactDiceEditor("sImpactDice",o?.impactDice)}${statBonusEditor("spellImpactStats","🎯 Estadísticas que suman al Bon. Impactar",o?.impactStats)}
+ <div class="modalfoot"><button class="btn" onclick="closeModal()">Salir</button><button class="btn primary" onclick="saveSpell('${o?.id||""}')">Guardar</button></div>`);
+}
+function saveSpell(existing){
+ let old=data.spells.find(x=>x.id===existing),modifiers={},damageParts=readDamageParts("spellDamageParts");
+ let gains={};document.querySelectorAll(".spellGain").forEach(x=>{if(+x.value)gains[x.dataset.key]=+x.value});
+ document.querySelectorAll(".spellMod").forEach(x=>{if(+x.value)modifiers[x.dataset.key]=+x.value});
+ let maxUses=Math.max(0,+spellUseMax.value||0),curUses=maxUses?Math.min(maxUses,Math.max(0,+spellUse.value||0)):0,dur=Math.max(0,+spellDuration.value||0);
+ let o={id:existing||uid(),name:spellName.value.trim()||"Conjuro",icon:spellIcon.value||"✨",level:Math.max(0,Math.min(9,Number(spellLevel.value)||0)),folderId:spellFolder.value==="__new__"?"":spellFolder.value,desc:spellDesc.value,durationMax:dur,durationRemaining:old?.durationRemaining||dur,runtimeActive:old?.runtimeActive||false,active:old?.active??true,usesMax:maxUses,uses:curUses,recovery:spellRec.value,resourceCosts:readResourceCosts(),costTypes:readCosts(),modifiers,damage:legacyDamageFromParts(damageParts),damageParts,gains,damageStats:readDamageStats("spellDamageStats"),impactStats:readStatBonuses("spellImpactStats"),impactDice:readImpactDice("sImpactDice"),impactFlat:+sImpactFlat.value||0,addCompetenceToImpact:sCompetenceImpact.checked,damageStat:"",damageStatMult:1};
+ let i=data.spells.findIndex(x=>x.id===o.id);if(i>=0)data.spells[i]=o;else data.spells.push(o);save();closeModal();render();toast("Conjuro guardado");
+}
+function editSpell(id){openSpell(data.spells.find(x=>x.id===id))}
+function removeSpell(id){if(confirm("¿Eliminar este conjuro?")){data.spells=data.spells.filter(x=>x.id!==id);save();render();toast("Conjuro eliminado")}}
+function renderResources(){
+ const list=document.getElementById("resourceList");if(list)list.innerHTML=data.resources.map(resourceCardCustom).join("")||`<div class="empty">No tienes recursos creados. Añade balas, granadas, pólvora, puntos de fuego, etc.</div>`;
+ const home=document.getElementById("homeResourcesCustom");if(home)home.innerHTML=data.resources.map(resourceCardCustom).join("")||`<div class="empty">No hay recursos.</div>`;
+ const combat=document.getElementById("combatResourcesCustom");if(combat)combat.innerHTML=data.resources.map(resourceCardCustom).join("")||`<div class="empty">No hay recursos.</div>`;
+}
+function itemFolderById(id){return data.itemFolders.find(f=>f.id===id)}
+function itemFolderOptions(selected=""){return `<option value="">📂 Sin carpeta</option>`+data.itemFolders.map(f=>`<option value="${esc(f.id)}" ${selected===f.id?"selected":""}>📁 ${esc(f.name)}</option>`).join("")+`<option value="__new__">＋ Crear nueva carpeta...</option>`}
+function createItemFolder(){const name=prompt("Nombre de la carpeta de objetos:","Armas");if(!name||!name.trim())return "";const f={id:uid(),name:name.trim()};data.itemFolders.push(f);save();render();toast("📁 Carpeta creada: "+f.name);return f.id}
+function deleteItemFolder(id){const f=itemFolderById(id);if(!f)return;if(!confirm(`¿Eliminar la carpeta «${f.name}»? Los objetos no se eliminarán.`))return;data.items.forEach(i=>{if(i.folderId===id)i.folderId=""});data.itemFolders=data.itemFolders.filter(x=>x.id!==id);save();render();toast("📁 Carpeta eliminada")}
+function renderCombatItems(){
+ const active=data.items.filter(i=>i.active),loose=active.filter(i=>!i.folderId);
+ const folders=data.itemFolders.map(f=>{const list=active.filter(i=>i.folderId===f.id);if(!list.length)return "";return `<details class="spell-folder item-folder" open><summary><span>📁 ${esc(f.name)}</span><small>${list.length} objeto${list.length===1?"":"s"}</small></summary><div class="folder-spells">${list.map(itemCard).join("")}</div></details>`}).join("");
+ return loose.map(itemCard).join("")+folders;
+}
+function spellFolderById(id){return data.spellFolders.find(f=>f.id===id)}
+function spellFolderOptions(selected=""){return `<option value="">📂 Sin carpeta</option>`+data.spellFolders.map(f=>`<option value="${esc(f.id)}" ${selected===f.id?"selected":""}>📁 ${esc(f.name)}</option>`).join("")+`<option value="__new__">＋ Crear nueva carpeta...</option>`}
+function createSpellFolder(){const name=prompt("Nombre de la carpeta de conjuros:","Bola de fuego");if(!name||!name.trim())return "";const f={id:uid(),name:name.trim()};data.spellFolders.push(f);save();render();toast("📁 Carpeta creada: "+f.name);return f.id}
+function deleteSpellFolder(id){const f=spellFolderById(id);if(!f)return;if(!confirm(`¿Eliminar la carpeta «${f.name}»? Los conjuros no se eliminarán.`))return;data.spells.forEach(s=>{if(s.folderId===id)s.folderId=""});data.spellFolders=data.spellFolders.filter(x=>x.id!==id);save();render();toast("📁 Carpeta eliminada")}
+function askDuplicateSpell(id){const src=data.spells.find(s=>s.id===id);if(!src)return;const raw=prompt(`¿A qué nivel quieres copiar «${src.name}»? (0-9)`,String(Math.min(9,(Number(src.level)||0)+1)));if(raw===null)return;const lvl=Number(raw);if(!Number.isInteger(lvl)||lvl<0||lvl>9)return toast("❌ El nivel debe estar entre 0 y 9");const copy=clone(src);copy.id=uid();copy.level=lvl;copy.name=`${src.name} · Nivel ${lvl}`;copy.active=true;copy.runtimeActive=false;copy.durationRemaining=copy.durationMax||0;if(copy.usesMax>0)copy.uses=copy.usesMax;data.spells.push(copy);save();render();toast(`🔮 Copia creada: ${copy.name}`)}
+function renderSpellFolder(id){const f=spellFolderById(id),list=data.spells.filter(s=>s.folderId===id);return `<details class="spell-folder" open><summary><span>📁 ${esc(f?.name||"Carpeta")}</span><small>${list.length} conjuro${list.length===1?"":"s"}</small><button class="btn small danger folder-delete" onclick="event.preventDefault();event.stopPropagation();deleteSpellFolder('${id}')">🗑</button></summary><div class="folder-spells">${list.map(spellCard).join("")||`<div class="empty">Carpeta vacía.</div>`}</div></details>`}
+function renderCombatSpells(){
+ const active=data.spells.filter(s=>s.active);
+ const loose=active.filter(s=>!s.folderId);
+ const folders=data.spellFolders.map(f=>{
+   const list=active.filter(s=>s.folderId===f.id);
+   if(!list.length)return "";
+   return `<details class="spell-folder" open><summary><span>📁 ${esc(f.name)}</span><small>${list.length} conjuro${list.length===1?"":"s"}</small></summary><div class="folder-spells">${list.map(spellCard).join("")}</div></details>`;
+ }).join("");
+ return loose.map(spellCard).join("")+folders;
+}
+
+function renderSpells(){
+ data.spells=Array.isArray(data.spells)?data.spells:[];
+ data.spellFolders=Array.isArray(data.spellFolders)?data.spellFolders:[];
+ const loose=data.spells.filter(s=>!s.folderId),folders=data.spellFolders.map(f=>renderSpellFolder(f.id)).join("");
+ const markup=loose.map(spellCard).join("")+folders,finalMarkup=markup||`<div class="empty">No tienes conjuros creados.</div>`;
+ const list=document.getElementById("spellList");if(list)list.innerHTML=finalMarkup;
+ const home=document.getElementById("homeSpellList");if(home)home.innerHTML=finalMarkup;
+ const hs=document.getElementById("homeSpellSlots");if(hs)hs.innerHTML=spellSlotsPanel();
+ const ds=document.getElementById("spellSlotsDedicated");if(ds)ds.innerHTML=spellSlotsPanel();
+}
+
+function abilityCostText(a){return `${costSummary(a)} · ${useStateText(a)}`;}
+
+function abilityCard(a){
+ const spent=a.usesMax>0&&Number(a.uses||0)<=0,cd=Number(a.cooldown||0);
+ const ready=cd<=0&&!spent,run=a.runtimeActive;
+ return `<article class="item ${a.active?"":"inactive"}">
+ <div class="itemtop"><div class="icon">${esc(a.icon||"✨")}</div><div style="flex:1"><h3>${esc(a.name)}</h3>
+ <div class="muted">${esc(a.type||"Habilidad")} · ${a.active?'<span class="active-mark">ACTIVA</span>':'<span class="inactive-mark">DESACTIVADA</span>'}</div></div>
+ <label class="toggle"><input type="checkbox" ${a.active?"checked":""} onchange="toggleAbility('${a.id}')"><span></span></label></div>
+ <div class="desc">${esc(a.desc||"Sin descripción.")}</div>
+ <div class="tags"><span class="tag">🎯 ${esc(costSummary(a))}</span>${normalizeResourceCosts(a).length?`<span class="tag">📦 ${esc(resourceCostSummary(a))}</span>`:""}<span class="tag ${spent?"warn":"good"}">${esc(useStateText(a))}</span>${recoveryText(a)?`<span class="tag">${esc(recoveryText(a))}</span>`:""}${cd?`<span class="tag warn">↻ ${cd} turnos</span>`:""}${durationText(a)?`<span class="tag">${esc(durationText(a))}</span>`:""}${run?`<span class="tag good">⚡ EN CURSO</span>`:""}${a.applies?`<span class="tag">🔥 ${esc(a.applies)}</span>`:""}${a.damageStat&&Number(a.damageStatMult)>1?`<span class="tag">📊 ${Number(a.damageStatMult)}× ${esc(N(a.damageStat))}</span>`:""}</div>
+ <div class="actions">${ready&&a.active?`<button class="btn small primary" onclick="useAbility('${a.id}')">▶ Usar</button>`:`<button class="btn small" disabled>${spent?"💤 Gastada":"⌛"}</button>`}<button class="btn small" onclick="editAbility('${a.id}')">✏</button><button class="btn small danger" onclick="removeAbility('${a.id}')">🗑</button></div></article>`
+}
+function itemCard(i){
+ const spent=i.usesMax>0&&Number(i.uses||0)<=0;
+ let mods=Object.entries(i.modifiers||{}).filter(([k,v])=>v).map(([k,v])=>`${N(k)} ${v>0?"+":""}${v}`).join(" ");
+ return `<article class="item ${i.active?"":"inactive"}"><div class="itemtop"><div class="icon">${esc(i.icon||"🎒")}</div><div style="flex:1"><h3>${esc(i.name)}</h3><div class="muted">${esc(i.type||"Objeto")} · ×${i.quantity??1} · ${i.active?'<span class="active-mark">ACTIVO</span>':'<span class="inactive-mark">DESACTIVADO</span>'}</div></div><label class="toggle"><input type="checkbox" ${i.active?"checked":""} onchange="toggleItem('${i.id}')"><span></span></label></div>
+ <div class="desc">${esc(i.desc||"Sin descripción.")}</div><div class="tags">${i.price!==undefined?`<span class="tag">💰 ${esc(i.price)}</span>`:""}<span class="tag">🎯 ${esc(costSummary(i))}</span>${normalizeResourceCosts(i).length?`<span class="tag">📦 ${esc(resourceCostSummary(i))}</span>`:""}<span class="tag ${spent?"warn":"good"}">${esc(useStateText(i))}</span>${recoveryText(i)?`<span class="tag">${esc(recoveryText(i))}</span>`:""}${durationText(i)?`<span class="tag">${esc(durationText(i))}</span>`:""}${formatDamage(i.damage||{})!=="0"?`<span class="tag">💥 ${esc(formatDamage(i.damage))}</span>`:""}${mods?`<span class="tag">📈 ${esc(mods)}</span>`:""}${i.passive?`<span class="tag">♾ ${esc(i.passive)}</span>`:""}${i.effect?`<span class="tag">🔥 ${esc(i.effect)}</span>`:""}${i.impactFlat?`<span class="tag">🎯 ${i.impactFlat>0?"+":""}${i.impactFlat} impacto</span>`:""}${i.addCompetenceToImpact?`<span class="tag good">🎓 +Competencia al impacto</span>`:""}${i.damageStat&&Number(i.damageStatMult)>1?`<span class="tag">📊 ${Number(i.damageStatMult)}× ${esc(N(i.damageStat))}</span>`:""}</div>
+ <div class="actions"><button class="btn small ${spent?"":"primary"}" onclick="useItem('${i.id}')" ${spent?"disabled":""}>${spent?"💤 Gastado":"▶ Usar"}</button><button class="btn small" onclick="editItem('${i.id}')">✏</button><button class="btn small danger" onclick="removeItem('${i.id}')">🗑</button></div></article>`
+}
+function effectCard(e){
+ let d=e.durationRemaining===Infinity?"∞":Number(e.durationRemaining??e.duration??0);
+ let mods=Object.entries(e.modifiers||{}).filter(([k,v])=>v).map(([k,v])=>`${esc(N(k))} ${v>0?"+":""}${v}`).join(" · "),damage=formatDamage(e.damage);
+ const spent=e.usesMax>0&&Number(e.uses||0)<=0;
+ return `<article class="item effect ${e.type==="Debuff"?"debuff":d===1?"warn":""} ${e.active?"":"inactive"}"><div class="itemtop"><div class="icon">${esc(e.icon||"✨")}</div><div style="flex:1"><h3>${esc(e.name)}</h3><div class="muted">${esc(e.type||"Efecto")} · ${e.category==="passive"?"♾ PASIVO":"⚡ ACTIVO"} · <b>${d==="∞"?"PERMANENTE":d+" turno"+(d==1?"":"s")}</b></div></div><label class="toggle"><input type="checkbox" ${e.active?"checked":""} onchange="toggleEffect('${e.id}')"><span></span></label></div>
+ <div class="desc">${esc(e.desc||"Sin descripción.")}</div><div class="tags"><span class="tag ${spent?"warn":"good"}">${esc(useStateText(e))}</span>${recoveryText(e)?`<span class="tag">${esc(recoveryText(e))}</span>`:""}${e.runtimeActive?`<span class="tag good">⚡ EN CURSO</span>`:""}${mods?`<span class="tag">📈 ${mods}</span>`:""}${damage!=="0"?`<span class="tag">💥 Daño: ${esc(damage)}</span>`:""}</div>
+ <div class="actions"><button class="btn small" onclick="editEffect('${e.id}')">✏</button><button class="btn small danger" onclick="removeEffect('${e.id}')">🗑</button></div></article>`
+}
+function toggleAbility(id){let a=data.abilities.find(x=>x.id===id);if(a)a.active=!a.active;save();render();toast(a?.active?"Habilidad activada":"Habilidad desactivada")}
+function toggleItem(id){let i=data.items.find(x=>x.id===id);if(i)i.active=!i.active;save();render();toast(i?.active?"Objeto activado":"Objeto desactivado")}
+function toggleEffect(id){
+ let e=data.effects.find(x=>x.id===id);if(!e)return;
+ if(e.active){
+   e.active=false;
+   e.runtimeActive=false;
+ }else{
+   if(!consumeUse(e))return;
+   e.active=true;
+   if(e.category==="passive"){
+     e.durationRemaining=Infinity;
+     e.runtimeActive=true;
+   }else{
+     e.durationRemaining=e.maxDuration===Infinity?Infinity:Number(e.maxDuration||e.duration||1);
+     e.runtimeActive=true;
+   }
+   applyGains(e.gains);
+ }
+ save();render();toast(e.active?"Efecto activado":"Efecto desactivado")
+}
+function toggleHtml(id,fn){let e=document.getElementById(id);if(e)e.innerHTML=data[fn].map(fn==="abilities"?abilityToggle:fn==="items"?itemToggle:effectCard).join("")||`<div class="empty">Nada configurado.</div>`}
+function abilityToggle(a){return `<div class="derived sync-row"><div><b>${esc(a.icon||"✨")} ${esc(a.name)}</b><div class="muted">${abilityCostText(a)}</div></div><label class="toggle"><input type="checkbox" ${a.active?"checked":""} onchange="toggleAbility('${a.id}')"><span></span></label></div>`}
+function itemToggle(i){return `<div class="derived sync-row"><div><b>${esc(i.icon||"🎒")} ${esc(i.name)}</b><div class="muted">×${i.quantity??1}</div></div><label class="toggle"><input type="checkbox" ${i.active?"checked":""} onchange="toggleItem('${i.id}')"><span></span></label></div>`}
+function activeEffects(){return data.effects.filter(e=>e.active)}
+function resourceBonusesActive(r){return r&&r.giveMode==="bonus"}
+function modifierTotal(key){
+ let sum=0;
+ data.resources.filter(resourceBonusesActive).forEach(r=>sum+=modifierValue(r.modifiers,key));
+ activeEffects().forEach(e=>sum+=modifierValue(e.modifiers,key));
+ data.abilities.filter(a=>a.runtimeActive).forEach(a=>sum+=modifierValue(a.modifiers,key));
+ data.items.filter(i=>i.runtimeActive).forEach(i=>sum+=modifierValue(i.modifiers,key));
+ data.spells.filter(s=>s.runtimeActive).forEach(s=>sum+=modifierValue(s.modifiers,key));
+ return sum;
+}
+function normalizeImpactDice(d){return Object.assign({d4:0,d6:0,d8:0,d10:0,d12:0,d20:0},d||{})}
+function impactDiceEditor(prefix,d){
+ const v=normalizeImpactDice(d);
+ return `<div id="${prefix}" class="impact-dice-box"><div class="stat-bonus-head"><label>🎲 Dados al Bon. Impactar <span class="muted">· sin tipo de daño</span></label></div><div class="impact-dice-grid">${DICE.map(k=>`<div class="field"><label>${k}</label><input class="impactDiceInput" data-die="${k}" id="${prefix}${k}" type="number" min="0" step="1" value="${Number(v[k]||0)}"></div>`).join("")}</div></div>`;
+}
+function readImpactDice(prefix){const out={d4:0,d6:0,d8:0,d10:0,d12:0,d20:0};document.querySelectorAll(`#${prefix} .impactDiceInput`).forEach(x=>out[x.dataset.die]=Math.max(0,Number(x.value)||0));return out}
+function impactDiceFormula(){
+ const total={d4:0,d6:0,d8:0,d10:0,d12:0,d20:0};
+ const add=o=>{const d=normalizeImpactDice(o?.impactDice);DICE.forEach(k=>total[k]+=Number(d[k]||0))};
+ data.resources.filter(resourceBonusesActive).forEach(add);
+ data.effects.filter(e=>e.runtimeActive).forEach(add);
+ data.abilities.filter(a=>a.runtimeActive).forEach(add);
+ data.items.filter(i=>i.runtimeActive).forEach(add);
+ data.spells.filter(s=>s.runtimeActive).forEach(add);
+ return DICE.filter(k=>total[k]).map(k=>`${total[k]}${k}`).join(" + ");
+}
+function impactFormula(){
+ const parts=[];
+ const dice=impactDiceFormula();
+ if(dice) parts.push(dice);
+
+ let fixed=Number(data.character.precision||0)+modifierTotal("precisión");
+ const fixedExtras=[];
+ if(fixed) fixedExtras.push(String(fixed));
+
+ const addFixed=o=>{if(Number(o?.impactFlat||0))fixedExtras.push(String(Number(o.impactFlat)))};
+ const addComp=o=>{if(o?.addCompetenceToImpact)fixedExtras.push(String(Number(data.character.competencia||0)))};
+ const addStats=o=>{const n=statBonusTotal(o?.impactStats);if(n)fixedExtras.push(String(n))};
+
+ data.resources.filter(resourceBonusesActive).forEach(addFixed);
+ data.effects.filter(e=>e.runtimeActive).forEach(addFixed);
+ data.abilities.filter(a=>a.runtimeActive).forEach(addFixed);
+ data.items.filter(i=>i.runtimeActive).forEach(addFixed);
+ data.spells.filter(s=>s.runtimeActive).forEach(addFixed);
+
+ data.resources.filter(resourceBonusesActive).forEach(addComp);
+ data.effects.filter(e=>e.runtimeActive).forEach(addComp);
+ data.abilities.filter(a=>a.runtimeActive).forEach(addComp);
+ data.items.filter(i=>i.runtimeActive).forEach(addComp);
+ data.spells.filter(s=>s.runtimeActive).forEach(addComp);
+
+ data.resources.filter(resourceBonusesActive).forEach(addStats);
+ data.effects.filter(e=>e.runtimeActive).forEach(addStats);
+ data.abilities.filter(a=>a.runtimeActive).forEach(addStats);
+ data.items.filter(i=>i.runtimeActive).forEach(addStats);
+ data.spells.filter(s=>s.runtimeActive).forEach(addStats);
+
+ parts.push(...fixedExtras);
+ return parts.join(" + ")||"0";
+}
+function impactTotal(){
+ let total=Number(data.character.precision||0)+modifierTotal("precisión");
+ const addImpact=o=>{
+   total+=Number(o?.impactFlat||0);
+   total+=statBonusTotal(o?.impactStats);
+   if(o?.addCompetenceToImpact) total+=Number(data.character.competencia||0);
+ };
+ data.resources.filter(resourceBonusesActive).forEach(addImpact);
+ data.effects.filter(e=>e.runtimeActive).forEach(addImpact);
+ data.abilities.filter(a=>a.runtimeActive).forEach(addImpact);
+ data.items.filter(i=>i.runtimeActive).forEach(addImpact);
+ data.spells.filter(s=>s.runtimeActive).forEach(addImpact);
+ return total;
+}
+function derivedStat(key){
+ const base=key in (data.character.stats||{})?Number(data.character.stats[key]||0):Number(data.character[key]||0);
+ return base+modifierTotal(key);
+}
+function damageFormula(){
+ const groups={};
+ const add=(type,d)=>{const k=type||"sin_tipo";if(!groups[k])groups[k]={d4:0,d6:0,d8:0,d10:0,d12:0,d20:0,flat:0};DICE.forEach(x=>groups[k][x]+=Number(d?.[x]||0));groups[k].flat+=Number(d?.flat||0)};
+ const addEntity=e=>{(e.damageParts||normalizeDamageParts(null,e.damage)).forEach(p=>add(p.type,p));(e.damageStats||[]).forEach(s=>add(s.type,{flat:derivedStat(s.stat)*Math.max(1,Number(s.mult)||1)}))};
+ data.resources.filter(resourceBonusesActive).forEach(addEntity);activeEffects().forEach(addEntity);data.abilities.filter(a=>a.runtimeActive).forEach(addEntity);data.items.filter(i=>i.runtimeActive).forEach(addEntity);data.spells.filter(s=>s.runtimeActive).forEach(addEntity);
+ return Object.entries(groups).map(([type,d])=>{let p=DICE.filter(x=>d[x]).map(x=>`${d[x]}${x}`);if(d.flat)p.push(String(d.flat));return p.length?`${p.join(" + ")} ${damageTypeLabel(type)}`:""}).filter(Boolean).join(" + ")||"0";
+}
+function formatDamage(d){d=d||{};let p=DICE.filter(x=>Number(d[x])).map(x=>`${Number(d[x])}${x}`);if(Number(d.flat))p.push(String(Number(d.flat)));return p.join(" + ")||"0"}
+function copyDamage(){
+ const full=damageFormula();
+ const typeIcons=["⚔️","🔥","❄️","⚡","💥","🧪","☠️","✨","💀","🧠","💪","🏹","🗡️","🔨","◽","🧩"];
+ const text=full.split(" + ").map(part=>{
+   let cut=-1;
+   typeIcons.forEach(icon=>{const i=part.indexOf(icon);if(i>=0&&(cut<0||i<cut))cut=i});
+   return (cut>=0?part.slice(0,cut):part).trim();
+ }).filter(Boolean).join(" + ")||"0";
+ navigator.clipboard?.writeText(text).then(()=>toast("📋 Daño copiado: "+text)).catch(()=>{
+   let ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();toast("📋 Daño copiado: "+text)
+ });
+}
+function copyImpact(){
+ const text=impactFormula();
+ navigator.clipboard?.writeText(text).then(()=>toast("📋 Impacto copiado: "+text)).catch(()=>{let ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();toast("📋 Impacto copiado: "+text)})
+}
+function newCombat(){
+ if(!confirm("¿Empezar un nuevo combate? Se reinician recursos del turno y se desactivan efectos temporales."))return;
+ data.turn=1;
+ data.abilities.forEach(a=>{a.cooldown=0;a.runtimeActive=false;a.durationRemaining=a.durationMax===Infinity?Infinity:Number(a.durationMax||0)});
+ data.items.forEach(i=>{i.runtimeActive=false;i.durationRemaining=i.durationMax===Infinity?Infinity:Number(i.durationMax||0)});
+ data.effects.forEach(e=>{if(e.category==="passive"||e.durationRemaining===Infinity)return;e.active=false;e.runtimeActive=false;e.durationRemaining=Number(e.maxDuration??e.duration??0)});
+ ensureAlteredStates();data.alteredStates.forEach(s=>{s.active=false;s.remaining=0});
+ ["action","quickAction","reaction","freeAction","movement"].forEach(k=>data.character[k+"Spent"]=0);
+ save();render();toast("⚔️ Nuevo combate iniciado")
+}
+
+function recoverByRest(kind){
+ const isLight=kind==="light";
+ const label=isLight?"Descanso ligero":"Descanso prolongado";
+ let recovered=[],ended=[];
+ const recover=o=>o&&o.recovery===kind;
+ [data.abilities,data.items,data.effects,data.spells].forEach(arr=>arr.forEach(o=>{
+   if(!recover(o))return;
+   if(Number(o.usesMax||0)>0){
+     o.uses=Number(o.usesMax);
+     recovered.push(`${o.icon||"•"} ${o.name}`);
+   }
+   if("cooldown" in o)o.cooldown=0;
+   if(Number(o.durationMax||0)>0 || o.durationMax===Infinity){
+     o.durationRemaining=o.durationMax===Infinity?Infinity:Number(o.durationMax||0);
+     o.runtimeActive=false;
+     // A temporary effect/ability/object is ready to be used again,
+     // but its temporary effect is not considered active until used/activated.
+     if(o.durationMax!==Infinity && o.category!=="passive" && !data.spells.includes(o))o.active=false;
+   }
+ }));
+ // Every rest refreshes the turn resources.
+ ["action","quickAction","reaction","freeAction","movement"].forEach(k=>{
+   data.character[k+"Spent"]=0;
+ });
+ if(kind==="long"){
+   data.character.hp=data.character.maxHp;
+   data.character.shield=0;
+   data.turn=1;
+   Object.keys(data.spellSlots||{}).forEach(k=>data.spellSlots[k].current=data.spellSlots[k].max);
+ }
+ save();render();
+ const msg=recovered.length
+   ? `🛌 ${label}: ${recovered.length} recurso(s) recuperado(s).`
+   : `🛌 ${label}: no hay usos configurados para este descanso.`;
+ toast(msg);
+}
+function renderSheetSelector(){
+ const sel=document.getElementById("sheetSelector");if(!sel)return;
+ const meta=readSheetMeta();
+ sel.innerHTML=Array.from({length:MAX_SHEETS},(_,i)=>{
+   const n=i+1,name=meta[n]?.name?.trim()||`Ficha ${n}`,has=!!localStorage.getItem(storageKey(n));
+   return `<option value="${n}" ${n===sheetSlot?"selected":""}>${esc(`Ficha ${n} — ${name}`)}${has?"":" · Nueva"}</option>`;
+ }).join("");
+}
+function switchSheet(slot){
+ slot=Number(slot);if(!Number.isInteger(slot)||slot<1||slot>MAX_SHEETS||slot===sheetSlot)return;
+ save();sheetSlot=slot;localStorage.setItem("character_hub_v8_slot_"+mode,String(sheetSlot));
+ data=load();render();toast(`📋 ${sheetName()} cargada`);
+}
+function createSheet(){
+ let target=0;
+ for(let i=1;i<=MAX_SHEETS;i++)if(!localStorage.getItem(storageKey(i))){target=i;break}
+ if(!target)return toast("❌ Ya tienes las 5 fichas ocupadas");
+ save();sheetSlot=target;localStorage.setItem("character_hub_v8_slot_"+mode,String(sheetSlot));
+ data=emptyModeDefault();data.character.name=`Nuevo personaje ${mode==="dnd"?"D&D":"SCP"}`;
+ save();render();toast(`✨ Ficha ${target} creada`);
+}
+function deleteCurrentSheet(){
+ if(sheetSlot===1){
+   if(!confirm("¿Borrar el contenido de la Ficha 1 y dejarla vacía?"))return;
+   localStorage.removeItem(storageKey(1));const meta=readSheetMeta();delete meta[1];writeSheetMeta(meta);
+   data=emptyModeDefault();save();render();toast("🗑 Ficha 1 reiniciada");return;
+ }
+ if(!confirm(`¿Eliminar Ficha ${sheetSlot} definitivamente?`))return;
+ localStorage.removeItem(storageKey(sheetSlot));const meta=readSheetMeta();delete meta[sheetSlot];writeSheetMeta(meta);
+ sheetSlot=1;localStorage.setItem("character_hub_v8_slot_"+mode,"1");data=load();render();toast("🗑 Ficha eliminada");
+}
+function resetAll(){
+ if(!confirm(`¿Borrar TODO el contenido de ${sheetName()} en modo ${mode==="dnd"?"D&D":"SCP"}? Esta acción no se puede deshacer.`))return;
+ localStorage.removeItem(storageKey());const meta=readSheetMeta();delete meta[sheetSlot];writeSheetMeta(meta);
+ data=emptyModeDefault();save();render();toast(`🗑 ${sheetName()} reiniciada`);
+}
+function switchMode(){
+ save();mode=mode==="scp"?"dnd":"scp";localStorage.setItem("character_hub_v7_mode",mode);
+ sheetSlot=Number(localStorage.getItem("character_hub_v8_slot_"+mode)||1);if(sheetSlot<1||sheetSlot>MAX_SHEETS)sheetSlot=1;
+ localStorage.setItem("character_hub_v8_slot_"+mode,String(sheetSlot));closeModal();data=load();render();
+ toast(mode==="dnd"?`🐉 Modo D&D · ${sheetName()}`:`🧪 Modo SCP · ${sheetName()}`);
+}
+function initCombatCollapsibles(){
+ document.querySelectorAll("#view-combat .combat-collapse").forEach(d=>{
+   const key=`combat_collapse_${mode}_${sheetSlot}_${d.dataset.collapse}`;
+   const saved=localStorage.getItem(key);
+   if(saved!==null)d.open=saved==="1";
+   if(!d.dataset.bound){
+     d.addEventListener("toggle",()=>localStorage.setItem(key,d.open?"1":"0"));
+     d.dataset.bound="1";
+   }
+ });
+}
+function render(){
+ initCombatCollapsibles();
+ document.body.dataset.mode=mode;
+ let c=data.character,hp=Math.max(0,Math.min(c.hp,c.maxHp)),sh=Math.max(0,Number(c.shield)||0);
+ let ra=resourceInfo("action"),rq=resourceInfo("quickAction"),rr=resourceInfo("reaction"),rf=resourceInfo("freeAction"),rm=resourceInfo("movement");
+ heroName.textContent=c.name;heroClass.textContent=`${c.class} · Nivel ${c.level}`;
+ heroChips.innerHTML=`<span class="chip">⚡ <b>${ra.remaining}/${ra.total}</b> Acción</span><span class="chip">⚡ <b>${rq.remaining}/${rq.total}</b> Acción rápida</span><span class="chip">↻ <b>${rr.remaining}/${rr.total}</b> Reacción</span><span class="chip">🆓 <b>${rf.remaining}/${rf.total}</b> Gratuita</span><span class="chip">🏃 <b>${rm.remaining}</b> Movimiento</span>`;
+ homeTurn.textContent=data.turn;
+ const ctl=document.getElementById("combatTurnLabel");if(ctl)ctl.textContent=`▶ TURNO ${data.turn}`;
+ const mb=document.getElementById("modeBtn");if(mb)mb.textContent=mode==="dnd"?"🐉 Modo D&D":"🧪 Modo SCP";
+ renderSheetSelector();const st=document.getElementById("sheetCurrentName");if(st)st.textContent=sheetName();
+ const mt=document.getElementById("modeTitle");if(mt)mt.textContent=mode==="dnd"?"D&D":"SCP";
+ const mt2=document.getElementById("modeSub");if(mt2)mt2.textContent=mode==="dnd"?"Ficha independiente de D&D":"Ficha independiente de SCP";
+ const hrl=document.getElementById("homeReflexLabel");if(hrl)hrl.textContent="👁 "+N("reflejos");
+ const hrl2=document.getElementById("homeReflexLabel2");if(hrl2)hrl2.textContent="👁 "+N("reflejos");
+ const hsl=document.getElementById("homeShieldLabel");if(hsl)hsl.textContent="🛡 "+N("escudo");
+ homeHp.textContent=`${hp}/${c.maxHp}`;homeShield.textContent=sh;homeHpBar.style.width=(c.maxHp?hp/c.maxHp*100:0)+"%";homeShieldBar.style.width=Math.min(100,sh)+"%";
+ homeReflejos.textContent=derivedStat("reflejos");homeReflejosBig.textContent=derivedStat("reflejos");homeComp.textContent=(derivedStat("competencia")>=0?"+":"")+derivedStat("competencia");
+ homeStats.innerHTML=statCards();
+ homeResources.innerHTML=resourceCard("Acción","action","⚡")+resourceCard("Acción rápida","quickAction","⚡")+resourceCard("Reacción","reaction","↻")+resourceCard("Gratuita","freeAction","🆓")+resourceCard("Movimiento","movement","🏃",5)+resourceCard("Competencia","competencia","🎓");
+ homeEffects.innerHTML=data.effects.filter(e=>e.active&&(e.category==="passive"||e.duration!==0)).map(effectCard).join("")||`<div class="empty">No hay efectos activos.</div>`;
+ homeAbilityToggles.innerHTML=data.abilities.map(abilityToggle).join("")||`<div class="empty">No hay habilidades.</div>`;
+ homeItemToggles.innerHTML=data.items.map(itemToggle).join("")||`<div class="empty">No hay objetos.</div>`;
+ homeDamageTotal.textContent=`Tu daño extra total es de: ${damageFormula()}`;homeImpactTotal.textContent=impactFormula();
+ combatResources.innerHTML=resourceCard("Acción","action","⚡")+resourceCard("Acción rápida","quickAction","⚡")+resourceCard("Reacción","reaction","↻")+resourceCard("Acción gratuita","freeAction","🆓")+resourceCard("Movimiento","movement","🏃",5);
+ combatVitals.innerHTML=resourceCard("Vida","hp","❤️",10)+resourceCard(N("escudo"),"shield","🛡️",10)+resourceCard(N("reflejos"),"reflejos","👁️")+resourceCard("Competencia","competencia","🎓");
+ combatAbilityToggles.innerHTML=data.abilities.map(abilityToggle).join("")||`<div class="empty">No hay habilidades.</div>`;
+ combatItemToggles.innerHTML=data.items.map(itemToggle).join("")||`<div class="empty">No hay objetos.</div>`;
+ combatEffects.innerHTML=data.effects.filter(e=>e.active&&(e.category==="passive"||e.duration!==0)).map(effectCard).join("")||`<div class="empty">No hay efectos activos.</div>`;
+ combatAbilities.innerHTML=data.abilities.filter(a=>a.active).map(abilityCard).join("")||`<div class="empty">No hay habilidades activas de combate.</div>`;
+ combatItems.innerHTML=renderCombatItems()||`<div class="empty">No hay objetos activos de combate.</div>`;
+ const cspellSlots=document.getElementById("combatSpellSlots");if(cspellSlots)cspellSlots.innerHTML=spellSlotsPanel();
+ const cspells=document.getElementById("combatSpells");if(cspells){const cm=renderCombatSpells();cspells.innerHTML=cm||`<div class="empty">No hay conjuros activos.</div>`;} renderAlteredStates();
+ combatDamageTotal.textContent=`Tu daño extra total es de: ${damageFormula()}`;combatImpactTotal.textContent=impactFormula();
+ effectDamageTotal.textContent=`Tu daño extra total es de: ${damageFormula()}`;effectImpactTotal.textContent=impactFormula();
+ renderAbilities();renderItems();renderEffects();renderResources();renderSpells();renderSheet()
+}
+function renderAbilities(){let q=(document.getElementById("abilitySearch")?.value||"").toLowerCase(),a=data.abilities.filter(x=>`${x.name} ${x.type} ${x.desc} ${x.applies}`.toLowerCase().includes(q));abilityList.innerHTML=a.map(abilityCard).join("")||`<div class="empty">No hay resultados.</div>`}
+function renderItems(){
+ let q=(document.getElementById("itemSearch")?.value||"").toLowerCase();
+ let a=data.items.filter(x=>`${x.name} ${x.type} ${x.desc} ${x.passive} ${x.effect}`.toLowerCase().includes(q));
+ const loose=a.filter(x=>!x.folderId);
+ const folders=data.itemFolders.map(f=>{
+   const list=a.filter(x=>x.folderId===f.id);
+   if(!list.length)return "";
+   return `<details class="spell-folder item-folder" open><summary><span>📁 ${esc(f.name)}</span><small>${list.length} objeto${list.length===1?"":"s"}</small><button class="btn small danger folder-delete" onclick="event.preventDefault();event.stopPropagation();deleteItemFolder('${f.id}')">🗑</button></summary><div class="folder-spells">${list.map(itemCard).join("")}</div></details>`;
+ }).join("");
+ itemList.innerHTML=(loose.map(itemCard).join("")+folders)||`<div class="empty">No hay resultados.</div>`;
+}
+function renderEffects(){
+ let active=data.effects.filter(e=>e.category!=="passive"),passive=data.effects.filter(e=>e.category==="passive");
+ effectList.innerHTML=active.map(effectCard).join("")||`<div class="empty">No hay efectos activos configurados.</div>`;
+ if(document.getElementById("passiveEffectList"))document.getElementById("passiveEffectList").innerHTML=passive.map(effectCard).join("")||`<div class="empty">No hay efectos pasivos configurados.</div>`;
+ let keys=["fuerza","agilidad","vitalidad","punteria","experiencia","voluntad","daño","reflejos","movimiento","curación","escudo","defensa","competencia","precisión","crítico","acciones","acción rápida","reacción","acción gratuita"];
+ modifierList.innerHTML=[...new Set(keys.concat(data.effects.flatMap(e=>Object.keys(e.modifiers||{}))))].map(k=>{let v=modifierTotal(k);return `<div class="card stat"><div class="sn">${esc(N(k))}</div><div class="sv">${v>0?"+":""}${v}</div></div>`}).join("")
+}
+function renderSheet(){sheetStats.innerHTML=statCards();sheetResources.innerHTML=resourceCard("Vida","hp","❤️",10)+resourceCard(N("escudo"),"shield","🛡️",10)+resourceCard("Acción","action","⚡")+resourceCard("Acción rápida","quickAction","⚡")+resourceCard("Reacción","reaction","↻")+resourceCard("Gratuita","freeAction","🆓")+resourceCard("Movimiento","movement","🏃",5)+resourceCard(N("reflejos"),"reflejos","👁️")}
+function applyGains(gains){
+ let c=data.character;
+ Object.entries(gains||{}).forEach(([k,v])=>{
+   v=Number(v)||0;
+   if(k==="hp")c.hp=Math.max(0,Math.min(c.maxHp,c.hp+v));
+   else if(k==="shield")c.shield=Math.max(0,c.shield+v);
+   else if(["action","quickAction","reaction","freeAction","movement"].includes(k)){
+     const spentKey=k+"Spent";
+     c[spentKey]=Math.max(0,Number(c[spentKey]||0)-v);
+   }
+ });
+}
+function useAbility(id){
+ let a=data.abilities.find(x=>x.id===id);
+ if(!a||!a.active)return toast("Habilidad no disponible");
+ if(Number(a.cooldown)>0)return toast("⌛ Habilidad en cooldown");
+ if(a.usesMax>0&&Number(a.uses||0)<=0)return toast("💤 Habilidad gastada");
+ if(!canSpendCost(a)){spendCost(a);return}
+if(!canSpendResourceCosts(a)){let c=normalizeResourceCosts(a).find(x=>{let r=data.resources.find(r=>r.id===x.resourceId);return !r||Number(r.current)<x.amount});toast(`❌ No tienes ${c?.amount||1} unidades del recurso disponible`);return}
+if(!spendCost(a)||!spendResourceCosts(a)||!consumeUse(a))return;
+ applyGains(a.gains);
+ startDuration(a);
+ if(a.cooldownMax)a.cooldown=a.cooldownMax;
+ if(a.effectId){let e=data.effects.find(x=>x.id===a.effectId);if(e){e.active=true;e.durationRemaining=e.maxDuration===Infinity?Infinity:Number(e.maxDuration||1);e.runtimeActive=true}}
+ save();render();toast("▶ "+a.name+" utilizada")
+}
+function useItem(id){
+ let i=data.items.find(x=>x.id===id);
+ if(!i||!i.active)return toast("Objeto no disponible");
+ if(i.quantity<=0)return toast("❌ No quedan unidades");
+ if(i.usesMax>0&&Number(i.uses||0)<=0)return toast("💤 Objeto gastado");
+ if(!canSpendCost(i)){spendCost(i);return}
+if(!canSpendResourceCosts(i)){let c=normalizeResourceCosts(i).find(x=>{let r=data.resources.find(r=>r.id===x.resourceId);return !r||Number(r.current)<x.amount});toast(`❌ No tienes ${c?.amount||1} unidades del recurso disponible`);return}
+if(!spendCost(i)||!spendResourceCosts(i)||!consumeUse(i))return;
+ applyGains(i.gains);
+ startDuration(i);
+ if(Number(i.quantity)>0)i.quantity--;
+ save();render();toast("▶ "+i.name+" usado")
+}
+function alteredStateCard(s){
+ const indefinite=Number(s.duration||0)<=0;
+ return `<article class="altered-state ${s.active?"state-active":""}">
+  <div class="altered-state-main"><div class="altered-state-icon">${esc(s.icon)}</div><div class="altered-state-info"><h3>${esc(s.name)}</h3><p>${esc(s.description)}</p></div>
+  <label class="toggle"><input type="checkbox" ${s.active?"checked":""} onchange="toggleAlteredState('${s.id}',this.checked)"><span></span></label></div>
+  <div class="altered-state-controls"><label>Turnos <input type="number" min="0" value="${s.duration}" onchange="setAlteredDuration('${s.id}',this.value)"></label><div>${s.active?(indefinite?"♾️ Indefinido":`⏳ ${s.remaining} turno${s.remaining===1?"":"s"}`):"⚪ Inactivo"}</div></div>
+ </article>`;
+}
+function toggleAlteredState(id,on){const s=(data.alteredStates||[]).find(x=>x.id===id);if(!s)return;s.active=!!on;s.remaining=s.active&&s.duration>0?s.duration:0;save();render()}
+function setAlteredDuration(id,v){const s=(data.alteredStates||[]).find(x=>x.id===id);if(!s)return;s.duration=Math.max(0,Number(v)||0);if(s.active)s.remaining=s.duration;save();render()}
+function ensureAlteredStates(){
+ if(!Array.isArray(data.alteredStates))data.alteredStates=[];
+ const existing=new Map(data.alteredStates.map(s=>[s.id,s]));
+ data.alteredStates=defaultAlteredStates().map(s=>Object.assign(s,existing.get(s.id)||{}));
+ data.alteredStates.forEach(s=>{s.active=!!s.active;s.duration=Math.max(0,Number(s.duration)||0);if(!s.active)s.remaining=0;else if(s.duration>0)s.remaining=Math.max(0,Number(s.remaining||s.duration)||0)});
+}
+function renderAlteredStates(){
+ const el=document.getElementById("combatAlteredStates");if(!el)return;
+ ensureAlteredStates();
+ el.innerHTML=data.alteredStates.map(alteredStateCard).join("");
+}
+function advanceDurations(){
+ let ended=[];
+ data.abilities.forEach(a=>{if(a.runtimeActive&&a.durationRemaining!==Infinity){a.durationRemaining=Math.max(0,Number(a.durationRemaining)-1);if(a.durationRemaining===0){a.runtimeActive=false;a.runtimeOneTurn=false;ended.push(a.name)}}});
+ data.items.forEach(i=>{if(i.runtimeActive&&i.durationRemaining!==Infinity){i.durationRemaining=Math.max(0,Number(i.durationRemaining)-1);if(i.durationRemaining===0){i.runtimeActive=false;i.runtimeOneTurn=false;ended.push(i.name)}}});
+ data.effects.forEach(e=>{if(!e.active||e.category==="passive"||e.durationRemaining===Infinity)return;e.durationRemaining=Math.max(0,Number(e.durationRemaining)-1);if(e.durationRemaining===0){e.active=false;e.runtimeActive=false;ended.push(e.name)}});
+ data.spells.forEach(s=>{if(!s.runtimeActive||s.durationRemaining===Infinity)return;s.durationRemaining=Math.max(0,Number(s.durationRemaining)-1);if(s.durationRemaining===0){s.runtimeActive=false;ended.push(s.name)}});
+ (data.alteredStates||[]).forEach(s=>{if(!s.active||Number(s.duration||0)<=0)return;s.remaining=Math.max(0,Number(s.remaining||0)-1);if(s.remaining===0){s.active=false;ended.push(s.name)}});
+ return ended;
+}
+function nextTurn(){
+ data.turn++;
+ let ended=[],ready=[];
+ data.abilities.forEach(a=>{if(Number(a.cooldown)>0){a.cooldown--;if(a.cooldown===0)ready.push(a.name)}});
+ ended=advanceDurations();
+ ["action","quickAction","reaction","freeAction","movement"].forEach(k=>data.character[k+"Spent"]=0);
+ save();render();toast(ended.length?"⌛ Terminó: "+ended.join(", "):ready.length?"✓ Disponible: "+ready.join(", "):"▶ Turno "+data.turn)
+}
+function closeModal(){modal.classList.remove("open")}function openModal(x){modalbox.innerHTML=x;modal.classList.add("open")}
+function f(label,id,v,type="text"){return `<div class="field"><label>${label}</label><input id="${id}" type="${type}" value="${esc(v)}"></div>`}
+function levelUp(){
+ let c=data.character,level=Math.max(1,Math.min(40,Number(c.level)||1));
+ if(level>=40)return toast("🏆 Ya has alcanzado el nivel máximo (40).");
+ const next=level+1;
+ const raw=prompt(`Has subido al nivel ${next}.
+
+¿Cuánta vida obtienes?`, "10");
+ if(raw===null)return;
+ const gain=Number(raw);
+ if(!Number.isFinite(gain)||gain<0)return toast("❌ Introduce una cantidad de vida válida.");
+ if(gain>100000)return toast("❌ La cantidad de vida es demasiado alta.");
+ c.level=next;
+ c.maxHp=Math.max(0,Number(c.maxHp)||0)+Math.floor(gain);
+ c.hp=Math.min(c.maxHp,Math.max(0,Number(c.hp)||0)+Math.floor(gain));
+ save();render();
+ toast(`⬆️ Nivel ${next} alcanzado · +${Math.floor(gain)} Vida máxima`);
+}
+function openCharacter(){let c=data.character,s=c.stats;openModal(`<div class="modalhead"><h2>📊 Editar ficha completa</h2><button class="btn small" onclick="closeModal()">✕</button></div><div class="editor-grid">${f("Nombre","cn",c.name)}${f("Clase","cc",c.class)}${f("Nivel","cl",c.level,"number")}${f("Vida máxima","mhp",c.maxHp,"number")}${f("Vida actual","hp",c.hp,"number")}<div class="field"><label>Atajos de vida</label><div class="hp-fast"><button class="btn small" onclick="heal(5)">+5</button><button class="btn small" onclick="heal(10)">+10</button><button class="btn small" onclick="heal(15)">+15</button><button class="btn small" onclick="heal(25)">+25</button><button class="btn small danger" onclick="damageHp(10)">−10</button></div></div>${f(N("escudo")+" actual","sh",c.shield,"number")}${f("Acciones base","mac",c.actionBase,"number")}${f("Acciones disponibles","ac",resourceInfo("action").remaining,"number")}${f("Acción rápida base","mq",c.quickActionBase,"number")}${f("Acción rápida disponible","qa",resourceInfo("quickAction").remaining,"number")}${f("Reacción base","mr",c.reactionBase,"number")}${f("Reacción disponible","re",resourceInfo("reaction").remaining,"number")}${f("Gratuita base","mf",c.freeActionBase,"number")}${f("Gratuita disponible","fa",resourceInfo("freeAction").remaining,"number")}${f("Movimiento base","mm",c.movementBase,"number")}${f("Movimiento disponible","mv",resourceInfo("movement").remaining,"number")}${f(N("reflejos"),"ref",c.reflejos,"number")}${f("Bon. Impactar base","precision",c.precision||0,"number")}${f("Competencia","comp",c.competencia,"number")}</div><div class="section"><h2>Estadísticas</h2></div><div class="editor-grid">${f("Fuerza","sf",s.fuerza,"number")}${f(N("agilidad"),"sa",s.agilidad,"number")}${f(N("vitalidad"),"sv",s.vitalidad,"number")}${f(N("puntería"),"sp",s.punteria,"number")}${f(N("experiencia"),"se",s.experiencia,"number")}${f(N("voluntad"),"sw",s.voluntad,"number")}</div><div class="modalfoot"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn primary" onclick="saveCharacter()">Guardar cambios</button></div>`)}
+function saveCharacter(){
+ let c=data.character,g=id=>document.getElementById(id).value;
+ let bases={action:+g("mac"),quickAction:+g("mq"),reaction:+g("mr"),freeAction:+g("mf"),movement:+g("mm")};
+ let remain={action:+g("ac"),quickAction:+g("qa"),reaction:+g("re"),freeAction:+g("fa"),movement:+g("mv")};
+ Object.assign(c,{name:g("cn"),class:g("cc"),level:+g("cl"),maxHp:+g("mhp"),hp:+g("hp"),shield:+g("sh"),reflejos:+g("ref"),precision:+g("precision"),competencia:+g("comp"),stats:{fuerza:+g("sf"),agilidad:+g("sa"),vitalidad:+g("sv"),punteria:+g("sp"),experiencia:+g("se"),voluntad:+g("sw")}});
+ Object.entries(bases).forEach(([k,v])=>{c[k+"Base"]=Math.max(0,v);c[k+"Spent"]=Math.max(0,v+modifierTotal(k)-Math.max(0,remain[k]));c[k]=Math.max(0,v)});
+ save();closeModal();render();toast("Ficha guardada")
+}
+function checks(sel=[]){return ["combat","explore","role"].map(x=>`<label class="check"><input name="situ" type="checkbox" value="${x}" ${sel.includes(x)?"checked":""}>${x==="combat"?"⚔ Combate":x==="explore"?"🗺 Exploración":"🎭 Rol"}</label>`).join("")}
+
+const EMOJIS={
+ "⚔️ Combate":["⚔️","🗡️","🔪","🏹","🛡️","🪓","🔨","⚒️","🪄","🔱","🏹","🎯","💥","💢","🔥","❄️","⚡","☄️","🌪️","🌊","🩸","☠️","💀","👊","✊","🤜","🤛","🦾"],
+ "✨ Magia y poder":["✨","🌟","⭐","💫","🔮","🌀","🌌","☀️","🌙","🌑","🌕","🌈","💎","🧿","🕯️","🪬","♾️","☯️","⚛️","🪽","👁️","🧠","🫀","🫁","🦋","🌸"],
+ "❤️ Estados y curación":["❤️","🧡","💛","💚","💙","💜","🖤","🤍","🤎","💗","💖","💞","💔","❤️‍🩹","🩹","💊","💉","🧪","🍀","🌿","🌱","☀️","🧊","😵","😴","😡","😱"],
+ "🎒 Objetos y aventura":["🎒","🧳","📦","🗝️","🔑","🗺️","🧭","📜","📖","📚","✉️","💰","🪙","👑","💍","💎","🏺","🧰","🪙","🔦","⛺","🏰","🏚️","🚪","🗿"],
+ "🐉 Criaturas y naturaleza":["🐉","🐲","🐺","🦊","🐻","🦁","🐯","🐱","🐈","🐶","🐕","🦅","🦉","🐍","🦂","🕷️","🦇","🐙","🦑","🐋","🌲","🌳","🌵","🍄","🌺"],
+ "🎭 Personajes y diversión":["😀","😎","🤨","😐","😏","😈","👿","🤡","👻","👽","🤖","💩","🎭","🎪","🎲","🎯","🎮","🎵","🎶","🏆","🥇","🥈","🥉","👤","🧙","🧙‍♀️","🧙‍♂️","🧝","🧝‍♀️","🧛","🧟","🥷","🧑‍🚀","🧑‍🔬","🧑‍⚕️"],
+ "🧰 Oficio y herramientas":["🧰","🔧","🔨","⚒️","🪛","🔩","⚙️","🪚","⛏️","🧲","💡","🔬","🔭","🧪","🧯","📡","🛠️","🧱","📐","✂️","🧵","🪡","🪶","✒️"],
+ "🍖 Comida y bebida":["🍎","🍏","🍊","🍋","🍇","🍓","🍒","🍑","🍉","🍌","🥝","🍍","🥕","🍞","🥩","🍗","🍖","🍕","🍔","🍲","🍜","🍰","🍪","🍫","☕","🍵","🧃"],
+ "🏛️ Lugares y símbolos":["🏠","🏡","🏰","🏯","🏛️","⛪","🗼","🗿","🕳️","🚪","🛏️","🪑","🛒","⚠️","❗","❓","‼️","❌","⭕","🔒","🔓","📍","🚩","🏴‍☠️"]
+};
+function emojiPicker(current="✨",inputId="ai"){
+ return `<details class="emoji-details"><summary>🎨 Elegir icono <span id="emojiSummary">${esc(current)}</span></summary><div class="emoji-picker"><div class="emoji-current"><span id="emojiPreview">${esc(current)}</span><span class="muted">Selecciona un icono</span></div>${Object.entries(EMOJIS).map(([cat,arr])=>`<div class="emoji-cat"><div class="muted">${cat}</div><div class="emoji-list">${arr.map(e=>`<button type="button" class="emoji-btn ${e===current?"selected":""}" onclick="pickEmoji('${esc(e)}','${inputId}',this)">${e}</button>`).join("")}</div></div>`).join("")}</div></details><input id="${inputId}" value="${esc(current)}" style="display:none">`;
+}
+function pickEmoji(e,id,btn){let input=document.getElementById(id),preview=document.getElementById("emojiPreview"),summary=document.getElementById("emojiSummary");if(input)input.value=e;if(preview)preview.textContent=e;if(summary)summary.textContent=e;document.querySelectorAll(".emoji-btn").forEach(b=>b.classList.remove("selected"));btn.classList.add("selected")}
+
+const DAMAGE_TYPES_DND=[["fisico","⚔️ Físico"],["fuego","🔥 Fuego"],["frio","❄️ Frío"],["rayo","⚡ Rayo"],["trueno","💥 Trueno"],["acido","🧪 Ácido"],["veneno","☠️ Veneno"],["radiante","✨ Radiante"],["necrotico","💀 Necrótico"],["psiquico","🧠 Psíquico"],["fuerza","💪 Fuerza"],["perforante","🏹 Perforante"],["cortante","🗡️ Cortante"],["contundente","🔨 Contundente"],["sin_tipo","◽ Sin tipo"]];
+const DAMAGE_TYPES_SCP=[["fisico","⚔️ Físico"],["fuego","🔥 Quemadura"],["frio","❄️ Térmico"],["rayo","⚡ Eléctrico"],["trueno","💥 Sonido"],["acido","🧪 Corrosivo"],["veneno","☠️ Veneno"],["radiante","✨ Divino"],["necrotico","💀 Muerte"],["psiquico","🧠 Mental"],["fuerza","💪 Fuerza"],["perforante","🏹 Penetrante"],["cortante","🗡️ Lacerante"],["contundente","🔨 Contusivo"],["sin_tipo","◽ Sin tipo"]];
+function damageTypes(){return mode==="dnd"?DAMAGE_TYPES_DND:DAMAGE_TYPES_SCP}
+function damageTypeLabel(v){if(String(v||"").startsWith("custom:"))return "🧩 "+String(v).slice(7);const x=damageTypes().find(t=>t[0]===v)||DAMAGE_TYPES_DND.find(t=>t[0]===v);return x?x[1]:v||"◽ Sin tipo"}
+function damageTypeOptions(current){const arr=damageTypes();return arr.map(t=>`<option value="${t[0]}" ${current===t[0]?"selected":""}>${esc(t[1])}</option>`).join("")+((String(current||"").startsWith("custom:"))?`<option value="${esc(current)}" selected>${esc(damageTypeLabel(current))}</option>`:"")+`<option value="__custom__">🧩 Añadir tipo personalizado...</option>`}
+function legacyDamageFromParts(parts){const d={d4:0,d6:0,d8:0,d10:0,d12:0,d20:0,flat:0};(parts||[]).forEach(p=>{DICE.forEach(k=>d[k]+=Number(p[k]||0));d.flat+=Number(p.flat||0)});return d}
+function defaultDamagePart(){return {type:"sin_tipo",d4:0,d6:0,d8:0,d10:0,d12:0,d20:0,flat:0}}
+function normalizeDamageParts(parts,legacy){if(Array.isArray(parts)&&parts.length)return parts.map(x=>Object.assign(defaultDamagePart(),x,{type:x?.type||"sin_tipo"}));const d=legacy||{};if(DICE.some(k=>Number(d[k]||0))||Number(d.flat||0))return [Object.assign(defaultDamagePart(),d)];return []}
+function chooseDamageType(select){if(select.value!=="__custom__")return;const name=prompt("Nombre del tipo de daño personalizado:","Mi daño");if(name&&name.trim()){const v="custom:"+name.trim();const opt=document.createElement("option");opt.value=v;opt.textContent="🧩 "+name.trim();select.insertBefore(opt,select.querySelector('option[value="__custom__"]'));select.value=v}else select.value="sin_tipo"}
+function damagePartRow(x){return `<div class="damage-part-row"><select class="damageType" onchange="chooseDamageType(this)">${damageTypeOptions(x?.type)}</select>${DICE.map(k=>`<input class="partDice" data-dice="${k}" type="number" min="0" value="${Number(x?.[k])||0}" title="${k}">`).join("")}<input class="partFlat" type="number" value="${Number(x?.flat)||0}" placeholder="+ fijo" title="Daño fijo"><button type="button" class="btn small danger" onclick="this.closest('.damage-part-row').remove()">🗑</button></div>`}
+function damagePartsEditor(prefix,obj){const parts=normalizeDamageParts(obj?.damageParts,obj?.damage);return `<div class="damage-parts-box"><div class="stat-bonus-head"><label>🔥 Tipo de daño — cada fila es un daño diferente</label><button type="button" class="btn small" onclick="addDamagePartRow('${prefix}')">＋ Añadir daño</button></div><div class="damage-part-labels"><span>Tipo</span>${DICE.map(k=>`<span>${k}</span>`).join("")}<span>Fijo</span><span></span></div><div id="${prefix}Rows" class="damage-part-rows">${parts.map(damagePartRow).join("")}</div></div>`}
+function addDamagePartRow(prefix){const box=document.getElementById(prefix+"Rows");if(box)box.insertAdjacentHTML("beforeend",damagePartRow(defaultDamagePart()))}
+function readDamageParts(prefix){
+ const box=document.getElementById(prefix+"Rows");
+ if(!box)return [];
+ return [...box.querySelectorAll(".damage-part-row")].map(r=>{
+  const o={type:r.querySelector(".damageType")?.value||"sin_tipo",flat:Number(r.querySelector(".partFlat")?.value)||0};
+  DICE.forEach(k=>{const input=r.querySelector(`.partDice[data-dice="${k}"]`);o[k]=Math.max(0,Number(input?.value)||0)});
+  return o;
+ }).filter(o=>DICE.some(k=>o[k])||o.flat);
+}
+function normalizeDamageStats(list){
+ return (Array.isArray(list)?list:[]).map(x=>({
+   stat:x?.stat||"",
+   mult:Math.max(1,Number(x?.mult)||1),
+   type:String(x?.type||"sin_tipo")
+ })).filter(x=>x.stat);
+}
+function damageStatRow(prefix,x){return `<div class="damage-stat-row"><select class="statBonusStat"><option value="">Elegir estadística</option>${STAT_BONUS_KEYS.map(k=>`<option value="${k}" ${x?.stat===k?"selected":""}>${esc(N(k))}</option>`).join("")}</select><input class="statBonusMult" type="number" min="1" step="1" value="${Math.max(1,Number(x?.mult)||1)}" title="Multiplicador"><span>×</span><select class="damageBonusType" onchange="chooseDamageType(this)">${damageTypeOptions(x?.type)}</select><button type="button" class="btn small danger" onclick="this.closest('.damage-stat-row').remove()">🗑</button></div>`}
+function damageStatBonusEditor(prefix,label,list){const rows=normalizeDamageStats(list);return `<div class="stat-bonus-box"><div class="stat-bonus-head"><label>${esc(label)}</label><button type="button" class="btn small" onclick="addDamageStatRow('${prefix}')">＋ Añadir bonificador</button></div><div id="${prefix}Rows" class="stat-bonus-rows">${rows.map(x=>damageStatRow(prefix,x)).join("")||`<div class="muted stat-bonus-empty">Ninguno. Pulsa «Añadir bonificador».</div>`}</div></div>`}
+function addDamageStatRow(prefix){const box=document.getElementById(prefix+"Rows");if(!box)return;box.querySelector(".stat-bonus-empty")?.remove();box.insertAdjacentHTML("beforeend",damageStatRow(prefix,{stat:"",mult:1,type:"sin_tipo"}))}
+function readDamageStats(prefix){const box=document.getElementById(prefix+"Rows");if(!box)return [];return [...box.querySelectorAll(".damage-stat-row")].map(r=>({stat:r.querySelector(".statBonusStat")?.value||"",mult:Math.max(1,Number(r.querySelector(".statBonusMult")?.value)||1),type:r.querySelector(".damageBonusType")?.value||"sin_tipo"})).filter(x=>x.stat)}
+const STAT_BONUS_KEYS=["fuerza","agilidad","vitalidad","punteria","experiencia","voluntad"];
+function normalizeStatBonusList(list,legacyStat="",legacyMult=1){
+ if(Array.isArray(list))return list.map(x=>({stat:x?.stat||"",mult:Math.max(1,Number(x?.mult)||1),type:x?.type||"sin_tipo"})).filter(x=>x.stat);
+ if(legacyStat)return [{stat:legacyStat,mult:Math.max(1,Number(legacyMult)||1),type:"sin_tipo"}];
+ return [];
+}
+function statBonusRow(prefix,x){
+ return `<div class="stat-bonus-row"><select class="statBonusStat"><option value="">Elegir estadística</option>${STAT_BONUS_KEYS.map(k=>`<option value="${k}" ${x?.stat===k?"selected":""}>${esc(N(k))}</option>`).join("")}</select><input class="statBonusMult" type="number" min="1" step="1" value="${Math.max(1,Number(x?.mult)||1)}" title="Multiplicador"><span>×</span><button type="button" class="btn small danger" onclick="this.closest('.stat-bonus-row').remove()">🗑</button></div>`;
+}
+function statBonusEditor(prefix,label,list){
+ const rows=normalizeStatBonusList(list);
+ return `<div class="stat-bonus-box"><div class="stat-bonus-head"><label>${esc(label)}</label><button type="button" class="btn small" onclick="addStatBonusRow('${prefix}')">＋ Añadir estadística</button></div><div id="${prefix}Rows" class="stat-bonus-rows">${rows.map(x=>statBonusRow(prefix,x)).join("")||`<div class="muted stat-bonus-empty">Ninguna. Pulsa «Añadir estadística».</div>`}</div></div>`;
+}
+function addStatBonusRow(prefix){
+ const box=document.getElementById(prefix+"Rows");if(!box)return;
+ box.querySelector(".stat-bonus-empty")?.remove();
+ box.insertAdjacentHTML("beforeend",statBonusRow(prefix,{stat:"",mult:1}));
+}
+function readStatBonuses(prefix){
+ const box=document.getElementById(prefix+"Rows");if(!box)return [];
+ return [...box.querySelectorAll(".stat-bonus-row")].map(r=>({stat:r.querySelector(".statBonusStat")?.value||"",mult:Math.max(1,Number(r.querySelector(".statBonusMult")?.value)||1)})).filter(x=>x.stat);
+}
+function statBonusTotal(list){return normalizeStatBonusList(list).reduce((sum,x)=>sum+derivedStat(x.stat)*Math.max(1,Number(x.mult)||1),0)}
+function openAbility(o=null){
+ const recOpts=RECOVERY_TYPES.map(([v,l])=>`<option value="${v}" ${o?.recovery===v?"selected":""}>${N(v)}</option>`).join("");
+ const dur=o?.durationMax===Infinity?"Infinity":(o?.durationMax||0);
+ openModal(`<div class="modalhead"><h2>${o?"✏ Editar":"＋ Nueva"} habilidad</h2><button class="btn small" onclick="closeModal()">✕</button></div>
+ <div class="editor-grid">${f("Nombre","an",o?.name||"")}${emojiPicker(o?.icon||"✨","ai")}
+ <div class="field"><label>Tipo</label><select id="at">${["Activa","Pasiva","Combate","Curación","Reacción","Magia","Especial"].map(x=>`<option ${o?.type===x?"selected":""}>${x}</option>`).join("")}</select></div>
+ ${f("Cooldown (turnos)","acd",o?.cooldownMax||0,"number")}${f("Duración (turnos, 0 = sin duración)","adu",o?.durationMax===Infinity?"":o?.durationMax||0,"number")}${f("Efecto que aplica","aap",o?.applies||"")}
+ </div>
+ <div class="editor-grid">
+ ${costInputs(o,"a")}${resourceCostInputs(o,"a")}
+ <div class="field"><label>Usos máximos (0 = ilimitada)</label><input id="auseMax" type="number" min="0" value="${o?.usesMax||0}"></div>${f("Usos actuales","ause",o?.uses??(o?.usesMax||0),"number")}
+ <div class="field"><label>Recuperación</label><select id="arec">${recOpts}</select></div>
+ </div>
+ <div class="field"><label>Descripción</label><textarea id="adesc">${esc(o?.desc||"")}</textarea></div>
+ <div class="field"><label>Mostrar en</label><div class="checks">${checks(o?.situ||["combat"])}</div></div>
+ <div class="grant-box"><div class="eyebrow">📈 MEJORAS QUE OTORGA</div><div class="muted">Modificadores mientras está activa; ganancias al pulsar «Usar».</div>
+ <div class="grant-grid">${["fuerza","agilidad","vitalidad","punteria","experiencia","voluntad","daño","reflejos","movimiento","curación","escudo","defensa","competencia","precisión","crítico","acciones","acción rápida","reacción","acción gratuita"].map(k=>`<div class="field"><label>${esc(N(k))}</label><input class="abilityMod" data-key="${esc(k)}" type="number" value="${o?.modifiers?.[k]||0}"></div>`).join("")}</div>
+ <div class="section" style="margin:12px 0 7px"><h2>💥 Dados de daño</h2></div>${damagePartsEditor("abilityDamageParts",o)}${damageStatBonusEditor("abilityDamageStats","📊 Estadísticas que suman al daño",o?.damageStats)}<div class="impact-config"><div class="field"><label>🎯 Bon. Impactar fijo</label><input id="aImpactFlat" type="number" step="1" value="${o?.impactFlat||0}" placeholder="0"></div><label class="checkline"><input id="aCompetenceImpact" type="checkbox" ${o?.addCompetenceToImpact?"checked":""}> 🎓 Añadir Competencia al Bon. Impactar</label></div>${impactDiceEditor("aImpactDice",o?.impactDice)}${statBonusEditor("abilityImpactStats","🎯 Estadísticas que suman al Bon. Impactar",o?.impactStats)}
+ <div class="section" style="margin:12px 0 7px"><h2>❤️ Recupera al usar</h2></div><div class="grant-grid">${["hp","shield","action","quickAction","reaction","freeAction","movement"].map(k=>`<div class="field"><label>${k==="hp"?"Vida":k==="shield"?N("escudo"):k==="action"?"Acciones":k==="quickAction"?"Acción rápida":k==="freeAction"?"Acción gratuita":k==="reaction"?"Reacción":"Movimiento"}</label><input class="abilityGain" data-key="${k}" type="number" value="${o?.gains?.[k]||0}"></div>`).join("")}</div></div>
+ <div class="modalfoot"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn primary" onclick="saveAbility('${o?.id||""}')">${o?"Guardar":"Crear habilidad"}</button></div>`);}
+function saveAbility(existing){
+ let old=data.abilities.find(x=>x.id===existing),modifiers={},damageParts=readDamageParts("abilityDamageParts");
+ document.querySelectorAll(".abilityMod").forEach(x=>{if(+x.value)modifiers[x.dataset.key]=+x.value});
+ let gains={};document.querySelectorAll(".abilityGain").forEach(x=>{if(+x.value)gains[x.dataset.key]=+x.value});
+ let maxUses=Math.max(0,+auseMax.value||0),curUses=maxUses?Math.min(maxUses,Math.max(0,+ause.value||0)):0;
+ let dur=Math.max(0,+adu.value||0);
+ let o={id:existing||uid(),name:an.value,icon:ai.value,type:at.value,cooldownMax:+acd.value||0,cooldown:old?.cooldown||0,duration:dur,durationMax:dur,durationRemaining:old?.durationRemaining||dur,runtimeActive:old?.runtimeActive||false,applies:aap.value,desc:adesc.value,situ:[...document.querySelectorAll('input[name="situ"]:checked')].map(x=>x.value),effectId:old?.effectId||"",active:old?.active??true,modifiers,damage:legacyDamageFromParts(damageParts),damageParts,gains,damageStats:readDamageStats("abilityDamageStats"),impactStats:readStatBonuses("abilityImpactStats"),impactDice:readImpactDice("aImpactDice"),impactFlat:+aImpactFlat.value||0,addCompetenceToImpact:aCompetenceImpact.checked,damageStat:"",damageStatMult:1,costTypes:readCosts(),resourceCosts:readResourceCosts(),costType:"none",costAmount:0,usesMax:maxUses,uses:curUses,recovery:arec.value};
+ let i=data.abilities.findIndex(x=>x.id===o.id);if(i>=0)data.abilities[i]=o;else data.abilities.push(o);save();closeModal();render();toast("Habilidad guardada")
+}
+function editAbility(id){openAbility(data.abilities.find(x=>x.id===id))}function removeAbility(id){if(confirm("¿Eliminar esta habilidad?")){data.abilities=data.abilities.filter(x=>x.id!==id);save();render();toast("Habilidad eliminada")}}
+function openItem(o=null){
+ const costOpts=COST_TYPES.map(([v,l])=>`<option value="${v}" ${o?.costType===v?"selected":""}>${l}</option>`).join("");
+ const recOpts=RECOVERY_TYPES.map(([v,l])=>`<option value="${v}" ${o?.recovery===v?"selected":""}>${N(v)}</option>`).join("");
+ openModal(`<div class="modalhead"><h2>${o?"✏ Editar":"＋ Nuevo"} objeto</h2><button class="btn small" onclick="closeModal()">✕</button></div>
+ <div class="editor-grid">${f("Nombre","itemName",o?.name||"")}${emojiPicker(o?.icon||"🎒","itemIcon")}${f("Tipo","itemType",o?.type||"Objeto")}${f("Cantidad","itemQty",o?.quantity??1,"number")}${f("Precio","itemPrice",o?.price??0,"number")}<div class="field"><label>📁 Carpeta</label><select id="itemFolder" onchange="if(this.value==='__new__'){const id=createItemFolder();this.value=id||'';}">${itemFolderOptions(o?.folderId||"")}</select></div></div>
+ <div class="field"><label>Descripción</label><textarea id="itemDesc">${esc(o?.desc||"")}</textarea></div>
+ <div class="field"><label>Efecto pasivo (texto)</label><input id="itemPassive" value="${esc(o?.passive||"")}"></div><div class="field"><label>Efecto activable (texto)</label><input id="itemEffect" value="${esc(o?.effect||"")}"></div>
+ <div class="field"><label>Mostrar en</label><div class="checks">${checks(o?.situ||["combat","explore","role"])}</div></div>
+ <div class="editor-grid">${costInputs(o,"i")}${resourceCostInputs(o,"i")}
+ <div class="field"><label>Usos máximos (0 = ilimitado)</label><input id="iuseMax" type="number" min="0" value="${o?.usesMax||0}"></div>${f("Usos actuales","iuse","number"===typeof(o?.uses) ? o.uses : (o?.uses??(o?.usesMax||0)),"number")}
+ <div class="field"><label>Recuperación</label><select id="irec">${recOpts}</select></div>${f("Duración tras usar (turnos, 0 = instantáneo)","idur",o?.durationMax||0,"number")}</div>
+ <div class="grant-box"><div class="eyebrow">📈 MEJORAS QUE OTORGA</div><div class="muted">Modificadores mientras está activo; ganancias al pulsar «Usar».</div><div class="grant-grid">${["fuerza","agilidad","vitalidad","punteria","experiencia","voluntad","daño","reflejos","movimiento","curación","escudo","defensa","competencia","precisión","crítico","acciones","acción rápida","reacción","acción gratuita"].map(k=>`<div class="field"><label>${esc(N(k==="acciones"?"acciones":k==="acción rápida"?"acción rápida":k))}</label><input class="itemMod" data-key="${esc(k)}" type="number" value="${o?.modifiers?.[k]||0}"></div>`).join("")}</div>
+ <div class="section" style="margin:12px 0 7px"><h2>💥 Dados de daño</h2></div>${damagePartsEditor("itemDamageParts",o)}${damageStatBonusEditor("itemDamageStats","📊 Estadísticas que suman al daño",o?.damageStats)}<div class="impact-config"><div class="field"><label>🎯 Bon. Impactar fijo</label><input id="iImpactFlat" type="number" step="1" value="${o?.impactFlat||0}" placeholder="0"></div><label class="checkline"><input id="iCompetenceImpact" type="checkbox" ${o?.addCompetenceToImpact?"checked":""}> 🎓 Añadir Competencia al Bon. Impactar</label></div>${impactDiceEditor("iImpactDice",o?.impactDice)}${statBonusEditor("itemImpactStats","🎯 Estadísticas que suman al Bon. Impactar",o?.impactStats)}<div class="section" style="margin:12px 0 7px"><h2>❤️ Da al usar</h2></div><div class="grant-grid">${["hp","shield","action","quickAction","reaction","freeAction","movement"].map(k=>`<div class="field"><label>${k==="hp"?"Vida":k==="shield"?N("escudo"):k==="action"?"Acciones":k==="quickAction"?"Acción rápida":k==="freeAction"?"Acción gratuita":k==="reaction"?"Reacción":"Movimiento"}</label><input class="itemGain" data-key="${k}" type="number" value="${o?.gains?.[k]||0}"></div>`).join("")}</div></div>
+ <div class="modalfoot"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn primary" onclick="saveItem('${o?.id||""}')">${o?"Guardar":"Crear objeto"}</button></div>`);
+}
+function saveItem(existing){
+ let old=data.items.find(x=>x.id===existing),modifiers={},damageParts=readDamageParts("itemDamageParts");
+ document.querySelectorAll(".itemMod").forEach(x=>{if(+x.value)modifiers[x.dataset.key]=+x.value});
+ let gains={};document.querySelectorAll(".itemGain").forEach(x=>{if(+x.value)gains[x.dataset.key]=+x.value});
+ let maxUses=Math.max(0,+iuseMax.value||0),curUses=maxUses?Math.min(maxUses,Math.max(0,+iuse.value||0)):0,dur=Math.max(0,+idur.value||0);
+ let o={id:existing||uid(),name:itemName.value,icon:itemIcon.value,type:itemType.value,folderId:itemFolder.value==="__new__"?"":itemFolder.value,quantity:Math.max(0,+itemQty.value||0),price:+itemPrice.value||0,desc:itemDesc.value,passive:itemPassive.value,effect:itemEffect.value,situ:[...document.querySelectorAll('input[name="situ"]:checked')].map(x=>x.value),active:old?.active??true,modifiers,damage:legacyDamageFromParts(damageParts),damageParts,gains,damageStats:readDamageStats("itemDamageStats"),impactStats:readStatBonuses("itemImpactStats"),impactDice:readImpactDice("iImpactDice"),impactFlat:+iImpactFlat.value||0,addCompetenceToImpact:iCompetenceImpact.checked,damageStat:"",damageStatMult:1,costTypes:readCosts(),resourceCosts:readResourceCosts(),costType:"none",costAmount:0,usesMax:maxUses,uses:curUses,recovery:irec.value,durationMax:dur,durationRemaining:old?.durationRemaining||dur,runtimeActive:old?.runtimeActive||false};
+ let i=data.items.findIndex(x=>x.id===o.id);if(i>=0)data.items[i]=o;else data.items.push(o);save();closeModal();render();toast("Objeto guardado")
+}
+function editItem(id){openItem(data.items.find(x=>x.id===id))}function removeItem(id){if(confirm("¿Eliminar este objeto?")){data.items=data.items.filter(x=>x.id!==id);save();render();toast("Objeto eliminado")}}
+function diceInputs(d){d=d||{};return `<div class="dice-grid">${DICE.map(x=>`<div class="field"><label>${x}</label><input class="diceVal" data-dice="${x}" type="number" min="0" value="${d[x]||0}"></div>`).join("")}</div><div class="field" style="margin-top:8px"><label>Daño fijo adicional</label><input id="damageFlat" type="number" value="${d.flat||0}"></div>`}
+function openEffect(o=null){
+ let d=o?.maxDuration??o?.duration??3;
+ const recOpts=RECOVERY_TYPES.map(([v,l])=>`<option value="${v}" ${o?.recovery===v?"selected":""}>${N(v)}</option>`).join("");
+ openModal(`<div class="modalhead"><h2>${o?"✏ Editar":"＋ Nuevo"} efecto</h2><button class="btn small" onclick="closeModal()">✕</button></div>
+ <div class="editor-grid">${f("Nombre","effectName",o?.name||"Nueva mejora")}${emojiPicker(o?.icon||"✨","effectIcon")}
+ <div class="field"><label>Tipo</label><select id="effectType">${["Mejora","Debuff","Estado","Postura",N("escudo"),"Curación","Especial"].map(x=>`<option ${o?.type===x?"selected":""}>${x}</option>`).join("")}</select></div>
+ <div class="field"><label>Categoría</label><select id="effectCategory"><option value="active" ${o?.category!=="passive"?"selected":""}>Activo</option><option value="passive" ${o?.category==="passive"?"selected":""}>Pasivo</option></select></div>
+ <div class="field"><label>Duración</label><select id="effectDuration"><option value="1">1 turno</option><option value="2">2 turnos</option><option value="3">3 turnos</option><option value="5">5 turnos</option><option value="10">10 turnos</option><option value="Infinity">∞ Permanente</option><option value="custom">Personalizada</option></select></div>
+ </div><div class="field" id="customDurationBox" style="display:none"><label>Duración personalizada</label><input id="customDuration" type="number" min="1" value="4"></div>
+ <div class="editor-grid"><div class="field"><label>Usos máximos (0 = ilimitado)</label><input id="euseMax" type="number" min="0" value="${o?.usesMax||0}"></div>${f("Usos actuales","euse",o?.uses??(o?.usesMax||0),"number")}<div class="field"><label>Recuperación</label><select id="erec">${recOpts}</select></div></div>
+ <div class="field"><label>Descripción</label><textarea id="effectDesc">${esc(o?.desc||"")}</textarea></div>
+ <div class="section"><h2>💥 Daño extra que aporta</h2><span>dados + daño fijo</span></div>${damagePartsEditor("effectDamageParts",o)}${damageStatBonusEditor("effectDamageStats","📊 Estadísticas que suman al daño",o?.damageStats)}<div class="impact-config"><div class="field"><label>🎯 Bon. Impactar fijo</label><input id="eImpactFlat" type="number" step="1" value="${o?.impactFlat||0}" placeholder="0"></div><label class="checkline"><input id="eCompetenceImpact" type="checkbox" ${o?.addCompetenceToImpact?"checked":""}> 🎓 Añadir Competencia al Bon. Impactar</label></div>${impactDiceEditor("eImpactDice",o?.impactDice)}${statBonusEditor("effectImpactStats","🎯 Estadísticas que suman al Bon. Impactar",o?.impactStats)}
+ <div class="section"><h2>❤️ Qué recupera / concede al activarse</h2><span>se aplica una vez al activar</span></div><div class="grant-box"><div class="grant-grid">${["hp","shield","action","quickAction","reaction","freeAction","movement"].map(k=>`<div class="field"><label>${k==="hp"?"Vida":k==="shield"?N("escudo"):k==="action"?"Acciones":k==="quickAction"?"Acción rápida":k==="freeAction"?"Acción gratuita":k==="reaction"?"Reacción":"Movimiento"}</label><input class="effectGain" data-key="${k}" type="number" value="${o?.gains?.[k]||0}"></div>`).join("")}</div></div>
+ <div class="section"><h2>📈 Modificadores</h2><span>se aplican mientras el efecto esté activo</span></div>${["fuerza","agilidad","vitalidad","punteria","experiencia","voluntad","daño","reflejos","movimiento","curación","escudo","defensa","competencia","precisión","crítico","acciones","acción rápida","reacción","acción gratuita"].map(k=>`<div class="resource-editor" style="display:grid;grid-template-columns:1fr 100px;gap:7px;margin-bottom:6px"><input disabled value="${esc(N(k))}"><input class="effectMod" data-key="${esc(k)}" type="number" value="${o?.modifiers?.[k]||0}"></div>`).join("")}
+ <div class="modalfoot"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn primary" onclick="saveEffect('${o?.id||""}')">${o?"Guardar":"Crear efecto"}</button></div>`);
+ const cur=o?.maxDuration===Infinity?"Infinity":["1","2","3","5","10"].includes(String(d))?String(d):"custom";if(document.getElementById("abilityDamageStat"))abilityDamageStat.value=o?.damageStat||"";effectDuration.value=cur;bindCostInputs();customDuration.value=d>0&&d!==Infinity?d:4;customDurationBox.style.display=cur==="custom"?"block":"none";effectDuration.onchange=()=>customDurationBox.style.display=effectDuration.value==="custom"?"block":"none";
+}
+function saveEffect(existing){
+ let d=effectDuration.value==="Infinity"?Infinity:effectDuration.value==="custom"?Math.max(1,+customDuration.value):+effectDuration.value;
+ let damageParts=readDamageParts("effectDamageParts");
+ let modifiers={};document.querySelectorAll(".effectMod").forEach(x=>{if(+x.value)modifiers[x.dataset.key]=+x.value});
+ let gains={};document.querySelectorAll(".effectGain").forEach(x=>{if(+x.value)gains[x.dataset.key]=+x.value});
+ let old=data.effects.find(x=>x.id===existing),maxUses=Math.max(0,+euseMax.value||0),curUses=maxUses?Math.min(maxUses,Math.max(0,+euse.value||0)):0;
+ let o={id:existing||uid(),name:effectName.value,icon:effectIcon.value,type:effectType.value,category:effectCategory.value,duration:d,maxDuration:d,durationRemaining:old?.durationRemaining??d,runtimeActive:old?.runtimeActive??true,desc:effectDesc.value,modifiers,damage:legacyDamageFromParts(damageParts),damageParts,damageStats:readDamageStats("effectDamageStats"),impactStats:readStatBonuses("effectImpactStats"),impactDice:readImpactDice("eImpactDice"),impactFlat:+eImpactFlat.value||0,addCompetenceToImpact:eCompetenceImpact.checked,gains,usesMax:maxUses,uses:curUses,recovery:erec.value,active:old?.active??true};
+ let i=data.effects.findIndex(x=>x.id===o.id);if(i>=0)data.effects[i]=o;else data.effects.push(o);
+ if(!existing&&o.active)applyGains(o.gains);save();closeModal();render();toast(existing?"Efecto actualizado":"Efecto creado")
+}
+function editEffect(id){openEffect(data.effects.find(x=>x.id===id))}function removeEffect(id){data.effects=data.effects.filter(x=>x.id!==id);save();render();toast("Efecto eliminado")}
+function exportData(){let b=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=(data.character.name||"personaje")+"_CharacterHub_"+(mode==="dnd"?"DND":"SCP")+".json";a.click();URL.revokeObjectURL(a.href);toast("Exportado")}
+function importData(ev){let file=ev.target.files[0];if(!file)return;let reader=new FileReader();reader.onload=()=>{try{data=migrate(JSON.parse(reader.result));save();render();toast(`Importado en ${sheetName()} · modo `+(mode==="dnd"?"D&D":"SCP"))}catch(e){alert("Archivo no válido.")}};reader.readAsText(file);ev.target.value=""}
+render();
+function startDuration(o){
+ const d=o?.durationMax;
+ if(d===Infinity){o.durationRemaining=Infinity;o.runtimeActive=true}
+ else if(Number(d)>0){o.durationRemaining=Number(d);o.runtimeActive=true}
+ else if(Object.keys(o?.modifiers||{}).length||Object.values(o?.damage||{}).some(Number)||o?.damageStat){
+   o.durationRemaining=1;o.runtimeActive=true;o.runtimeOneTurn=true;
+ }else{o.durationRemaining=0;o.runtimeActive=false;o.runtimeOneTurn=false}
+}
+
+/* ===== VTT ONLINE LAYER V4 ===== */
+(function(){
+  const VTT={peer:null,hostId:null,room:null,pendingHost:null,name:localStorage.getItem('vtt_name')||'',isHost:false,conns:new Map(),players:new Map(),state:{background:'',tokens:[],rolls:[],chat:[]},drag:null,rollTimer:null};
+  const $=id=>document.getElementById(id);
+  const url=new URL(location.href);
+  const initialRoom=url.searchParams.get('room');
+  const initialHost=url.searchParams.get('host');
+  let vttRollCategory='Habilidad';
+
+  function esc2(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+  function roomCode(){return Math.random().toString(36).slice(2,8).toUpperCase()}
+  function setStatus(t,on=false){const e=$('vttStatus'),d=$('vttDot');if(e)e.textContent=t;if(d)d.classList.toggle('online',on)}
+  function persistLocal(){try{localStorage.setItem('vtt_last_room',JSON.stringify({room:VTT.room,hostId:VTT.hostId,name:VTT.name}))}catch(e){}}
+  function broadcast(msg,except){VTT.conns.forEach((c,id)=>{if(id!==except&&c.open){try{c.send(msg)}catch(e){}}})}
+  function sendToHost(msg){const c=[...VTT.conns.values()][0];if(c?.open)c.send(msg);else toast('⚠️ Todavía no hay conexión con el DM')}
+
+  function renderPlayers(){const e=$('vttPlayers');if(!e)return;const a=[...VTT.players.values()];e.innerHTML=a.length?a.map(p=>`<div class="vtt-player"><div class="vtt-avatar">${p.avatar?`<img src="${esc2(p.avatar)}">`:'👤'}</div><div><b>${esc2(p.name||'Jugador')}</b>${p.host?'<small>👑 DM / anfitrión</small>':'<small>Jugador</small>'}</div></div>`).join(''):'<div class="muted">Sin jugadores.</div>'}
+  function renderRolls(){const e=$('vttRolls');if(!e)return;const a=VTT.state.rolls||[];e.innerHTML=a.slice(-50).reverse().map(r=>`<div class="vtt-roll"><div>${esc2(r.name)} · ${esc2(r.formula)}</div><strong>${r.total}</strong></div>`).join('')||'<div class="muted">Todavía no hay tiradas.</div>'}
+  function renderChat(){const e=$('vttChat');if(!e)return;const a=VTT.state.chat||[];e.innerHTML=a.slice(-80).map(m=>`<div class="vtt-msg"><div class="meta">${esc2(m.name)}</div>${esc2(m.text)}</div>`).join('');e.scrollTop=e.scrollHeight}
+  function drawGrid(x,w,h){x.strokeStyle='rgba(255,255,255,.045)';x.lineWidth=1;for(let i=0;i<w;i+=40){x.beginPath();x.moveTo(i,0);x.lineTo(i,h);x.stroke()}for(let i=0;i<h;i+=40){x.beginPath();x.moveTo(0,i);x.lineTo(w,i);x.stroke()}}
+  function drawTokens(x){(VTT.state.tokens||[]).forEach(t=>{x.save();x.translate(t.x,t.y);x.beginPath();x.arc(0,0,t.size||25,0,Math.PI*2);x.fillStyle=t.color||'#9b7cff';x.fill();x.strokeStyle='#fff';x.lineWidth=2;x.stroke();if(t.image){const im=new Image();im.onload=()=>{x.save();x.beginPath();x.arc(0,0,(t.size||25)-2,0,Math.PI*2);x.clip();x.drawImage(im,-(t.size||25),-(t.size||25),(t.size||25)*2,(t.size||25)*2);x.restore()};im.src=t.image}x.fillStyle='#fff';x.font='bold 12px system-ui';x.textAlign='center';x.textBaseline='middle';x.fillText(t.label||'?',0,0);x.restore()})}
+  function draw(){const stage=$('vttStage'),c=$('vttCanvas');if(!stage||!c)return;const r=stage.getBoundingClientRect(),d=window.devicePixelRatio||1;c.width=Math.max(1,r.width*d);c.height=Math.max(1,r.height*d);c.style.width=r.width+'px';c.style.height=r.height+'px';const x=c.getContext('2d');x.setTransform(d,0,0,d,0,0);x.clearRect(0,0,r.width,r.height);if(VTT.state.background){const im=new Image();im.onload=()=>{x.globalAlpha=.94;x.drawImage(im,0,0,r.width,r.height);x.globalAlpha=1;drawTokens(x)};im.onerror=()=>{x.globalAlpha=1;drawGrid(x,r.width,r.height);drawTokens(x)};im.src=VTT.state.background}else{const g=x.createLinearGradient(0,0,r.width,r.height);g.addColorStop(0,'#151b26');g.addColorStop(1,'#090d13');x.fillStyle=g;x.fillRect(0,0,r.width,r.height);drawGrid(x,r.width,r.height);drawTokens(x)}}
+
+  function updateRoomInfo(){const e=$('vttRoomInfo');if(!e)return;if(!VTT.room){e.innerHTML='<div class="muted">No estás en ninguna mesa.</div>';return}const share=new URL(location.href);share.searchParams.set('room',VTT.room);share.searchParams.set('host',VTT.hostId);e.innerHTML=`<div class="room-code">${esc2(VTT.room)}</div><div class="muted" style="text-align:center;margin-top:6px">Comparte este enlace para que entren los demás.</div><button id="vttCopyRoom" class="btn" style="width:100%;margin-top:7px">🔗 Copiar enlace de mesa</button>`;const b=$('vttCopyRoom');b?.addEventListener('click',()=>{navigator.clipboard?.writeText(share.href).then(()=>toast('🔗 Enlace copiado')).catch(()=>{prompt('Copia este enlace:',share.href)})})}
+
+  function handle(msg,from){
+    if(!msg||!msg.type)return;
+    if(msg.type==='hello'&&VTT.isHost){
+      VTT.players.set(from,{id:from,name:msg.name||'Jugador',host:false});
+      const c=VTT.conns.get(from);if(c?.open)c.send({type:'welcome',hostId:VTT.hostId,room:VTT.room,state:clone(VTT.state),players:[...VTT.players.values()]});
+      broadcast({type:'players',players:[...VTT.players.values()]},from);renderPlayers();return;
+    }
+    if(msg.type==='welcome'){VTT.hostId=msg.hostId;VTT.room=msg.room;VTT.state=msg.state||VTT.state;VTT.players.clear();(msg.players||[]).forEach(p=>VTT.players.set(p.id,p));if(VTT.peer)VTT.players.set(VTT.peer.id,{id:VTT.peer.id,name:VTT.name,host:false});renderPlayers();renderRolls();renderChat();draw();setStatus('Conectado a la mesa',true);persistLocal();updateRoomInfo();return;}
+    if(msg.type==='players'){VTT.players.clear();(msg.players||[]).forEach(p=>VTT.players.set(p.id,p));if(!VTT.isHost&&VTT.peer)VTT.players.set(VTT.peer.id,{id:VTT.peer.id,name:VTT.name,host:false});renderPlayers();return;}
+    if(msg.type==='chat'){VTT.state.chat.push(msg.item);renderChat();if(VTT.isHost)broadcast(msg,from);return;}
+    if(msg.type==='roll'){VTT.state.rolls.push(msg.item);renderRolls();showRoll(msg.item);if(VTT.isHost)broadcast(msg,from);return;}
+    if(msg.type==='state'){if(!VTT.isHost){VTT.state.characterState=msg.state;};return;}
+    if(msg.type==='map'){if(!VTT.isHost){VTT.state.background=msg.background||'';draw();}if(VTT.isHost)broadcast(msg,from);return;}
+    if(msg.type==='tokens'){VTT.state.tokens=msg.tokens||[];draw();if(VTT.isHost)broadcast(msg,from);return;}
+    if(msg.type==='rollRequest'&&VTT.isHost){const item=msg.item;VTT.state.rolls.push(item);renderRolls();showRoll(item);broadcast({type:'roll',item},from);return;}
+    if(msg.type==='chatRequest'&&VTT.isHost){VTT.state.chat.push(msg.item);renderChat();broadcast({type:'chat',item:msg.item},from);return;}
+  }
+
+  function wire(c){
+    c.on('open',()=>{VTT.conns.set(c.peer,c);if(!VTT.isHost)c.send({type:'hello',name:VTT.name});setStatus('Conectado',true)});
+    c.on('data',d=>handle(d,c.peer));
+    c.on('close',()=>{VTT.conns.delete(c.peer);if(VTT.isHost){VTT.players.delete(c.peer);broadcast({type:'players',players:[...VTT.players.values()]});renderPlayers()}});
+    c.on('error',e=>{toast('⚠️ Conexión: '+(e?.type||'error'))});
+  }
+  function initPeer(){
+    if(VTT.peer)return;
+    if(typeof Peer==='undefined'){setStatus('PeerJS no disponible');toast('⚠️ No se ha podido cargar PeerJS. En GitHub Pages se cargará por HTTPS.');return;}
+    VTT.peer=new Peer(undefined,{debug:1});
+    VTT.peer.on('open',id=>{
+      if(VTT.isHost){VTT.hostId=id;VTT.room=VTT.room||roomCode();VTT.players.set(id,{id,name:VTT.name,host:true});setStatus('Mesa creada',true);updateRoomInfo();persistLocal();}
+      else if(VTT.pendingHost){const c=VTT.peer.connect(VTT.pendingHost,{reliable:true,metadata:{name:VTT.name}});wire(c)}
+    });
+    VTT.peer.on('connection',wire);
+    VTT.peer.on('error',e=>{setStatus('Error de conexión');toast('⚠️ '+(e?.type||'Error de red'))});
+    VTT.peer.on('disconnected',()=>setStatus('Señalización desconectada'));
+  }
+
+  function rollDie(sides){return Math.floor(Math.random()*sides)+1}
+  function rollDiceSet(dice){let out=[],total=0;for(const d of dice){const n=Math.max(0,Number(d.count)||0),sides=Number(d.sides)||20;for(let i=0;i<n;i++){const result=rollDie(sides);out.push({sides,result});total+=result}}return {dice:out,total}}
+  function manualRoll(){
+    if(!VTT.peer)return toast('Primero crea o únete a una mesa');
+    const die=$('vttManualDie')?.value||'d20',count=Math.max(1,Math.min(50,Number($('vttManualCount')?.value)||1)),modifier=Number($('vttManualModifier')?.value)||0;
+    const r=rollDiceSet([{sides:Number(die.slice(1)),count}]);r.total+=modifier;
+    const sign=modifier>0?` + ${modifier}`:modifier<0?` - ${Math.abs(modifier)}`:'';
+    const formula=`${count}${die}${sign}`;
+    publishRoll({name:VTT.name,formula,total:r.total,dice:r.dice,time:Date.now(),source:'Tirada libre',rollType:'manual'});
+  }
+  function publishRoll(item){VTT.state.rolls.push(item);renderRolls();showRoll(item);const msg={type:'roll',item};if(VTT.isHost)broadcast(msg);else sendToHost({type:'rollRequest',item})}
+
+  function entityHasDamage(o){return (o?.damageParts||normalizeDamageParts(null,o?.damage)).some(p=>DICE.some(k=>Number(p?.[k]))||Number(p?.flat))||(o?.damageStats||[]).length>0}
+  function entityHasImpact(o){const d=normalizeImpactDice(o?.impactDice);return DICE.some(k=>Number(d[k]))||Number(o?.impactFlat)||!!o?.addCompetenceToImpact||((o?.impactStats||[]).length>0)}
+  function entityDamageParts(o){return o?.damageParts?.length?o.damageParts:normalizeDamageParts(null,o?.damage)}
+  function entityDamageRoll(o){let dice=[],total=0;entityDamageParts(o).forEach(p=>{DICE.forEach(k=>{const n=Number(p?.[k]||0);for(let i=0;i<n;i++){const sides=Number(k.slice(1)),r=rollDie(sides);dice.push({sides,result:r});total+=r}});total+=Number(p?.flat||0)});(o?.damageStats||[]).forEach(x=>{total+=derivedStat(x.stat)*Math.max(1,Number(x.mult)||1)});return {dice,total}}
+  function entityImpactBonus(o){let total=Number(data.character.precision||0)+Number(o?.impactFlat||0);if(o?.addCompetenceToImpact)total+=Number(data.character.competencia||0);total+=statBonusTotal(o?.impactStats);return total}
+  function entityImpactRoll(o){const d=normalizeImpactDice(o?.impactDice),dice=[],base=rollDie(20);dice.push({sides:20,result:base});let total=base+entityImpactBonus(o);DICE.forEach(k=>{const n=Number(d[k]||0);for(let i=0;i<n;i++){const sides=Number(k.slice(1)),r=rollDie(sides);dice.push({sides,result:r});total+=r}});return {dice,total}}
+  function formatEntityDamage(o){let p=[];entityDamageParts(o).forEach(part=>{let q=DICE.filter(k=>Number(part?.[k])).map(k=>`${part[k]}${k}`);if(Number(part?.flat))q.push(String(Number(part.flat)));if(q.length)p.push(q.join(' + '))});(o?.damageStats||[]).forEach(x=>p.push(`${Math.max(1,Number(x.mult)||1)}×${N(x.stat)}`));return p.join(' + ')||'Sin dados de daño'}
+  function sheetRollItem(o,type){const r=type==='impact'?entityImpactRoll(o):entityDamageRoll(o);const bonus=entityImpactBonus(o);const formula=type==='impact'?`1d20${bonus>=0?' + '+bonus:' - '+Math.abs(bonus)}`:formatEntityDamage(o);return {name:VTT.name,formula:`${o.icon||'🎲'} ${o.name} · ${formula}`,total:r.total,dice:r.dice,time:Date.now(),source:o.name,rollType:type}}
+
+  function vttRollSaved(id,kind,type){
+    if(!VTT.peer)return toast('Primero crea o únete a una mesa');
+    const arr=kind==='Habilidad'?data.abilities:kind==='Objeto'?data.items:data.spells;
+    const o=arr.find(x=>String(x.id)===String(id));if(!o)return toast('No se encontró esa acción en la ficha');
+    const item=sheetRollItem(o,type);publishRoll(item);$('vttRollLauncher')?.classList.add('collapsed');
+  }
+  function renderSheetRolls(){
+    const el=$('vttSheetRolls');if(!el)return;
+    const source=vttRollCategory==='Habilidad'?data?.abilities||[]:vttRollCategory==='Objeto'?data?.items||[]:data?.spells||[];
+    const list=source.filter(o=>entityHasDamage(o)||entityHasImpact(o));
+    el.innerHTML=list.map(o=>`<div class="vtt-launch-item"><div class="vtt-launch-icon">${esc(o.icon||'🎲')}</div><div class="vtt-launch-name"><b>${esc(o.name||'Sin nombre')}</b><small>${vttRollCategory}${o.level!==undefined?' · Nivel '+o.level:''}</small></div><div class="vtt-launch-actions">${entityHasImpact(o)?'<button type="button" class="btn small vtt-roll-action" data-roll-id="'+esc2(o.id)+'" data-roll-kind="'+esc2(vttRollCategory)+'" data-roll-type="impact">🎯</button>':''}${entityHasDamage(o)?'<button type="button" class="btn small primary vtt-roll-action" data-roll-id="'+esc2(o.id)+'" data-roll-kind="'+esc2(vttRollCategory)+'" data-roll-type="damage">💥</button>':''}</div></div>`).join('')||`<div class="vtt-launch-empty">No hay ${vttRollCategory.toLowerCase()} con dados configurados.</div>`;
+  }
+  function showRoll(r){const who=$('vttBigWho'),formula=$('vttBigFormula'),total=$('vttBigTotal'),dice=$('vttBigDice'),box=$('vttBigRoll');if(!box)return;if(who)who.textContent=r.name; if(formula)formula.textContent=r.formula;if(total)total.textContent=r.total;if(dice)dice.innerHTML=(r.dice||[]).map(d=>`<div class="vtt-die" title="d${d.sides}">${d.result}</div>`).join('');box.classList.add('show');clearTimeout(VTT.rollTimer);VTT.rollTimer=setTimeout(()=>box.classList.remove('show'),2800)}
+
+  function openJoinModal(){openModal(`<div class="modalhead"><h2>🔗 Unirse a una mesa</h2><button class="btn small" id="vttCloseJoin">✕</button></div><div class="help">Pega el enlace completo que te ha enviado el DM.</div><div class="field" style="margin-top:12px"><label>Enlace de la mesa</label><input id="vttJoinLink" placeholder="https://.../?room=ABC123&host=peer-id" autocomplete="off"></div><div class="field" style="margin-top:10px"><label>Nombre</label><input id="vttJoinName" value="${esc(VTT.name||data?.character?.name||'Jugador')}"></div><div class="modalfoot"><button class="btn" id="vttCancelJoin">Cancelar</button><button class="btn primary" id="vttConfirmJoin">Entrar en la mesa</button></div>`);$('vttCloseJoin')?.addEventListener('click',closeModal);$('vttCancelJoin')?.addEventListener('click',closeModal);$('vttConfirmJoin')?.addEventListener('click',confirmJoin)}
+  function confirmJoin(){const raw=String($('vttJoinLink')?.value||'').trim();if(!raw)return toast('Pega primero el enlace de la mesa');try{const u=new URL(raw,location.href),room=u.searchParams.get('room'),host=u.searchParams.get('host');if(!room||!host)throw new Error('missing');VTT.name=String($('vttJoinName')?.value||'Jugador').trim()||'Jugador';localStorage.setItem('vtt_name',VTT.name);VTT.room=room;VTT.hostId=host;VTT.pendingHost=host;VTT.isHost=false;const clean=new URL(location.href);clean.searchParams.set('room',room);clean.searchParams.set('host',host);history.replaceState({},'',clean.href);closeModal();nav('table');initPeer();updateRoomInfo()}catch(e){toast('❌ Enlace no válido. Debe incluir room y host.')}}
+  function createRoom(){if(VTT.peer)return toast('Ya estás conectado a una mesa');VTT.name=prompt('¿Qué nombre quieres usar?',VTT.name||data?.character?.name||'DM')||'DM';localStorage.setItem('vtt_name',VTT.name);VTT.isHost=true;VTT.room=null;nav('table');setStatus('Creando mesa…');initPeer()}
+  function leaveRoom(){VTT.conns.forEach(c=>c.close());VTT.conns.clear();VTT.players.clear();if(VTT.peer)VTT.peer.destroy();VTT.peer=null;VTT.room=null;VTT.hostId=null;VTT.pendingHost=null;VTT.isHost=false;VTT.state={background:'',tokens:[],rolls:[],chat:[]};setStatus('Sin conexión');renderPlayers();renderRolls();renderChat();draw();updateRoomInfo();const u=new URL(location.href);u.searchParams.delete('room');u.searchParams.delete('host');history.replaceState({},'',u.href)}
+  function sendChat(){const i=$('vttChatInput'),text=String(i?.value||'').trim();if(!text||!VTT.peer)return;i.value='';const item={name:VTT.name,text,time:Date.now()};if(VTT.isHost){VTT.state.chat.push(item);renderChat();broadcast({type:'chat',item})}else sendToHost({type:'chatRequest',item})}
+  function addToken(){if(!VTT.peer)return toast('Conecta primero a una mesa');if(!VTT.isHost)return toast('Solo el DM puede añadir tokens');const label=prompt('Nombre/abreviatura del token','NPC');if(label===null)return;const t={id:Math.random().toString(36).slice(2),x:150+(VTT.state.tokens.length%5)*80,y:150+Math.floor(VTT.state.tokens.length/5)*80,size:28,label:label.slice(0,8),color:'#9b7cff'};VTT.state.tokens.push(t);draw();broadcast({type:'tokens',tokens:VTT.state.tokens})}
+  function setBackground(){if(!VTT.isHost)return toast('Solo el DM puede cambiar el fondo');const u=prompt('URL pública de la imagen de fondo','');if(u===null)return;VTT.state.background=u.trim();draw();broadcast({type:'map',background:VTT.state.background})}
+
+  window.vttCreateRoom=createRoom;window.vttJoinRoom=openJoinModal;window.vttLeaveRoom=leaveRoom;window.vttSendChat=sendChat;window.vttAddToken=addToken;window.vttSetBackground=setBackground;window.vttToggleLauncher=()=>$('vttRollLauncher')?.classList.toggle('collapsed');window.vttSelectRollCategory=kind=>{vttRollCategory=kind;document.querySelectorAll('.vtt-launch-tab').forEach(b=>b.classList.toggle('active',b.dataset.rollKind===kind));renderSheetRolls()};window.vttRollSaved=vttRollSaved;window.vttManualRoll=manualRoll;
+  window.vttRoll=(die='d20')=>{if(!VTT.peer)return toast('Primero crea o únete a una mesa');const sides=Number(String(die).replace('d',''))||20;const r=rollDiceSet([{sides,count:1}]);publishRoll({name:VTT.name,formula:'1d'+sides,total:r.total,dice:r.dice,time:Date.now(),source:'Tirada libre',rollType:'manual'})};
+
+  document.addEventListener('click',e=>{const b=e.target.closest('.vtt-roll-action');if(!b)return;vttRollSaved(b.dataset.rollId,b.dataset.rollKind,b.dataset.rollType)});
+  $('vttManualModifier')?.addEventListener('keydown',e=>{if(e.key==='Enter')manualRoll()});
+  $('vttManualCount')?.addEventListener('input',updateManualPreview);$('vttManualDie')?.addEventListener('change',updateManualPreview);$('vttManualModifier')?.addEventListener('input',updateManualPreview);
+  function updateManualPreview(){const die=$('vttManualDie')?.value||'d20',count=Math.max(1,Number($('vttManualCount')?.value)||1),mod=Number($('vttManualModifier')?.value)||0;const sign=mod>0?` + ${mod}`:mod<0?` - ${Math.abs(mod)}`:'';const e=$('vttManualPreview');if(e)e.textContent=`${count}${die}${sign}`}
+  $('vttStage')?.addEventListener('pointerdown',e=>{if(!VTT.isHost)return;const r=$('vttCanvas').getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,t=[...VTT.state.tokens].reverse().find(q=>Math.hypot(q.x-x,q.y-y)<(q.size||25));if(!t)return;VTT.drag={t,dx:x-t.x,dy:y-t.y};$('vttCanvas').setPointerCapture(e.pointerId)});
+  $('vttStage')?.addEventListener('pointermove',e=>{if(!VTT.drag)return;const r=$('vttCanvas').getBoundingClientRect();VTT.drag.t.x=e.clientX-r.left-VTT.drag.dx;VTT.drag.t.y=e.clientY-r.top-VTT.drag.dy;draw()});
+  $('vttStage')?.addEventListener('pointerup',()=>{if(VTT.drag){VTT.drag=null;broadcast({type:'tokens',tokens:VTT.state.tokens})}});
+  window.addEventListener('resize',draw);
+
+  const oldRender=window.render;window.render=function(){oldRender.apply(this,arguments);renderSheetRolls();updateManualPreview()};
+  const oldSave=window.save;window.save=function(){oldSave.apply(this,arguments);if(!VTT.peer)return;const msg={type:'state',state:clone(data)};if(VTT.isHost)broadcast(msg);else sendToHost(msg)};
+  const oldNav=window.nav;window.nav=function(v){if(v==='table'){document.querySelectorAll('.view').forEach(e=>e.classList.remove('active'));$('view-table')?.classList.add('active');document.querySelectorAll('[data-view]').forEach(e=>e.classList.toggle('active',e.dataset.view==='table'));$('title').textContent='Mesa virtual';$('subtitle').textContent='Sala online, mapa, chat, historial y tiradas compartidas.';draw();updateRoomInfo();return}oldNav(v)};
+
+  renderPlayers();renderRolls();renderChat();renderSheetRolls();updateManualPreview();updateRoomInfo();draw();
+  if(initialRoom&&initialHost){setTimeout(()=>{VTT.name=prompt('¿Qué nombre quieres usar?',VTT.name||data?.character?.name||'Jugador')||'Jugador';localStorage.setItem('vtt_name',VTT.name);VTT.room=initialRoom;VTT.hostId=initialHost;VTT.pendingHost=initialHost;VTT.isHost=false;initPeer();},300)}
+})();
+</script>
+</body>
+</html>
